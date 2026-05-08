@@ -1,225 +1,513 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Good Shepherd Parish Youth Harvest — 2026 Support Preferences</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:'Inter',system-ui,sans-serif;background:#f5f6f8;color:#111827;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-  ::-webkit-scrollbar{width:5px}
-  ::-webkit-scrollbar-track{background:#f0f2f5}
-  ::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
+/* ─────────────────────────────────────────────
+   RESET & TOKENS
+───────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:#f0f2f5;
+  color:#111827;
+  min-height:100vh;
+  min-height:100dvh;
+  overflow-x:hidden;
+}
+button,input,textarea{font-family:inherit}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:4px}
 
-  /* Shell */
-  .shell{width:100%;max-width:960px;background:#f5f6f8;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 20px 60px rgba(0,0,0,0.08)}
+:root{
+–blue:#1a56db;
+–blue-dk:#1445b8;
+–blue-pale:#eff6ff;
+–blue-lt:#bfdbfe;
+–green:#059669;
+–green-dk:#047857;
+–red:#ef4444;
+–navy:#1a1f2e;
+–navy2:#242b3e;
+–border:#e5e7eb;
+–muted:#6b7280;
+–text:#111827;
+–text2:#374151;
+–card:#ffffff;
+–bg:#f0f2f5;
+–r:12px;
+–r-sm:8px;
+–r-full:999px;
+–shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+}
 
-  /* Topbar */
-  .topbar{height:52px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:16px;position:sticky;top:0;z-index:50}
-  .logo-box{width:34px;height:34px;border-radius:8px;overflow:hidden;flex-shrink:0;border:1px solid #e5e7eb}
-  .logo-box img{width:100%;height:100%;object-fit:cover}
-  .topbar-brand{font-size:13px;font-weight:600;color:#111827}
-  .prog-track{flex:1;height:3px;background:#e5e7eb;border-radius:2px;overflow:hidden;max-width:320px;margin:0 16px}
-  .prog-fill{height:100%;background:#1a56db;border-radius:2px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1)}
-  .step-pills{display:flex;gap:6px;align-items:center}
-  .sp{display:flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:500;white-space:nowrap}
-  .sp-done{background:#eff6ff;color:#1a56db}
-  .sp-active{background:#1a56db;color:#fff}
-  .sp-pending{background:#f3f4f6;color:#9ca3af}
-  .sp-num{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600}
-  .sp-done .sp-num{background:#1a56db;color:#fff}
-  .sp-active .sp-num{background:rgba(255,255,255,0.2);color:#fff}
-  .sp-pending .sp-num{background:#e5e7eb;color:#9ca3af}
+/* ─────────────────────────────────────────────
+SHARED COMPONENT STYLES
+───────────────────────────────────────────── */
+/* Animation */
+.fade-up{animation:fadeUp .3s cubic-bezier(.16,1,.3,1) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
-  /* Main layout */
-  .main{display:flex;min-height:540px}
+/* Typography */
+.eyebrow{font-size:10px;font-weight:700;color:var(–blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.title{font-size:20px;font-weight:700;color:var(–text);line-height:1.3;margin-bottom:6px}
+.subtitle{font-size:13px;color:var(–muted);line-height:1.6;margin-bottom:20px}
+.field-lbl{font-size:12px;font-weight:600;color:var(–text2);margin-bottom:8px;display:block;letter-spacing:.02em}
+.req{color:var(–red);margin-left:2px}
+.fg{margin-bottom:16px}
 
-  /* Left panel */
-  .left{width:240px;flex-shrink:0;background:#1a1f2e;padding:28px 20px;display:flex;flex-direction:column;gap:6px}
-  .lp-logo{width:60px;height:60px;border-radius:12px;overflow:hidden;margin-bottom:14px;border:2px solid rgba(255,255,255,0.12);flex-shrink:0}
-  .lp-logo img{width:100%;height:100%;object-fit:cover}
-  .lp-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(26,86,219,0.22);border:1px solid rgba(59,130,246,0.28);border-radius:999px;padding:3px 10px;margin-bottom:10px;width:fit-content}
-  .lp-dot{width:5px;height:5px;border-radius:50%;background:#60a5fa;animation:blink 2s ease-in-out infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-  .lp-badge span{font-size:11px;color:#93c5fd;font-weight:500}
-  .lp-title{font-size:16px;font-weight:600;color:#fff;line-height:1.35;margin-bottom:4px}
-  .lp-sub{font-size:12px;color:#6b7280;line-height:1.5;margin-bottom:18px}
-  .ms{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;transition:all 0.2s}
-  .ms-current{background:rgba(26,86,219,0.15)}
-  .ms-dot{width:7px;height:7px;border-radius:50%;background:#374151;flex-shrink:0;transition:background 0.2s}
-  .ms-current .ms-dot{background:#1a56db}
-  .ms-complete .ms-dot{background:#93c5fd}
-  .ms-label{font-size:12px;color:#4b5563;transition:color 0.2s}
-  .ms-current .ms-label{color:#fff;font-weight:500}
-  .ms-complete .ms-label{color:#6b7280}
-  .lp-stat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px;margin-top:auto}
-  .lp-stat-val{font-size:20px;font-weight:700;color:#fff}
-  .lp-stat-label{font-size:11px;color:#6b7280;margin-top:2px}
+/* Input */
+.inp{
+width:100%;background:var(–card);
+border:1.5px solid var(–border);
+border-radius:var(–r);
+padding:13px 15px;
+font-size:15px;color:var(–text);
+outline:none;
+transition:border-color .18s,box-shadow .18s;
+-webkit-appearance:none;
+}
+.inp:hover{border-color:var(–blue-lt)}
+.inp:focus{border-color:var(–blue);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
+.inp.err{border-color:var(–red);box-shadow:0 0 0 3px rgba(239,68,68,.08)}
+textarea.inp{min-height:88px;resize:vertical;line-height:1.5}
 
-  /* Right panel */
-  .right{flex:1;background:#f5f6f8;display:flex;align-items:flex-start;justify-content:center;padding:36px 32px;overflow-y:auto}
-  .step-wrap{width:100%;max-width:460px;animation:stepIn 0.3s cubic-bezier(0.16,1,0.3,1)}
-  @keyframes stepIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* Error msg */
+.err-msg{font-size:12px;color:var(–red);margin-top:5px;display:flex;align-items:center;gap:4px}
 
-  /* Form elements */
-  .step-eyebrow{font-size:11px;font-weight:600;color:#1a56db;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px}
-  .step-h{font-size:22px;font-weight:700;color:#111827;line-height:1.25;margin-bottom:6px}
-  .step-desc{font-size:13px;color:#6b7280;margin-bottom:28px;line-height:1.6}
-  .field-label{font-size:12px;font-weight:600;color:#374151;margin-bottom:8px;display:block;letter-spacing:0.02em}
-  .req{color:#ef4444;margin-left:2px}
-  .fg{margin-bottom:20px}
+/* Option cards — 2-col grid */
+.oc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.oc{
+background:var(–card);border:1.5px solid var(–border);border-radius:var(–r);
+padding:13px 11px;cursor:pointer;position:relative;
+display:flex;flex-direction:column;
+transition:border-color .15s,background .15s,box-shadow .15s;
+-webkit-tap-highlight-color:transparent;
+touch-action:manipulation;
+}
+.oc:active{transform:scale(.98)}
+.oc.on{border-color:var(–blue);background:var(–blue-pale);box-shadow:0 0 0 3px rgba(26,86,219,.08)}
+.oc-icon{width:30px;height:30px;border-radius:7px;background:#f3f4f6;color:var(–muted);display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:8px;transition:background .15s,color .15s}
+.oc.on .oc-icon{background:#dbeafe;color:var(–blue)}
+.oc-tick{position:absolute;top:8px;right:8px;width:15px;height:15px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:8px;color:transparent;transition:all .15s}
+.oc.on .oc-tick{border-color:var(–blue);background:var(–blue);color:#fff}
+.oc-name{font-size:12px;font-weight:600;color:var(–text)}
+.oc-sub{font-size:10px;color:#9ca3af;margin-top:1px}
 
-  .big-input{width:100%;background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;padding:14px 16px;font-size:14px;color:#111827;font-family:inherit;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
-  .big-input:hover{border-color:#bfdbfe}
-  .big-input:focus{border-color:#1a56db;box-shadow:0 0 0 3px rgba(26,86,219,0.1)}
-  .big-input.is-error{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,0.08)}
-  textarea.big-input{min-height:90px;resize:vertical}
+/* Radio rows */
+.radio-list{display:flex;flex-direction:column;gap:7px}
+.ri{
+background:var(–card);border:1.5px solid var(–border);border-radius:var(–r-sm);
+padding:13px 14px;cursor:pointer;
+display:flex;align-items:center;gap:12px;
+transition:border-color .15s,background .15s;
+-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.ri:active{transform:scale(.99)}
+.ri.on{border-color:var(–blue);background:var(–blue-pale)}
+.ri-dot{width:18px;height:18px;border-radius:50%;border:2px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+.ri.on .ri-dot{border-color:var(–blue)}
+.ri-inner{width:8px;height:8px;border-radius:50%;background:var(–blue);opacity:0;transition:opacity .15s}
+.ri.on .ri-inner{opacity:1}
+.ri-ico{font-size:16px;color:#9ca3af;flex-shrink:0;transition:color .15s}
+.ri.on .ri-ico{color:var(–blue)}
+.ri-txt{font-size:14px;font-weight:500;color:var(–text2)}
 
-  /* Option cards */
-  .oc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .oc{background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;padding:14px 12px;cursor:pointer;transition:all 0.2s;position:relative;display:flex;flex-direction:column;align-items:flex-start}
-  .oc:hover{border-color:#93c5fd;background:#f8faff}
-  .oc.chosen{border-color:#1a56db;background:#eff6ff;box-shadow:0 0 0 3px rgba(26,86,219,0.08)}
-  .oc-icon{width:34px;height:34px;border-radius:9px;background:#f3f4f6;color:#6b7280;display:flex;align-items:center;justify-content:center;margin-bottom:10px;transition:all 0.2s;font-size:16px}
-  .oc.chosen .oc-icon{background:#dbeafe;color:#1a56db}
-  .oc-check{position:absolute;top:10px;right:10px;width:16px;height:16px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:9px;color:transparent}
-  .oc.chosen .oc-check{border-color:#1a56db;background:#1a56db;color:#fff}
-  .oc-name{font-size:13px;font-weight:600;color:#111827}
-  .oc-sub{font-size:11px;color:#9ca3af;margin-top:2px}
+/* Chips */
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+display:inline-flex;align-items:center;gap:5px;
+padding:9px 14px;border:1.5px solid var(–border);border-radius:var(–r-full);
+font-size:13px;font-weight:500;color:var(–text2);
+background:var(–card);cursor:pointer;
+transition:border-color .15s,background .15s,color .15s;
+user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.chip:active{transform:scale(.97)}
+.chip.on{background:var(–blue);border-color:var(–blue);color:#fff}
 
-  /* Radio list */
-  .radio-list{display:flex;flex-direction:column;gap:6px}
-  .ri{background:#fff;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all 0.2s}
-  .ri:hover{border-color:#93c5fd;background:#f8faff}
-  .ri.chosen{border-color:#1a56db;background:#eff6ff}
-  .ri-dot{width:17px;height:17px;border-radius:50%;border:2px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
-  .ri.chosen .ri-dot{border-color:#1a56db}
-  .ri-inner{width:7px;height:7px;border-radius:50%;background:#1a56db;opacity:0;transition:opacity 0.2s}
-  .ri.chosen .ri-inner{opacity:1}
-  .ri-icon{font-size:15px;color:#9ca3af;flex-shrink:0;transition:color 0.2s}
-  .ri.chosen .ri-icon{color:#1a56db}
-  .ri-text{font-size:13px;color:#374151;font-weight:500}
+/* Amount cards */
+.amt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.amt{
+background:var(–card);border:1.5px solid var(–border);border-radius:var(–r-sm);
+padding:13px;cursor:pointer;text-align:center;
+font-size:13px;font-weight:500;color:var(–text2);
+transition:border-color .15s,background .15s,color .15s;
+-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.amt:active{transform:scale(.98)}
+.amt.on{border-color:var(–blue);background:var(–blue-pale);color:var(–blue)}
 
-  /* Chips */
-  .chip-row{display:flex;flex-wrap:wrap;gap:7px}
-  .chip{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border:1.5px solid #e5e7eb;border-radius:999px;font-size:12px;font-weight:500;color:#374151;cursor:pointer;background:#fff;transition:all 0.2s;user-select:none}
-  .chip:hover{border-color:#93c5fd;background:#f8faff}
-  .chip.chosen{background:#1a56db;border-color:#1a56db;color:#fff}
+/* Toggle */
+.tog-row{display:flex;gap:8px;flex-wrap:wrap}
+.tog{
+flex:1;min-width:66px;padding:12px 8px;
+border:1.5px solid var(–border);border-radius:var(–r-sm);
+text-align:center;font-size:13px;font-weight:500;color:var(–text2);
+background:var(–card);cursor:pointer;
+transition:border-color .15s,background .15s,color .15s;
+-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.tog:active{transform:scale(.97)}
+.tog.on{border-color:var(–blue);background:var(–blue);color:#fff}
 
-  /* Amount cards */
-  .amt-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-  .amt{background:#fff;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px 14px;cursor:pointer;text-align:center;font-size:13px;font-weight:500;color:#374151;transition:all 0.2s}
-  .amt:hover{border-color:#93c5fd;background:#f8faff}
-  .amt.chosen{border-color:#1a56db;background:#eff6ff;color:#1a56db}
+/* Buttons */
+.btn-back{
+width:44px;height:44px;border-radius:var(–r-sm);
+border:1.5px solid var(–border);background:var(–card);
+cursor:pointer;display:flex;align-items:center;justify-content:center;
+color:var(–muted);font-size:18px;
+transition:border-color .15s,color .15s,background .15s;
+flex-shrink:0;-webkit-tap-highlight-color:transparent;
+}
+.btn-back:hover{border-color:var(–blue);color:var(–blue);background:#f8faff}
+.btn-next{
+flex:1;padding:14px 20px;border-radius:var(–r-sm);
+border:none;background:var(–blue);color:#fff;
+font-size:15px;font-weight:600;
+display:flex;align-items:center;justify-content:center;gap:8px;
+cursor:pointer;
+transition:background .15s,transform .1s;
+-webkit-tap-highlight-color:transparent;
+}
+.btn-next:hover{background:var(–blue-dk)}
+.btn-next:active{transform:scale(.98)}
+.btn-submit{
+flex:1;padding:14px 20px;border-radius:var(–r-sm);
+border:none;background:var(–green);color:#fff;
+font-size:15px;font-weight:600;
+display:flex;align-items:center;justify-content:center;gap:8px;
+cursor:pointer;
+transition:background .15s,transform .1s;
+-webkit-tap-highlight-color:transparent;
+}
+.btn-submit:hover{background:var(–green-dk)}
+.btn-submit:active{transform:scale(.98)}
+.nav-row{display:flex;align-items:center;gap:8px;margin-top:12px}
 
-  /* Toggle */
-  .toggle-row{display:flex;gap:7px}
-  .tog{flex:1;padding:12px;border:1.5px solid #e5e7eb;border-radius:10px;text-align:center;font-size:13px;font-weight:500;color:#374151;cursor:pointer;background:#fff;transition:all 0.2s}
-  .tog:hover{border-color:#93c5fd;background:#f8faff}
-  .tog.chosen{border-color:#1a56db;background:#1a56db;color:#fff}
+/* Review */
+.review-card{background:var(–card);border:1px solid var(–border);border-radius:var(–r);overflow:hidden;margin-bottom:12px}
+.review-head{background:#f8faff;padding:9px 16px;border-bottom:1px solid var(–border);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(–blue);font-weight:700}
+.review-row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 16px;border-bottom:1px solid #f3f4f6;gap:12px}
+.review-row:last-child{border-bottom:none}
+.rk{font-size:12px;color:var(–muted);flex-shrink:0}
+.rv{font-size:12px;color:var(–text);font-weight:500;text-align:right;word-break:break-word;max-width:65%}
 
-  /* Error */
-  .err-msg{font-size:11px;color:#ef4444;margin-top:5px;display:flex;align-items:center;gap:4px}
+/* Goal banner */
+.goal-banner{
+background:linear-gradient(130deg,var(–navy) 0%,#253060 100%);
+border-radius:var(–r);padding:16px;margin-bottom:18px;
+display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.goal-val{font-size:22px;font-weight:700;color:#fff}
+.goal-lbl{font-size:11px;color:#93c5fd;margin-top:2px}
+.goal-ico{width:42px;height:42px;background:rgba(26,86,219,.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 
-  /* Navigation buttons */
-  .nav{display:flex;align-items:center;gap:8px;margin-top:8px}
-  .btn-back{width:42px;height:42px;border-radius:10px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#6b7280;transition:all 0.15s;flex-shrink:0;font-size:16px}
-  .btn-back:hover{border-color:#1a56db;color:#1a56db;background:#f8faff}
-  .btn-next{flex:1;padding:13px 20px;border-radius:10px;border:none;cursor:pointer;background:#1a56db;color:#fff;font-size:14px;font-weight:600;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s,transform 0.1s}
-  .btn-next:hover{background:#1648c0;transform:translateY(-1px)}
-  .btn-next:active{transform:translateY(0)}
-  .btn-submit{flex:1;padding:13px 20px;border-radius:10px;border:none;cursor:pointer;background:#059669;color:#fff;font-size:14px;font-weight:600;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s}
-  .btn-submit:hover{background:#047857}
+/* Intro checklist */
+.intro-list{background:var(–card);border:1px solid var(–border);border-radius:var(–r);padding:14px;margin-bottom:20px}
+.intro-item{display:flex;align-items:center;gap:10px;padding:7px 0}
+.intro-item+.intro-item{border-top:1px solid #f3f4f6}
+.intro-n{width:22px;height:22px;border-radius:6px;background:var(–blue-pale);color:var(–blue);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.intro-t{font-size:13px;color:var(–text2)}
 
-  /* Review */
-  .review-block{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:12px}
-  .review-head{background:#f8faff;padding:10px 16px;border-bottom:1px solid #e5e7eb;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#1a56db;font-weight:600}
-  .review-row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 16px;border-bottom:1px solid #f3f4f6;gap:12px}
-  .review-row:last-child{border-bottom:none}
-  .review-k{font-size:12px;color:#6b7280}
-  .review-v{font-size:12px;color:#111827;font-weight:500;text-align:right;max-width:60%}
+/* Limit badge */
+.lim-badge{font-size:10px;background:#fff7ed;border:1px solid #fed7aa;border-radius:var(–r-full);padding:2px 8px;color:#c2410c;margin-left:6px;font-weight:600}
 
-  /* Success */
-  .success-wrap{text-align:center;padding:20px 0}
-  .s-circle{width:72px;height:72px;border-radius:50%;background:#1a56db;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;margin:0 auto 20px}
-  .badge-row{display:inline-flex;align-items:center;gap:6px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:999px;padding:6px 16px;font-size:12px;font-weight:500;color:#1a56db;margin-top:16px}
-  .limit-badge{font-size:10px;background:#fff7ed;border:1px solid #fed7aa;border-radius:999px;padding:2px 8px;color:#c2410c;margin-left:6px;font-weight:600}
+/* Success */
+.success-wrap{text-align:center;padding:28px 0}
+.s-circle{width:72px;height:72px;border-radius:50%;background:var(–blue);display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff;margin:0 auto 20px;box-shadow:0 8px 24px rgba(26,86,219,.3)}
+.s-badge{display:inline-flex;align-items:center;gap:6px;background:var(–blue-pale);border:1px solid var(–blue-lt);border-radius:var(–r-full);padding:8px 18px;font-size:12px;font-weight:500;color:var(–blue);margin-top:16px}
 
-  /* Intro checklist */
-  .intro-list{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin-bottom:24px}
-  .intro-item{display:flex;align-items:center;gap:10px;padding:7px 0}
-  .intro-item+.intro-item{border-top:1px solid #f3f4f6}
-  .intro-num{width:22px;height:22px;border-radius:6px;background:#eff6ff;color:#1a56db;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
-  .intro-text{font-size:13px;color:#374151}
+/* ─────────────────────────────────────────────
+MOBILE LAYOUT  (< 900px  — default)
+───────────────────────────────────────────── */
+.mob-wrap{
+display:flex;flex-direction:column;
+min-height:100vh;min-height:100dvh;
+}
 
-  /* Responsive */
-  @media(max-width:768px){
-    body{padding:0}
-    .shell{border-radius:0;border:none;box-shadow:none}
-    .main{flex-direction:column}
-    .left{width:100%;padding:20px 16px}
-    .lp-logo{width:44px;height:44px}
-    .lp-sub{display:none}
-    .right{padding:24px 16px}
-    .step-pills{display:none}
-  }
-  @media(max-width:480px){
-    .oc-grid{grid-template-columns:1fr}
-    .toggle-row{flex-wrap:wrap}
-  }
+/* Top nav */
+.mob-nav{
+background:var(–navy);
+padding:10px 16px;
+display:flex;align-items:center;justify-content:space-between;gap:12px;
+position:sticky;top:0;z-index:100;
+}
+.mob-brand{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.mob-logo-box{
+width:34px;height:34px;border-radius:8px;overflow:hidden;
+border:1.5px solid rgba(255,255,255,.18);
+background:rgba(26,86,219,.35);flex-shrink:0;
+display:flex;align-items:center;justify-content:center;
+}
+.mob-logo-box img{width:100%;height:100%;object-fit:cover}
+.mob-logo-box i{color:#93c5fd;font-size:15px}
+.mob-brand-name{font-size:13px;font-weight:600;color:#fff}
+.mob-step-name{font-size:10px;color:#93c5fd;margin-top:1px}
+.mob-progress{flex:1;min-width:0}
+.mob-prog-bar{height:3px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}
+.mob-prog-fill{height:100%;background:var(–blue);transition:width .45s cubic-bezier(.4,0,.2,1)}
+.mob-prog-meta{display:flex;justify-content:space-between;margin-top:3px}
+.mob-prog-meta span{font-size:10px;color:rgba(255,255,255,.4)}
+
+/* Segmented step track */
+.mob-segs{display:flex;gap:3px;padding:10px 16px 0;background:var(–bg)}
+.mob-seg{flex:1;height:3px;border-radius:2px;background:#d1d5db;transition:background .3s}
+.mob-seg.done{background:#93c5fd}
+.mob-seg.now{background:var(–blue)}
+
+/* Scroll body */
+.mob-body{
+flex:1;
+padding:20px 16px 96px;
+width:100%;max-width:640px;
+margin:0 auto;
+}
+
+/* Fixed footer */
+.mob-footer{
+position:fixed;bottom:0;left:0;right:0;
+background:#fff;border-top:1px solid var(–border);
+padding:10px 16px;
+padding-bottom:calc(10px + env(safe-area-inset-bottom));
+display:flex;align-items:center;gap:10px;
+z-index:99;
+box-shadow:0 -4px 20px rgba(0,0,0,.07);
+}
+
+/* Desktop shell — hidden on mobile */
+.desk-wrap{display:none}
+
+/* ─────────────────────────────────────────────
+TABLET  (≥ 640px — still mobile layout)
+───────────────────────────────────────────── */
+@media(min-width:640px){
+.mob-body{padding:26px 24px 96px}
+.title{font-size:22px}
+.oc-grid{gap:10px}
+}
+
+/* ─────────────────────────────────────────────
+DESKTOP  (≥ 900px — two-column layout)
+───────────────────────────────────────────── */
+@media(min-width:900px){
+body{
+display:flex;align-items:center;justify-content:center;
+padding:28px;background:#e8eaf0;
+}
+/* Hide mobile, show desktop */
+.mob-wrap{display:none}
+.desk-wrap{
+display:flex;flex-direction:column;
+width:100%;max-width:980px;
+background:var(–bg);
+border-radius:16px;overflow:hidden;
+border:1px solid var(–border);
+box-shadow:0 20px 60px rgba(0,0,0,.1);
+}
+/* Desktop top bar */
+.desk-topbar{
+height:52px;background:#fff;border-bottom:1px solid var(–border);
+display:flex;align-items:center;justify-content:space-between;
+padding:0 22px;gap:16px;
+position:sticky;top:0;z-index:50;
+}
+.desk-brand{display:flex;align-items:center;gap:10px}
+.desk-logo-box{width:32px;height:32px;border-radius:8px;overflow:hidden;border:1px solid var(–border);display:flex;align-items:center;justify-content:center;background:#f3f4f6}
+.desk-logo-box img{width:100%;height:100%;object-fit:cover}
+.desk-brand-name{font-size:13px;font-weight:600;color:var(–text)}
+.desk-prog-track{flex:1;max-width:280px;height:3px;background:var(–border);border-radius:2px;overflow:hidden;margin:0 16px}
+.desk-prog-fill{height:100%;background:var(–blue);transition:width .45s cubic-bezier(.4,0,.2,1)}
+/* Step pills */
+.desk-pills{display:flex;gap:6px}
+.pill{display:flex;align-items:center;gap:5px;padding:3px 9px;border-radius:var(–r-full);font-size:11px;font-weight:500;white-space:nowrap}
+.pill-done{background:var(–blue-pale);color:var(–blue)}
+.pill-now{background:var(–blue);color:#fff}
+.pill-next{background:#f3f4f6;color:#9ca3af}
+.pill-n{width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600}
+.pill-done .pill-n{background:var(–blue);color:#fff}
+.pill-now  .pill-n{background:rgba(255,255,255,.22);color:#fff}
+.pill-next .pill-n{background:#e5e7eb;color:#9ca3af}
+/* Two-column body */
+.desk-main{display:flex;min-height:540px}
+/* Sidebar */
+.desk-sidebar{
+width:240px;flex-shrink:0;background:var(–navy);
+padding:28px 20px;
+display:flex;flex-direction:column;gap:5px;
+}
+.sb-logo{width:56px;height:56px;border-radius:12px;overflow:hidden;margin-bottom:14px;border:2px solid rgba(255,255,255,.12);background:rgba(26,86,219,.3);display:flex;align-items:center;justify-content:center}
+.sb-logo img{width:100%;height:100%;object-fit:cover}
+.sb-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(26,86,219,.22);border:1px solid rgba(59,130,246,.28);border-radius:var(–r-full);padding:3px 10px;margin-bottom:10px;width:fit-content}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:#60a5fa;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.sb-badge span{font-size:11px;color:#93c5fd;font-weight:500}
+.sb-title{font-size:15px;font-weight:600;color:#fff;line-height:1.35;margin-bottom:4px}
+.sb-sub{font-size:12px;color:#6b7280;line-height:1.5;margin-bottom:16px}
+/* Sidebar step list */
+.sb-step{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:var(–r-sm);transition:background .2s}
+.sb-step.now{background:rgba(26,86,219,.15)}
+.sb-dot2{width:6px;height:6px;border-radius:50%;background:#374151;flex-shrink:0;transition:background .2s}
+.sb-step.done .sb-dot2{background:#93c5fd}
+.sb-step.now  .sb-dot2{background:var(–blue)}
+.sb-lbl{font-size:12px;color:#4b5563;transition:color .2s}
+.sb-step.done .sb-lbl{color:#6b7280}
+.sb-step.now  .sb-lbl{color:#fff;font-weight:500}
+/* Goal stat box */
+.sb-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px;margin-top:auto}
+.sb-stat-val{font-size:20px;font-weight:700;color:#fff}
+.sb-stat-lbl{font-size:11px;color:#6b7280;margin-top:2px}
+/* Right content */
+.desk-content{
+flex:1;background:var(–bg);
+display:flex;align-items:flex-start;justify-content:center;
+padding:36px 32px;overflow-y:auto;
+}
+.desk-form{width:100%;max-width:460px}
+}
+
+/* ─────────────────────────────────────────────
+LARGE DESKTOP  (≥ 1200px)
+───────────────────────────────────────────── */
+@media(min-width:1200px){
+.desk-wrap{max-width:1060px}
+.desk-sidebar{width:255px}
+}
+
+/* ─────────────────────────────────────────────
+VERY SMALL PHONES  (< 380px)
+───────────────────────────────────────────── */
+@media(max-width:379px){
+.oc-grid{grid-template-columns:1fr}
+.amt-grid{grid-template-columns:1fr}
+.title{font-size:18px}
+.chip{font-size:12px;padding:8px 12px}
+}
+
+/* ─────────────────────────────────────────────
+REDUCED MOTION
+───────────────────────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+*{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
 </style>
+
 </head>
 <body>
 
-<div class="shell">
-  <!-- Top bar -->
-  <div class="topbar">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div class="logo-box">
-        <img src="https://i.imgur.com/placeholder.png" alt="Good Shepherd Parish" id="topbar-logo" onerror="this.parentElement.innerHTML='<div style=\'width:34px;height:34px;background:#1a56db;border-radius:8px;display:flex;align-items:center;justify-content:center;\'><i class=\'ti ti-cross\' style=\'color:#fff;font-size:14px\'></i></div>'">
+<!-- ══════════════════════════════════════
+     MOBILE LAYOUT  (< 900px)
+══════════════════════════════════════ -->
+
+<div class="mob-wrap">
+
+  <!-- Sticky top nav -->
+
+  <div class="mob-nav">
+    <div class="mob-brand">
+      <div class="mob-logo-box" id="mLogoBox">
+        <i class="ti ti-cross"></i>
       </div>
-      <span class="topbar-brand">Good Shepherd</span>
+      <div>
+        <div class="mob-brand-name">Good Shepherd</div>
+        <div class="mob-step-name" id="mStepName">Welcome</div>
+      </div>
     </div>
-    <div class="prog-track">
-      <div class="prog-fill" id="prog" style="width:0%"></div>
+    <div class="mob-progress">
+      <div class="mob-prog-bar"><div class="mob-prog-fill" id="mProgFill" style="width:0%"></div></div>
+      <div class="mob-prog-meta">
+        <span id="mStepCount">Intro</span>
+        <span id="mProgPct">0%</span>
+      </div>
     </div>
-    <div class="step-pills" id="pills"></div>
   </div>
 
-  <!-- Main layout -->
-  <div class="main">
-    <!-- Sidebar -->
-    <div class="left">
-      <div class="lp-logo">
-        <img src="https://i.imgur.com/placeholder.png" alt="Good Shepherd Parish" id="sidebar-logo" onerror="this.parentElement.innerHTML='<div style=\'width:60px;height:60px;background:rgba(26,86,219,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;\'><i class=\'ti ti-cross\' style=\'color:#93c5fd;font-size:24px\'></i></div>'">
-      </div>
-      <div class="lp-badge"><div class="lp-dot"></div><span>2026 Harvest</span></div>
-      <div class="lp-title">Parish Youth Harvest</div>
-      <div class="lp-sub">Good Shepherd Catholic Church<br>Tema Community 2</div>
-      <div id="side-steps"></div>
-      <div class="lp-stat" style="margin-top:auto">
-        <div class="lp-stat-val">GH¢70,000</div>
-        <div class="lp-stat-label">2026 fundraising goal</div>
-      </div>
-    </div>
+  <!-- Segment track -->
 
-    <!-- Right content -->
-    <div class="right">
-      <div class="step-wrap" id="step-body"></div>
+  <div class="mob-segs" id="mSegs"></div>
+
+  <!-- Scrollable form body -->
+
+  <div class="mob-body">
+    <div id="mContent" class="fade-up"></div>
+  </div>
+
+  <!-- Fixed bottom nav -->
+
+  <div class="mob-footer" id="mFooter"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     DESKTOP LAYOUT  (≥ 900px)
+══════════════════════════════════════ -->
+
+<div class="desk-wrap">
+
+  <!-- Top bar -->
+
+  <div class="desk-topbar">
+    <div class="desk-brand">
+      <div class="desk-logo-box" id="dLogoBox">
+        <i class="ti ti-cross" style="color:var(--blue);font-size:14px"></i>
+      </div>
+      <span class="desk-brand-name">Good Shepherd Parish</span>
     </div>
+    <div class="desk-prog-track"><div class="desk-prog-fill" id="dProgFill" style="width:0%"></div></div>
+    <div class="desk-pills" id="dPills"></div>
+  </div>
+
+  <!-- Two-column -->
+
+  <div class="desk-main">
+
+```
+<!-- Sidebar -->
+<div class="desk-sidebar">
+  <div class="sb-logo" id="dSbLogo">
+    <i class="ti ti-cross" style="color:#93c5fd;font-size:22px"></i>
+  </div>
+  <div class="sb-badge"><div class="sb-dot"></div><span>2026 Harvest</span></div>
+  <div class="sb-title">Parish Youth Harvest</div>
+  <div class="sb-sub">Good Shepherd Catholic Church<br>Tema Community 2</div>
+  <div id="dSbSteps"></div>
+  <div class="sb-stat" style="margin-top:auto">
+    <div class="sb-stat-val">GH¢70,000</div>
+    <div class="sb-stat-lbl">2026 fundraising goal</div>
+  </div>
+</div>
+
+<!-- Right content -->
+<div class="desk-content">
+  <div class="desk-form">
+    <div id="dContent" class="fade-up"></div>
+  </div>
+</div>
+```
+
   </div>
 </div>
 
 <script>
-// ─── State ───────────────────────────────────────────────────────────────────
-const STEPS = [
-  {label:'Welcome'},{label:'Your profile'},{label:'Giving method'},{label:'Pledge'},
-  {label:'Activities'},{label:'Engagement'},{label:'Preferred times'},{label:'Updates'},
-  {label:'Contact'},{label:'Review'}
+/* ═══════════════════════════════════════
+   STATE & PERSISTENCE
+═══════════════════════════════════════ */
+const STEP_NAMES = [
+  'Welcome','Your profile','Giving method','Pledge details',
+  'Activities','Engagement','Preferred times','Updates & ideas',
+  'Contact info','Review & submit'
+];
+const SHORT_NAMES = [
+  'Welcome','Profile','Giving','Pledge',
+  'Activities','Engage','Times','Updates',
+  'Contact','Review'
 ];
 
 const D = {
@@ -229,36 +517,65 @@ const D = {
   activities:[],
   livestream:'',
   times:[], timesOther:'',
-  updates:[],
-  suggestions:'',
+  updates:[], suggestions:'',
   name:'', phone:'', email:''
 };
 
 let step = 0;
 let errs = {};
 
-// Persist across refresh
-try { const s = localStorage.getItem('gs26_v2'); if(s) Object.assign(D, JSON.parse(s)); } catch(e) {}
-function save() { try { localStorage.setItem('gs26_v2', JSON.stringify(D)); } catch(e) {} }
+try{
+  const stored = localStorage.getItem('gs26');
+  if(stored) Object.assign(D, JSON.parse(stored));
+}catch(e){}
 
-// ─── Validation ───────────────────────────────────────────────────────────────
-function validate(s) {
+const persist = () => {
+  try{ localStorage.setItem('gs26', JSON.stringify(D)); }catch(e){}
+};
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
+window.goNext = () => {
+  const e = validate(step);
+  if(Object.keys(e).length){ errs = e; render(); return; }
+  errs = {}; step++;
+  persist(); render();
+  window.scrollTo({top:0, behavior:'smooth'});
+};
+window.goBack = () => {
+  step--; errs = {}; render();
+  window.scrollTo({top:0, behavior:'smooth'});
+};
+window.submitForm = () => {
+  const e = validate(step);
+  if(Object.keys(e).length){ errs = e; render(); return; }
+  step = 10;
+  try{ localStorage.removeItem('gs26'); }catch(e2){}
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+};
+
+/* ═══════════════════════════════════════
+   VALIDATION
+═══════════════════════════════════════ */
+function validate(s){
   const e = {};
-  if(s===1) {
+  if(s===1){
     if(!D.role) e.role = 'Please select who you are.';
     if(D.role==='Other' && !D.roleOther.trim()) e.roleOther = 'Please specify.';
   }
-  if(s===2) {
+  if(s===2){
     if(!D.method) e.method = 'Please select a giving method.';
     if(D.method==='Other' && !D.methodOther.trim()) e.methodOther = 'Please specify.';
   }
-  if(s===3) {
+  if(s===3){
     if(!D.pledgeFreq) e.pledgeFreq = 'Please select an option.';
     if(D.pledgeFreq && D.pledgeFreq!=='No' && !D.pledgeAmt) e.pledgeAmt = 'Please select an amount.';
   }
-  if(s===4) { if(!D.activities.length) e.activities = 'Please select at least one activity.'; }
-  if(s===5) { if(!D.livestream) e.livestream = 'Please select an option.'; }
-  if(s===8) {
+  if(s===4) if(!D.activities.length) e.activities = 'Select at least one activity.';
+  if(s===5) if(!D.livestream) e.livestream = 'Please select an option.';
+  if(s===8){
     if(D.phone && !/^(0[235][0-9]{8}|\+233[235][0-9]{8})$/.test(D.phone.replace(/\s/g,'')))
       e.phone = 'Enter a valid Ghana number (e.g. 0241234567).';
     if(D.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(D.email))
@@ -267,28 +584,11 @@ function validate(s) {
   return e;
 }
 
-// ─── Navigation ───────────────────────────────────────────────────────────────
-function next() {
-  const e = validate(step);
-  if(Object.keys(e).length) { errs = e; render(); return; }
-  errs = {};
-  step++;
-  save();
-  render();
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-function back() { step--; errs = {}; render(); window.scrollTo({top:0, behavior:'smooth'}); }
-function submitForm() {
-  const e = validate(step);
-  if(Object.keys(e).length) { errs = e; render(); return; }
-  step = 10;
-  try { localStorage.removeItem('gs26_v2'); } catch(e2) {}
-  render();
-}
-
-// ─── Global event handlers ────────────────────────────────────────────────────
-window.setRole    = v => { D.role=v; errs.role=''; render(); };
-window.setMethod  = v => { D.method=v; errs.method=''; render(); };
+/* ═══════════════════════════════════════
+   GLOBAL HANDLERS
+═══════════════════════════════════════ */
+window.setRole    = v => { D.role=v;    errs.role='';    render(); };
+window.setMethod  = v => { D.method=v;  errs.method='';  render(); };
 window.setPFreq   = v => { D.pledgeFreq=v; errs.pledgeFreq=''; if(v==='No') D.pledgeAmt=''; render(); };
 window.setPAmt    = v => { D.pledgeAmt=v; errs.pledgeAmt=''; render(); };
 window.toggleAct  = v => {
@@ -297,329 +597,344 @@ window.toggleAct  = v => {
   errs.activities=''; render();
 };
 window.setLive    = v => { D.livestream=v; errs.livestream=''; render(); };
-window.toggleTime = v => { const t=D.times, i=t.indexOf(v); if(i>-1) t.splice(i,1); else t.push(v); render(); };
-window.toggleUpd  = v => { const u=D.updates, i=u.indexOf(v); if(i>-1) u.splice(i,1); else u.push(v); render(); };
-window.setField   = (f,v) => { D[f]=v; save(); };
+window.toggleTime = v => { const t=D.times,i=t.indexOf(v); if(i>-1)t.splice(i,1); else t.push(v); render(); };
+window.toggleUpd  = v => { const u=D.updates,i=u.indexOf(v); if(i>-1)u.splice(i,1); else u.push(v); render(); };
+window.setField   = (f,v) => { D[f]=v; persist(); };
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-function eMsg(k) {
-  return errs[k] ? `<div class="err-msg"><i class="ti ti-alert-circle"></i>${errs[k]}</div>` : '';
-}
-function navRow(showBack=true, isLast=false) {
-  const back = showBack ? `<button class="btn-back" onclick="back()" aria-label="Go back"><i class="ti ti-arrow-left"></i></button>` : '';
-  const fwd  = isLast
+/* ═══════════════════════════════════════
+   SMALL HELPERS
+═══════════════════════════════════════ */
+const em = k => errs[k]
+  ? `<div class="err-msg"><i class="ti ti-alert-circle"></i>${errs[k]}</div>`
+  : '';
+
+/* Desktop inline nav (no nav = mobile uses fixed footer) */
+const deskNav = (back, last) => `
+<div class="nav-row">
+  ${back ? `<button class="btn-back" onclick="goBack()"><i class="ti ti-arrow-left"></i></button>` : ''}
+  ${last
     ? `<button class="btn-submit" onclick="submitForm()"><i class="ti ti-check"></i> Submit response</button>`
-    : `<button class="btn-next" onclick="next()">Continue <i class="ti ti-arrow-right"></i></button>`;
-  return `<div class="nav">${back}${fwd}</div>`;
-}
+    : `<button class="btn-next" onclick="goNext()">Continue <i class="ti ti-arrow-right"></i></button>`}
+</div>`;
 
-// ─── Step renders ─────────────────────────────────────────────────────────────
-function renderSuccess() {
-  return `
-  <div class="success-wrap">
-    <div class="s-circle"><i class="ti ti-check"></i></div>
-    <div style="font-size:22px;font-weight:700;color:#111827;margin-bottom:8px">Response submitted!</div>
-    <div style="font-size:13px;color:#6b7280;line-height:1.7;max-width:340px;margin:0 auto">
-      Thank you for your support. The Good Shepherd Youth Harvest team will use your input to plan a meaningful 2026 event.
+/* Mobile footer HTML (injected into fixed bar) */
+const mobFooterHTML = () => {
+  if(step === 10) return '';
+  const back = step > 0;
+  const last = step === 9;
+  const start = step === 0;
+  if(start) return `<button class="btn-next" onclick="goNext()" style="flex:1">Get started <i class="ti ti-arrow-right"></i></button>`;
+  return (back ? `<button class="btn-back" onclick="goBack()"><i class="ti ti-arrow-left"></i></button>` : '') +
+    (last
+      ? `<button class="btn-submit" onclick="submitForm()" style="flex:1"><i class="ti ti-check"></i> Submit response</button>`
+      : `<button class="btn-next" onclick="goNext()" style="flex:1">Continue <i class="ti ti-arrow-right"></i></button>`);
+};
+
+/* ═══════════════════════════════════════
+   STEP CONTENT (shared HTML, nav optional)
+═══════════════════════════════════════ */
+function buildContent(withNav){
+  const back = step > 0 && step < 10;
+  const last = step === 9;
+  const nav  = withNav ? deskNav(back, last) : '';
+  const startNav = withNav
+    ? `<div class="nav-row" style="justify-content:flex-end"><button class="btn-next" onclick="goNext()" style="flex:none;padding:13px 24px">Get started <i class="ti ti-arrow-right"></i></button></div>`
+    : '';
+
+  /* ── Success ── */
+  if(step === 10) return `
+    <div class="success-wrap">
+      <div class="s-circle"><i class="ti ti-check"></i></div>
+      <div style="font-size:21px;font-weight:700;color:var(--text);margin-bottom:8px">Response submitted!</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:320px;margin:0 auto">
+        Thank you! The Good Shepherd Youth Harvest team will use your input to plan a meaningful 2026 event.
+      </p>
+      <p style="margin-top:10px;font-size:13px;color:var(--muted)">May God bless your generosity. 🙏</p>
+      <div class="s-badge"><i class="ti ti-heart"></i> Good Shepherd — Tema Community 2</div>
+    </div>`;
+
+  /* ── Step 0: Welcome ── */
+  if(step === 0) return `
+    <div class="eyebrow">Welcome</div>
+    <div class="title">2026 Parish Youth Harvest</div>
+    <div class="subtitle">Help us plan an impactful fundraising harvest. This 3–5 min survey covers how you'd like to participate toward our goal.</div>
+    <div class="goal-banner">
+      <div>
+        <div class="goal-val">GH¢70,000</div>
+        <div class="goal-lbl">Fundraising goal · Nov 30, 2026</div>
+      </div>
+      <div class="goal-ico">🎯</div>
     </div>
-    <p style="margin-top:12px;font-size:13px;color:#6b7280">May God bless your generosity and commitment to our parish. 🙏</p>
-    <div class="badge-row"><i class="ti ti-heart"></i> Good Shepherd Catholic Church, Tema Community 2</div>
-  </div>`;
-}
-
-function renderStep0() {
-  return `
-  <div class="step-eyebrow">Welcome</div>
-  <div class="step-h">2026 Parish Youth Harvest</div>
-  <div class="step-desc">Help us plan an impactful fundraising harvest. This 3–5 minute survey lets us understand how parishioners would like to participate and give toward our GH¢70,000 goal by November 30, 2026.</div>
-  <div class="intro-list">
-    <div style="font-size:12px;color:#6b7280;margin-bottom:10px;font-weight:500">What to expect</div>
-    ${['Your parish profile','Giving & pledge preferences','Activities & engagement','Optional contact details'].map((t,i)=>`
-      <div class="intro-item">
-        <div class="intro-num">${i+1}</div>
-        <span class="intro-text">${t}</span>
-      </div>`).join('')}
-  </div>
-  <div class="nav" style="justify-content:flex-end">
-    <button class="btn-next" onclick="next()">Get started <i class="ti ti-arrow-right"></i></button>
-  </div>`;
-}
-
-function renderStep1() {
-  const roles = [
-    ['Weekly parishioner','ti-home-church','Weekly parishioner','Regular Sunday attendee'],
-    ['Monthly parishioner','ti-calendar','Monthly parishioner','Monthly attendee'],
-    ['Occasional attendee','ti-clock','Occasional attendee','Sometimes present'],
-    ['Youth (15–35)','ti-users','Youth (15–35)','Parish youth member'],
-    ['Local business/vendor','ti-building-store','Business / vendor','Local entrepreneur'],
-    ['Other','ti-dots-circle-horizontal','Other','Something else']
-  ];
-  return `
-  <div class="step-eyebrow">Step 1 of 9</div>
-  <div class="step-h">Who are you?</div>
-  <div class="step-desc">Help us understand your connection to the parish.</div>
-  <div class="fg">
-    <label class="field-label">Which best describes you? <span class="req">*</span></label>
-    <div class="oc-grid">
-      ${roles.map(([val,icon,name,sub])=>`
-        <div class="oc${D.role===val?' chosen':''}" onclick="setRole('${val}')">
-          <div class="oc-icon"><i class="ti ${icon}"></i></div>
-          <div class="oc-check"><i class="ti ti-check"></i></div>
-          <div class="oc-name">${name}</div>
-          <div class="oc-sub">${sub}</div>
-        </div>`).join('')}
+    <div class="intro-list">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:9px;font-weight:500">What to expect</div>
+      ${['Your parish profile','Giving & pledge preferences','Activities & engagement','Optional contact details'].map((t,i)=>`
+        <div class="intro-item"><div class="intro-n">${i+1}</div><span class="intro-t">${t}</span></div>`).join('')}
     </div>
-    ${eMsg('role')}
-    ${D.role==='Other'?`<input class="big-input${errs.roleOther?' is-error':''}" style="margin-top:10px" placeholder="Please specify..." value="${D.roleOther}" oninput="D.roleOther=this.value;errs.roleOther=''"> ${eMsg('roleOther')}`:''}
-  </div>
-  ${navRow(false)}`;
-}
+    ${startNav}`;
 
-function renderStep2() {
-  const methods = [
-    ['Cash at church','ti-banknote'],
-    ['Mobile money','ti-device-mobile'],
-    ['Online donation','ti-world'],
-    ['Bank transfer','ti-building-bank'],
-    ['Instalment pledge','ti-calendar-repeat'],
-    ['Other','ti-dots']
-  ];
-  return `
-  <div class="step-eyebrow">Step 2 of 9</div>
-  <div class="step-h">How would you give?</div>
-  <div class="step-desc">Choose the giving method most convenient for you.</div>
-  <div class="fg">
-    <label class="field-label">Preferred method of giving <span class="req">*</span></label>
-    <div class="radio-list">
-      ${methods.map(([val,icon])=>`
-        <div class="ri${D.method===val?' chosen':''}" onclick="setMethod('${val}')">
-          <div class="ri-dot"><div class="ri-inner"></div></div>
-          <i class="ti ${icon} ri-icon"></i>
-          <span class="ri-text">${val}</span>
-        </div>`).join('')}
+  /* ── Step 1: Profile ── */
+  if(step === 1){
+    const roles = [
+      ['Weekly parishioner','ti-home-church','Weekly parishioner','Regular Sunday attendee'],
+      ['Monthly parishioner','ti-calendar','Monthly parishioner','Monthly attendee'],
+      ['Occasional attendee','ti-clock','Occasional attendee','Sometimes present'],
+      ['Youth (15–35)','ti-users','Youth (15–35)','Parish youth member'],
+      ['Local business/vendor','ti-building-store','Business / vendor','Local entrepreneur'],
+      ['Other','ti-dots-circle-horizontal','Other','Something else']
+    ];
+    return `
+    <div class="eyebrow">Step 1 of 9</div>
+    <div class="title">Who are you?</div>
+    <div class="subtitle">Help us understand your connection to the parish.</div>
+    <div class="fg">
+      <label class="field-lbl">Which best describes you? <span class="req">*</span></label>
+      <div class="oc-grid">
+        ${roles.map(([v,ico,name,sub])=>`
+          <div class="oc${D.role===v?' on':''}" onclick="setRole('${v}')">
+            <div class="oc-icon"><i class="ti ${ico}"></i></div>
+            <div class="oc-tick"><i class="ti ti-check"></i></div>
+            <div class="oc-name">${name}</div>
+            <div class="oc-sub">${sub}</div>
+          </div>`).join('')}
+      </div>
+      ${em('role')}
+      ${D.role==='Other'?`<input class="inp${errs.roleOther?' err':''}" style="margin-top:10px" placeholder="Please specify..." value="${D.roleOther}" oninput="D.roleOther=this.value;errs.roleOther=''">${em('roleOther')}`:''}
     </div>
-    ${eMsg('method')}
-    ${D.method==='Other'?`<input class="big-input${errs.methodOther?' is-error':''}" style="margin-top:10px" placeholder="Please specify..." value="${D.methodOther}" oninput="D.methodOther=this.value"> ${eMsg('methodOther')}`:''}
-  </div>
-  ${navRow()}`;
-}
-
-function renderStep3() {
-  const amts = ['< GH¢100','GH¢100 – GH¢500','GH¢500 – GH¢2,000','GH¢2,000 – GH¢5,000','> GH¢5,000'];
-  return `
-  <div class="step-eyebrow">Step 3 of 9</div>
-  <div class="step-h">Pledge details</div>
-  <div class="step-desc">Would you like to make a financial pledge toward the harvest goal?</div>
-  <div class="fg">
-    <label class="field-label">Willing to pledge? <span class="req">*</span></label>
-    <div class="toggle-row">
-      ${['Monthly','Quarterly','One-time','No'].map(v=>`<div class="tog${D.pledgeFreq===v?' chosen':''}" onclick="setPFreq('${v}')">${v}</div>`).join('')}
-    </div>
-    ${eMsg('pledgeFreq')}
-  </div>
-  ${D.pledgeFreq && D.pledgeFreq!=='No' ? `
-  <div class="fg">
-    <label class="field-label">Pledge amount range <span class="req">*</span></label>
-    <div class="amt-grid">
-      ${amts.map(a=>`<div class="amt${D.pledgeAmt===a?' chosen':''}" onclick="setPAmt('${a}')">${a}</div>`).join('')}
-    </div>
-    ${eMsg('pledgeAmt')}
-  </div>` : ''}
-  ${navRow()}`;
-}
-
-function renderStep4() {
-  const acts = ['Concert / Dinner','Market day','Sponsorship','Online giving','Door-to-door','Volunteer'];
-  const cnt = D.activities.length;
-  return `
-  <div class="step-eyebrow">Step 4 of 9</div>
-  <div class="step-h">Activities</div>
-  <div class="step-desc">Which harvest activities would you join or support? <span class="limit-badge">Max 3</span></div>
-  <div class="fg">
-    <label class="field-label">Select activities <span class="req">*</span></label>
-    <div class="chip-row">
-      ${acts.map(val=>{
-        const sel = D.activities.includes(val);
-        const dis = !sel && cnt >= 3;
-        return `<div class="chip${sel?' chosen':''}" style="${dis?'opacity:0.4;cursor:not-allowed':''}" onclick="${!dis?`toggleAct('${val}')`:''}">${sel?'<i class="ti ti-check" style="font-size:11px"></i> ':''}${val}</div>`;
-      }).join('')}
-    </div>
-    <div style="font-size:11px;color:#9ca3af;margin-top:8px">${cnt}/3 selected</div>
-    ${eMsg('activities')}
-  </div>
-  ${navRow()}`;
-}
-
-function renderStep5() {
-  return `
-  <div class="step-eyebrow">Step 5 of 9</div>
-  <div class="step-h">Livestream giving</div>
-  <div class="step-desc">We're exploring a live donation stream during harvest events. Would you participate?</div>
-  <div class="fg">
-    <label class="field-label">Interest in livestream donation <span class="req">*</span></label>
-    <div class="toggle-row">
-      ${['Yes','Maybe','No'].map(v=>`<div class="tog${D.livestream===v?' chosen':''}" onclick="setLive('${v}')">${v}</div>`).join('')}
-    </div>
-    ${eMsg('livestream')}
-  </div>
-  ${navRow()}`;
-}
-
-function renderStep6() {
-  const times = ['Weekday evenings','Saturday','Sunday','Other'];
-  return `
-  <div class="step-eyebrow">Step 6 of 9</div>
-  <div class="step-h">Preferred times</div>
-  <div class="step-desc">When are you most available for harvest activities?</div>
-  <div class="fg">
-    <label class="field-label">Select all that apply</label>
-    <div class="chip-row">
-      ${times.map(t=>{
-        const sel = D.times.includes(t);
-        return `<div class="chip${sel?' chosen':''}" onclick="toggleTime('${t}')">${sel?'<i class="ti ti-check" style="font-size:11px"></i> ':''}${t}</div>`;
-      }).join('')}
-    </div>
-    ${D.times.includes('Other')?`<input class="big-input" style="margin-top:10px" placeholder="Specify preferred time..." value="${D.timesOther}" oninput="D.timesOther=this.value">`:''}
-  </div>
-  ${navRow()}`;
-}
-
-function renderStep7() {
-  const prefs = ['WhatsApp','SMS','Email','No thanks'];
-  return `
-  <div class="step-eyebrow">Step 7 of 9</div>
-  <div class="step-h">Suggestions & updates</div>
-  <div class="step-desc">Share ideas and tell us how to keep you informed.</div>
-  <div class="fg">
-    <label class="field-label">Your suggestions or ideas for the Harvest</label>
-    <textarea class="big-input" placeholder="Share any ideas for the 2026 harvest..." oninput="setField('suggestions',this.value)">${D.suggestions}</textarea>
-  </div>
-  <div class="fg">
-    <label class="field-label">How should we send you updates?</label>
-    <div class="chip-row">
-      ${prefs.map(p=>{
-        const sel = D.updates.includes(p);
-        return `<div class="chip${sel?' chosen':''}" onclick="toggleUpd('${p}')">${sel?'<i class="ti ti-check" style="font-size:11px"></i> ':''}${p}</div>`;
-      }).join('')}
-    </div>
-  </div>
-  ${navRow()}`;
-}
-
-function renderStep8() {
-  return `
-  <div class="step-eyebrow">Step 8 of 9</div>
-  <div class="step-h">Contact details</div>
-  <div class="step-desc">All optional — only for personalised follow-up from the harvest team.</div>
-  <div class="fg">
-    <label class="field-label">Your name</label>
-    <input class="big-input" placeholder="Full name..." value="${D.name}" oninput="setField('name',this.value)">
-  </div>
-  <div class="fg">
-    <label class="field-label">Phone number <span style="color:#9ca3af;font-weight:400">(Ghana format)</span></label>
-    <input class="big-input${errs.phone?' is-error':''}" type="tel" placeholder="e.g. 0241234567" value="${D.phone}" oninput="setField('phone',this.value)">
-    ${eMsg('phone')}
-  </div>
-  <div class="fg">
-    <label class="field-label">Email address</label>
-    <input class="big-input${errs.email?' is-error':''}" type="email" placeholder="your@email.com" value="${D.email}" oninput="setField('email',this.value)">
-    ${eMsg('email')}
-  </div>
-  ${navRow()}`;
-}
-
-function renderStep9() {
-  function rrow(k, v) {
-    if(!v || (Array.isArray(v) && !v.length)) return '';
-    return `<div class="review-row"><span class="review-k">${k}</span><span class="review-v">${Array.isArray(v)?v.join(', '):v}</span></div>`;
+    ${nav}`;
   }
-  const timesDisplay = [
-    ...D.times.filter(t=>t!=='Other'),
-    ...(D.times.includes('Other') && D.timesOther ? [D.timesOther] : [])
-  ];
-  return `
-  <div class="step-eyebrow">Step 9 of 9</div>
-  <div class="step-h">Review & submit</div>
-  <div class="step-desc">Everything look right? Submit when you're ready.</div>
 
-  <div class="review-block">
-    <div class="review-head">Profile & giving</div>
-    ${rrow('Who you are', D.role==='Other'?D.roleOther:D.role)}
-    ${rrow('Giving method', D.method==='Other'?D.methodOther:D.method)}
-    ${rrow('Pledge frequency', D.pledgeFreq)}
-    ${D.pledgeFreq!=='No'?rrow('Pledge amount', D.pledgeAmt):''}
+  /* ── Step 2: Giving method ── */
+  if(step === 2){
+    const methods=[['Cash at church','ti-banknote'],['Mobile money','ti-device-mobile'],['Online donation','ti-world'],['Bank transfer','ti-building-bank'],['Instalment pledge','ti-calendar-repeat'],['Other','ti-dots']];
+    return `
+    <div class="eyebrow">Step 2 of 9</div>
+    <div class="title">How would you give?</div>
+    <div class="subtitle">Choose the giving method most convenient for you.</div>
+    <div class="fg">
+      <label class="field-lbl">Preferred method of giving <span class="req">*</span></label>
+      <div class="radio-list">
+        ${methods.map(([v,ico])=>`
+          <div class="ri${D.method===v?' on':''}" onclick="setMethod('${v}')">
+            <div class="ri-dot"><div class="ri-inner"></div></div>
+            <i class="ti ${ico} ri-ico"></i>
+            <span class="ri-txt">${v}</span>
+          </div>`).join('')}
+      </div>
+      ${em('method')}
+      ${D.method==='Other'?`<input class="inp${errs.methodOther?' err':''}" style="margin-top:10px" placeholder="Please specify..." value="${D.methodOther}" oninput="D.methodOther=this.value">${em('methodOther')}`:''}
+    </div>
+    ${nav}`;
+  }
+
+  /* ── Step 3: Pledge ── */
+  if(step === 3){
+    const amts=['< GH¢100','GH¢100 – GH¢500','GH¢500 – GH¢2,000','GH¢2,000 – GH¢5,000','> GH¢5,000'];
+    return `
+    <div class="eyebrow">Step 3 of 9</div>
+    <div class="title">Pledge details</div>
+    <div class="subtitle">Would you like to make a financial pledge toward the harvest goal?</div>
+    <div class="fg">
+      <label class="field-lbl">Willing to pledge? <span class="req">*</span></label>
+      <div class="tog-row">${['Monthly','Quarterly','One-time','No'].map(v=>`<div class="tog${D.pledgeFreq===v?' on':''}" onclick="setPFreq('${v}')">${v}</div>`).join('')}</div>
+      ${em('pledgeFreq')}
+    </div>
+    ${D.pledgeFreq && D.pledgeFreq!=='No' ? `
+    <div class="fg">
+      <label class="field-lbl">Pledge amount range <span class="req">*</span></label>
+      <div class="amt-grid">${amts.map(a=>`<div class="amt${D.pledgeAmt===a?' on':''}" onclick="setPAmt('${a}')">${a}</div>`).join('')}</div>
+      ${em('pledgeAmt')}
+    </div>` : ''}
+    ${nav}`;
+  }
+
+  /* ── Step 4: Activities ── */
+  if(step === 4){
+    const cnt = D.activities.length;
+    const acts = ['Concert / Dinner','Market day','Sponsorship','Online giving','Door-to-door','Volunteer'];
+    return `
+    <div class="eyebrow">Step 4 of 9</div>
+    <div class="title">Activities</div>
+    <div class="subtitle">Which harvest activities would you join or support? <span class="lim-badge">Max 3</span></div>
+    <div class="fg">
+      <label class="field-lbl">Select activities <span class="req">*</span></label>
+      <div class="chip-row">
+        ${acts.map(v=>{
+          const sel=D.activities.includes(v);
+          const dis=!sel&&cnt>=3;
+          return `<div class="chip${sel?' on':''}" style="${dis?'opacity:.4;cursor:not-allowed':''}" onclick="${!dis?`toggleAct('${v}')`:''}">${sel?'<i class="ti ti-check" style="font-size:10px"></i> ':''}${v}</div>`;
+        }).join('')}
+      </div>
+      <div style="font-size:11px;color:#9ca3af;margin-top:7px">${cnt}/3 selected</div>
+      ${em('activities')}
+    </div>
+    ${nav}`;
+  }
+
+  /* ── Step 5: Livestream ── */
+  if(step === 5) return `
+    <div class="eyebrow">Step 5 of 9</div>
+    <div class="title">Livestream giving</div>
+    <div class="subtitle">We're exploring a live donation stream during harvest events. Would you participate?</div>
+    <div class="fg">
+      <label class="field-lbl">Interest in livestream donation <span class="req">*</span></label>
+      <div class="tog-row">${['Yes','Maybe','No'].map(v=>`<div class="tog${D.livestream===v?' on':''}" onclick="setLive('${v}')">${v}</div>`).join('')}</div>
+      ${em('livestream')}
+    </div>
+    ${nav}`;
+
+  /* ── Step 6: Times ── */
+  if(step === 6){
+    const times=['Weekday evenings','Saturday','Sunday','Other'];
+    return `
+    <div class="eyebrow">Step 6 of 9</div>
+    <div class="title">Preferred times</div>
+    <div class="subtitle">When are you most available for harvest activities?</div>
+    <div class="fg">
+      <label class="field-lbl">Select all that apply</label>
+      <div class="chip-row">
+        ${times.map(v=>{const s=D.times.includes(v);return`<div class="chip${s?' on':''}" onclick="toggleTime('${v}')">${s?'<i class="ti ti-check" style="font-size:10px"></i> ':''}${v}</div>`;}).join('')}
+      </div>
+      ${D.times.includes('Other')?`<input class="inp" style="margin-top:10px" placeholder="Specify preferred time..." value="${D.timesOther}" oninput="D.timesOther=this.value">`:''}
+    </div>
+    ${nav}`;
+  }
+
+  /* ── Step 7: Updates ── */
+  if(step === 7){
+    const prefs=['WhatsApp','SMS','Email','No thanks'];
+    return `
+    <div class="eyebrow">Step 7 of 9</div>
+    <div class="title">Suggestions & updates</div>
+    <div class="subtitle">Share ideas and tell us how to keep you informed.</div>
+    <div class="fg">
+      <label class="field-lbl">Your suggestions or ideas</label>
+      <textarea class="inp" placeholder="Share any ideas for the 2026 harvest..." oninput="setField('suggestions',this.value)">${D.suggestions}</textarea>
+
+```
+</div>
+<div class="fg">
+  <label class="field-lbl">How should we send updates?</label>
+  <div class="chip-row">
+    ${prefs.map(v=>{const s=D.updates.includes(v);return`<div class="chip${s?' on':''}" onclick="toggleUpd('${v}')">${s?'<i class="ti ti-check" style="font-size:10px"></i> ':''}${v}</div>`;}).join('')}
   </div>
+</div>
+${nav}`;
+```
 
-  <div class="review-block">
-    <div class="review-head">Engagement</div>
-    ${rrow('Activities', D.activities)}
-    ${rrow('Livestream interest', D.livestream)}
-    ${rrow('Preferred times', timesDisplay)}
-  </div>
-
-  <div class="review-block">
-    <div class="review-head">Contact & updates</div>
-    ${rrow('Update preference', D.updates)}
-    ${rrow('Name', D.name)}
-    ${rrow('Phone', D.phone)}
-    ${rrow('Email', D.email)}
-    ${D.suggestions?`<div class="review-row"><span class="review-k">Suggestions</span><span class="review-v" style="max-width:70%;word-break:break-word">${D.suggestions}</span></div>`:''}
-  </div>
-
-  <p style="font-size:11px;color:#9ca3af;margin-bottom:12px;line-height:1.6">By submitting, you agree that this information is used solely to plan the 2026 Good Shepherd Youth Harvest.</p>
-  ${navRow(true, true)}`;
 }
 
-// ─── Progress bar & sidebar ───────────────────────────────────────────────────
-function renderPills() {
-  const labels = ['Welcome','Profile','Giving','Pledge','Activities','Engage','Times','Updates','Contact','Review'];
-  const start  = Math.max(0, step - 1);
-  return labels.slice(start, start + 4).map((l, i) => {
-    const abs = start + i;
-    const cls = abs < step ? 'sp-done' : abs === step ? 'sp-active' : 'sp-pending';
-    const num = abs < step ? '<i class="ti ti-check" style="font-size:8px"></i>' : abs + 1;
-    return `<div class="sp ${cls}"><div class="sp-num">${num}</div>${l}</div>`;
-  }).join('');
+/* ── Step 8: Contact ── */
+if(step === 8) return ` <div class="eyebrow">Step 8 of 9</div> <div class="title">Contact details</div> <div class="subtitle">All optional — only for personalised follow-up from the harvest team.</div> <div class="fg"> <label class="field-lbl">Your name</label> <input class="inp" placeholder="Full name..." value="${D.name}" oninput="setField('name',this.value)"> </div> <div class="fg"> <label class="field-lbl">Phone <span style="color:#9ca3af;font-weight:400">(Ghana format)</span></label> <input class="inp${errs.phone?' err':''}" type="tel" placeholder="e.g. 0241234567" value="${D.phone}" oninput="setField('phone',this.value)"> ${em('phone')} </div> <div class="fg"> <label class="field-lbl">Email address</label> <input class="inp${errs.email?' err':''}" type="email" placeholder="your@email.com" value="${D.email}" oninput="setField('email',this.value)"> ${em('email')} </div> ${nav}`;
+
+/* ── Step 9: Review ── */
+if(step === 9){
+const rr = (k,v) => (!v||(Array.isArray(v)&&!v.length)) ? ‘’ :
+`<div class="review-row"><span class="rk">${k}</span><span class="rv">${Array.isArray(v)?v.join(', '):v}</span></div>`;
+const timesDisplay = [
+…D.times.filter(t=>t!==‘Other’),
+…(D.times.includes(‘Other’)&&D.timesOther ? [D.timesOther] : [])
+];
+return ` <div class="eyebrow">Step 9 of 9</div> <div class="title">Review & submit</div> <div class="subtitle">Everything look right? Submit when you're ready.</div> <div class="review-card"> <div class="review-head">Profile & giving</div> ${rr('Who you are', D.role==='Other'?D.roleOther:D.role)} ${rr('Giving method', D.method==='Other'?D.methodOther:D.method)} ${rr('Pledge frequency', D.pledgeFreq)} ${D.pledgeFreq!=='No'?rr('Pledge amount',D.pledgeAmt):''} </div> <div class="review-card"> <div class="review-head">Engagement</div> ${rr('Activities',D.activities)} ${rr('Livestream interest',D.livestream)} ${rr('Preferred times',timesDisplay)} </div> <div class="review-card"> <div class="review-head">Contact & updates</div> ${rr('Update preference',D.updates)} ${rr('Name',D.name)} ${rr('Phone',D.phone)} ${rr('Email',D.email)} ${D.suggestions?`<div class="review-row"><span class="rk">Suggestions</span><span class="rv">${D.suggestions}</span></div>`:''} </div> <p style="font-size:11px;color:#9ca3af;margin-bottom:12px;line-height:1.6">By submitting, you agree this data is used solely to plan the 2026 Good Shepherd Youth Harvest.</p> ${nav}`;
 }
 
-function renderSide() {
-  const labels = ['Welcome','Your profile','Giving method','Pledge','Activities','Engagement','Preferred times','Updates','Contact','Review'];
-  return labels.map((l, i) => {
-    const cls = i < step ? 'ms-complete' : i === step ? 'ms-current' : '';
-    return `<div class="ms ${cls}"><div class="ms-dot"></div><span class="ms-label">${l}</span></div>`;
-  }).join('');
+return ‘’;
 }
 
-// ─── Main render ──────────────────────────────────────────────────────────────
-function render() {
-  const pct = step === 10 ? 100 : Math.round((step / 9) * 100);
-  document.getElementById('prog').style.width = pct + '%';
-  document.getElementById('pills').innerHTML  = step < 10 ? renderPills() : '';
-  document.getElementById('side-steps').innerHTML = renderSide();
-
-  const body = document.getElementById('step-body');
-  const steps = [renderStep0, renderStep1, renderStep2, renderStep3, renderStep4,
-                 renderStep5, renderStep6, renderStep7, renderStep8, renderStep9];
-
-  body.innerHTML = step === 10 ? renderSuccess() : steps[step]();
-
-  // Re-trigger animation
-  body.classList.remove('step-wrap');
-  void body.offsetWidth;
-  body.classList.add('step-wrap');
+/* ═══════════════════════════════════════
+DESKTOP SIDEBAR STEPS
+═══════════════════════════════════════ */
+function buildSidebar(){
+return STEP_NAMES.map((l,i)=>{
+const cls = i<step?‘done’:i===step?‘now’:’’;
+return `<div class="sb-step ${cls}"><div class="sb-dot2"></div><span class="sb-lbl">${l}</span></div>`;
+}).join(’’);
 }
 
-// ─── Logo: Replace placeholder with actual Daban logo ─────────────────────────
-// Paste your base64 logo string below in place of PASTE_BASE64_HERE
-// e.g. const LOGO_SRC = "data:image/jpeg;base64,/9j/4AAQ...";
-const LOGO_SRC = "";  // ← paste base64 here, or a relative/absolute URL
-if(LOGO_SRC) {
-  document.getElementById('topbar-logo').src  = LOGO_SRC;
-  document.getElementById('sidebar-logo').src = LOGO_SRC;
+/* ═══════════════════════════════════════
+DESKTOP TOP PILLS
+═══════════════════════════════════════ */
+function buildPills(){
+const from = Math.max(0, step-1);
+return SHORT_NAMES.slice(from, from+4).map((l,i)=>{
+const abs = from+i;
+const cls = abs<step?‘pill-done’:abs===step?‘pill-now’:‘pill-next’;
+const n   = abs<step?’<i class="ti ti-check" style="font-size:8px"></i>’:abs+1;
+return `<div class="pill ${cls}"><div class="pill-n">${n}</div>${l}</div>`;
+}).join(’’);
 }
 
-// ─── Boot ─────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════
+MOBILE SEGMENT TRACK
+═══════════════════════════════════════ */
+function buildSegs(){
+return Array.from({length:9},(_,i)=>{
+const cls = i<step?‘done’:i===step?‘now’:’’;
+return `<div class="mob-seg ${cls}"></div>`;
+}).join(’’);
+}
+
+/* ═══════════════════════════════════════
+MAIN RENDER  (updates BOTH layouts)
+═══════════════════════════════════════ */
+function render(){
+const pct = step>=10 ? 100 : Math.round((step/9)*100);
+
+/* ─── MOBILE ─── */
+document.getElementById(‘mProgFill’).style.width = pct+’%’;
+document.getElementById(‘mProgPct’).textContent  = pct+’%’;
+document.getElementById(‘mStepName’).textContent = step<10 ? STEP_NAMES[step] : ‘Complete!’;
+document.getElementById(‘mStepCount’).textContent = step===0?‘Intro’:step<10?`Step ${step} of 9`:‘Done’;
+document.getElementById(‘mSegs’).innerHTML = buildSegs();
+
+const mContent = document.getElementById(‘mContent’);
+mContent.innerHTML = buildContent(false);   // no inline nav on mobile
+mContent.classList.remove(‘fade-up’); void mContent.offsetWidth; mContent.classList.add(‘fade-up’);
+
+const mFooter = document.getElementById(‘mFooter’);
+mFooter.innerHTML = mobFooterHTML();
+mFooter.style.display = step===10 ? ‘none’ : ‘flex’;
+
+/* ─── DESKTOP ─── */
+document.getElementById(‘dProgFill’).style.width = pct+’%’;
+document.getElementById(‘dPills’).innerHTML      = step<10 ? buildPills() : ‘’;
+document.getElementById(‘dSbSteps’).innerHTML    = buildSidebar();
+
+const dContent = document.getElementById(‘dContent’);
+dContent.innerHTML = buildContent(true);    // desktop gets inline nav row
+dContent.classList.remove(‘fade-up’); void dContent.offsetWidth; dContent.classList.add(‘fade-up’);
+}
+
+/* ═══════════════════════════════════════
+LOGO INJECTION
+─────────────────────────────────────
+Replace LOGO_SRC with your image:
+• base64:  “data:image/jpeg;base64,/9j/…”
+• URL:     “./logo.jpg”  or  “https://…”
+═══════════════════════════════════════ */
+const LOGO_SRC = ‘’; // ← paste here
+
+function injectLogo(boxId, src, fallbackHTML){
+const box = document.getElementById(boxId);
+if(!box) return;
+if(src){
+const img = document.createElement(‘img’);
+img.src = src;
+img.alt = ‘Good Shepherd Parish’;
+img.onerror = () => { box.innerHTML = fallbackHTML; };
+box.innerHTML = ‘’;
+box.appendChild(img);
+}
+}
+
+if(LOGO_SRC){
+injectLogo(‘mLogoBox’,    LOGO_SRC, ‘<i class="ti ti-cross" style="color:#93c5fd;font-size:15px"></i>’);
+injectLogo(‘dLogoBox’,    LOGO_SRC, ‘<i class="ti ti-cross" style="color:var(--blue);font-size:14px"></i>’);
+injectLogo(‘dSbLogo’,     LOGO_SRC, ‘<i class="ti ti-cross" style="color:#93c5fd;font-size:22px"></i>’);
+}
+
+/* ── BOOT ── */
 render();
 </script>
+
 </body>
 </html>
