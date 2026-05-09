@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Shepherd Parish Youth Harvest 2026</title>
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;font-size:16px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f0f2f5;color:#111827;min-height:100vh;overflow-x:hidden}
+button,input,textarea,select{font-family:inherit;font-size:inherit}
+img{display:block;max-width:100%}
+
+/* ── TOKENS ── */
+:root{
+–blue:#1a56db;–blue-dk:#1445b8;–blue-pale:#eff6ff;–blue-lt:#bfdbfe;
+–green:#059669;–green-dk:#047857;
+–red:#ef4444;
+–navy:#1a1f2e;
+–border:#e5e7eb;–muted:#6b7280;–text:#111827;–text2:#374151;
+–white:#fff;–bg:#f0f2f5;
+–r:12px;–r-sm:8px;–r-pill:999px;
+}
+
+/* ── ANIMATION ── */
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:slideUp .28s ease both}
+
+/* ── SHARED COMPONENTS ── */
+.eyebrow{font-size:11px;font-weight:700;color:var(–blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.ttl{font-size:22px;font-weight:700;color:var(–text);line-height:1.3;margin-bottom:6px}
+.dsc{font-size:14px;color:var(–muted);line-height:1.65;margin-bottom:22px}
+.fg{margin-bottom:18px}
+.flbl{display:block;font-size:12px;font-weight:600;color:var(–text2);margin-bottom:8px;letter-spacing:.02em}
+.req{color:var(–red);margin-left:2px}
+
+/* Input */
+.inp{width:100%;background:var(–white);border:1.5px solid var(–border);border-radius:var(–r);padding:14px 15px;font-size:15px;color:var(–text);outline:none;-webkit-appearance:none;appearance:none;transition:border-color .15s,box-shadow .15s}
+.inp:focus{border-color:var(–blue);box-shadow:0 0 0 3px rgba(26,86,219,.1)}
+.inp.err{border-color:var(–red);box-shadow:0 0 0 3px rgba(239,68,68,.08)}
+textarea.inp{min-height:90px;resize:vertical;line-height:1.5}
+
+/* Error */
+.emsg{font-size:12px;color:var(–red);margin-top:6px;display:flex;align-items:center;gap:4px}
+
+/* Option cards */
+.ocg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.oc{background:var(–white);border:1.5px solid var(–border);border-radius:var(–r);padding:14px 12px;cursor:pointer;position:relative;display:flex;flex-direction:column;transition:border-color .15s,background .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.oc:active{transform:scale(.98)}
+.oc.on{border-color:var(–blue);background:var(–blue-pale);box-shadow:0 0 0 3px rgba(26,86,219,.08)}
+.oc-ico{width:32px;height:32px;border-radius:8px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;margin-bottom:8px;transition:background .15s;flex-shrink:0;font-size:15px}
+.oc.on .oc-ico{background:#dbeafe}
+.oc-tick{position:absolute;top:9px;right:9px;width:16px;height:16px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.oc.on .oc-tick{border-color:var(–blue);background:var(–blue)}
+.oc-tick::after{content:’’;width:4px;height:7px;border-right:2px solid transparent;border-bottom:2px solid transparent;transform:rotate(45deg) translate(-1px,-1px);display:block}
+.oc.on .oc-tick::after{border-color:var(–white)}
+.oc-name{font-size:12px;font-weight:600;color:var(–text)}
+.oc-sub{font-size:10px;color:#9ca3af;margin-top:2px}
+
+/* Radio rows */
+.rl{display:flex;flex-direction:column;gap:7px}
+.ri{background:var(–white);border:1.5px solid var(–border);border-radius:var(–r-sm);padding:14px 15px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.ri:active{transform:scale(.99)}
+.ri.on{border-color:var(–blue);background:var(–blue-pale)}
+.ri-dot{width:18px;height:18px;border-radius:50%;border:2px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+.ri.on .ri-dot{border-color:var(–blue)}
+.ri-dot::after{content:’’;width:8px;height:8px;border-radius:50%;background:var(–blue);opacity:0;transition:opacity .15s;display:block}
+.ri.on .ri-dot::after{opacity:1}
+.ri-ico{font-size:16px;flex-shrink:0;color:#9ca3af;transition:color .15s}
+.ri.on .ri-ico{color:var(–blue)}
+.ri-txt{font-size:14px;font-weight:500;color:var(–text2)}
+
+/* Chips */
+.cr{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:10px 15px;border:1.5px solid var(–border);border-radius:var(–r-pill);font-size:13px;font-weight:500;color:var(–text2);background:var(–white);cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.chip:active{transform:scale(.97)}
+.chip.on{background:var(–blue);border-color:var(–blue);color:var(–white)}
+
+/* Amount */
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.amt{background:var(–white);border:1.5px solid var(–border);border-radius:var(–r-sm);padding:14px;cursor:pointer;text-align:center;font-size:13px;font-weight:500;color:var(–text2);transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.amt:active{transform:scale(.98)}
+.amt.on{border-color:var(–blue);background:var(–blue-pale);color:var(–blue)}
+
+/* Toggle */
+.trow{display:flex;gap:8px;flex-wrap:wrap}
+.tog{flex:1;min-width:66px;padding:13px 8px;border:1.5px solid var(–border);border-radius:var(–r-sm);text-align:center;font-size:13px;font-weight:500;color:var(–text2);background:var(–white);cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.tog:active{transform:scale(.97)}
+.tog.on{border-color:var(–blue);background:var(–blue);color:var(–white)}
+
+/* Buttons */
+.bbk{width:44px;height:44px;border-radius:var(–r-sm);border:1.5px solid var(–border);background:var(–white);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.bbk svg{width:18px;height:18px;stroke:#6b7280;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+.bbk:active svg{stroke:var(–blue)}
+.bnx{flex:1;padding:14px 20px;border-radius:var(–r-sm);border:none;background:var(–blue);color:var(–white);font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.bnx:active{background:var(–blue-dk)}
+.bnx svg{width:16px;height:16px;stroke:var(–white);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.bsb{flex:1;padding:14px 20px;border-radius:var(–r-sm);border:none;background:var(–green);color:var(–white);font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.bsb:active{background:var(–green-dk)}
+.bsb svg{width:16px;height:16px;stroke:var(–white);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.navr{display:flex;align-items:center;gap:8px;margin-top:14px}
+
+/* Intro */
+.gbl{background:linear-gradient(135deg,var(–navy) 0%,#253060 100%);border-radius:var(–r);padding:18px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.gbl-val{font-size:22px;font-weight:700;color:var(–white)}
+.gbl-lbl{font-size:11px;color:#93c5fd;margin-top:2px}
+.gbl-ico{width:44px;height:44px;border-radius:10px;background:rgba(26,86,219,.3);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.il{background:var(–white);border:1px solid var(–border);border-radius:var(–r);padding:14px;margin-bottom:20px}
+.ii{display:flex;align-items:center;gap:10px;padding:7px 0}
+.ii+.ii{border-top:1px solid #f3f4f6}
+.in{width:22px;height:22px;border-radius:6px;background:var(–blue-pale);color:var(–blue);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.it{font-size:13px;color:var(–text2)}
+
+/* Review */
+.rcard{background:var(–white);border:1px solid var(–border);border-radius:var(–r);overflow:hidden;margin-bottom:12px}
+.rhead{background:#f8faff;padding:9px 16px;border-bottom:1px solid var(–border);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(–blue);font-weight:700}
+.rrow{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 16px;border-bottom:1px solid #f3f4f6;gap:12px}
+.rrow:last-child{border-bottom:none}
+.rk{font-size:12px;color:var(–muted);flex-shrink:0}
+.rv{font-size:12px;color:var(–text);font-weight:500;text-align:right;word-break:break-word;max-width:65%}
+
+/* Success */
+.sw{text-align:center;padding:32px 0}
+.sc{width:72px;height:72px;border-radius:50%;background:var(–blue);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 8px 24px rgba(26,86,219,.28)}
+.sc svg{width:32px;height:32px;stroke:var(–white);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.sbadge{display:inline-flex;align-items:center;gap:6px;background:var(–blue-pale);border:1px solid var(–blue-lt);border-radius:var(–r-pill);padding:8px 18px;font-size:12px;font-weight:500;color:var(–blue);margin-top:16px}
+
+/* Limit badge */
+.lim{font-size:10px;background:#fff7ed;border:1px solid #fed7aa;border-radius:var(–r-pill);padding:2px 8px;color:#c2410c;margin-left:6px;font-weight:600}
+
+/* ══════════════════════════════════════════
+MOBILE LAYOUT  (default for all screens)
+══════════════════════════════════════════ */
+.mob{display:flex;flex-direction:column;min-height:100vh}
+
+/* Sticky top bar */
+.mtop{background:var(–navy);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:100}
+.mbrnd{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.mlogo{width:34px;height:34px;border-radius:8px;background:rgba(26,86,219,.4);border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.mlogo img{width:100%;height:100%;object-fit:cover}
+.mlogo svg{width:18px;height:18px;stroke:#93c5fd;fill:none;stroke-width:2;stroke-linecap:round}
+.mname{font-size:13px;font-weight:600;color:var(–white)}
+.mslbl{font-size:10px;color:#93c5fd;margin-top:1px}
+.mprog{flex:1;min-width:0}
+.mbar{height:3px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}
+.mfill{height:100%;background:var(–blue);border-radius:2px;transition:width .4s ease}
+.mmeta{display:flex;justify-content:space-between;margin-top:3px}
+.mmeta span{font-size:10px;color:rgba(255,255,255,.4)}
+
+/* Segment dots */
+.msegs{display:flex;gap:3px;padding:10px 16px 0;background:var(–bg)}
+.mseg{flex:1;height:3px;border-radius:2px;background:#d1d5db;transition:background .3s}
+.mseg.done{background:#93c5fd}
+.mseg.now{background:var(–blue)}
+
+/* Body scroll area */
+.mbody{flex:1;padding:20px 16px 100px;width:100%;max-width:640px;margin:0 auto}
+
+/* Fixed bottom footer */
+.mfoot{position:fixed;bottom:0;left:0;right:0;background:var(–white);border-top:1px solid var(–border);padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:10px;z-index:99;box-shadow:0 -4px 20px rgba(0,0,0,.07)}
+
+/* Desktop hidden on mobile */
+.desk{display:none}
+
+/* ══════════════════════
+TABLET  ≥ 640px
+══════════════════════ */
+@media(min-width:640px){
+.mbody{padding:26px 24px 100px}
+.ttl{font-size:24px}
+}
+
+/* ══════════════════════
+DESKTOP  ≥ 900px
+══════════════════════ */
+@media(min-width:900px){
+body{display:flex;align-items:center;justify-content:center;padding:28px;background:#e8eaf0}
+.mob{display:none}
+.desk{
+display:flex;flex-direction:column;
+width:100%;max-width:980px;
+background:var(–bg);border-radius:16px;overflow:hidden;
+border:1px solid var(–border);box-shadow:0 20px 60px rgba(0,0,0,.1)
+}
+/* Topbar */
+.dtop{height:52px;background:var(–white);border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:16px;position:sticky;top:0;z-index:50}
+.dbrnd{display:flex;align-items:center;gap:10px}
+.dlogo{width:32px;height:32px;border-radius:8px;border:1px solid var(–border);background:#f3f4f6;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dlogo img{width:100%;height:100%;object-fit:cover}
+.dlogo svg{width:14px;height:14px;stroke:var(–blue);fill:none;stroke-width:2;stroke-linecap:round}
+.dbnm{font-size:13px;font-weight:600;color:var(–text)}
+.dpw{flex:1;max-width:280px;height:3px;background:var(–border);border-radius:2px;overflow:hidden;margin:0 16px}
+.dpf{height:100%;background:var(–blue);transition:width .4s ease}
+/* Pills */
+.dpills{display:flex;gap:6px}
+.pill{display:flex;align-items:center;gap:5px;padding:3px 9px;border-radius:var(–r-pill);font-size:11px;font-weight:500;white-space:nowrap}
+.pdone{background:var(–blue-pale);color:var(–blue)}
+.pnow{background:var(–blue);color:var(–white)}
+.pidle{background:#f3f4f6;color:#9ca3af}
+.pn{width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600}
+.pdone .pn{background:var(–blue);color:var(–white)}
+.pnow  .pn{background:rgba(255,255,255,.22);color:var(–white)}
+.pidle .pn{background:#e5e7eb;color:#9ca3af}
+/* Two-col */
+.dmain{display:flex;min-height:540px}
+/* Sidebar */
+.dsb{width:240px;flex-shrink:0;background:var(–navy);padding:28px 20px;display:flex;flex-direction:column;gap:5px}
+.sblogo{width:56px;height:56px;border-radius:12px;overflow:hidden;margin-bottom:14px;border:2px solid rgba(255,255,255,.12);background:rgba(26,86,219,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sblogo img{width:100%;height:100%;object-fit:cover}
+.sblogo svg{width:22px;height:22px;stroke:#93c5fd;fill:none;stroke-width:2;stroke-linecap:round}
+.sbbadge{display:inline-flex;align-items:center;gap:5px;background:rgba(26,86,219,.22);border:1px solid rgba(59,130,246,.28);border-radius:var(–r-pill);padding:3px 10px;margin-bottom:10px;width:fit-content}
+.sbdot{width:5px;height:5px;border-radius:50%;background:#60a5fa;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.sbbadge span{font-size:11px;color:#93c5fd;font-weight:500}
+.sbttl{font-size:15px;font-weight:600;color:var(–white);line-height:1.35;margin-bottom:4px}
+.sbsub{font-size:12px;color:#6b7280;line-height:1.5;margin-bottom:16px}
+.sbst{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:var(–r-sm);transition:background .2s}
+.sbst.now{background:rgba(26,86,219,.15)}
+.sbstd{width:6px;height:6px;border-radius:50%;background:#374151;flex-shrink:0;transition:background .2s}
+.sbst.done .sbstd{background:#93c5fd}
+.sbst.now  .sbstd{background:var(–blue)}
+.sbstl{font-size:12px;color:#4b5563;transition:color .2s}
+.sbst.done .sbstl{color:#6b7280}
+.sbst.now  .sbstl{color:var(–white);font-weight:500}
+.sbstat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px;margin-top:auto}
+.sbsv{font-size:20px;font-weight:700;color:var(–white)}
+.sbsl{font-size:11px;color:#6b7280;margin-top:2px}
+/* Right content */
+.dright{flex:1;background:var(–bg);display:flex;align-items:flex-start;justify-content:center;padding:36px 32px;overflow-y:auto}
+.dform{width:100%;max-width:460px}
+}
+
+/* ══════════════════════
+LARGE  ≥ 1200px
+══════════════════════ */
+@media(min-width:1200px){
+.desk{max-width:1060px}
+.dsb{width:255px}
+}
+
+/* ══════════════════════
+TINY  < 380px
+══════════════════════ */
+@media(max-width:379px){
+.ocg,.ag{grid-template-columns:1fr}
+.ttl{font-size:19px}
+}
+
+@media(prefers-reduced-motion:reduce){
+*{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+
+</head>
+<body>
+
+<!-- SVG icon helpers (used inline by JS) -->
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="ico-arrow-left"  viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+  <symbol id="ico-arrow-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+  <symbol id="ico-check"       viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="ico-cross"       viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="8" x2="22" y2="8"/></symbol>
+</svg>
+
+<!-- ══ MOBILE (< 900px) ══ -->
+
+<div class="mob">
+  <div class="mtop">
+    <div class="mbrnd">
+      <div class="mlogo" id="mLogo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><use href="#ico-cross"/></svg>
+      </div>
+      <div>
+        <div class="mname">Good Shepherd</div>
+        <div class="mslbl" id="mSlbl">Welcome</div>
+      </div>
+    </div>
+    <div class="mprog">
+      <div class="mbar"><div class="mfill" id="mFill" style="width:0%"></div></div>
+      <div class="mmeta"><span id="mScount">Intro</span><span id="mPct">0%</span></div>
+    </div>
+  </div>
+  <div class="msegs" id="mSegs"></div>
+  <div class="mbody"><div id="mBody" class="anim"></div></div>
+  <div class="mfoot" id="mFoot"></div>
+</div>
+
+<!-- ══ DESKTOP (≥ 900px) ══ -->
+
+<div class="desk">
+  <div class="dtop">
+    <div class="dbrnd">
+      <div class="dlogo" id="dLogo">
+        <svg viewBox="0 0 24 24"><use href="#ico-cross"/></svg>
+      </div>
+      <span class="dbnm">Good Shepherd Parish</span>
+    </div>
+    <div class="dpw"><div class="dpf" id="dFill" style="width:0%"></div></div>
+    <div class="dpills" id="dPills"></div>
+  </div>
+  <div class="dmain">
+    <div class="dsb">
+      <div class="sblogo" id="dSbLogo">
+        <svg viewBox="0 0 24 24"><use href="#ico-cross"/></svg>
+      </div>
+      <div class="sbbadge"><div class="sbdot"></div><span>2026 Harvest</span></div>
+      <div class="sbttl">Parish Youth Harvest</div>
+      <div class="sbsub">Good Shepherd Catholic Church<br>Tema Community 2</div>
+      <div id="dSbSteps"></div>
+      <div class="sbstat" style="margin-top:auto">
+        <div class="sbsv">GH&#x20B5;70,000</div>
+        <div class="sbsl">2026 fundraising goal</div>
+      </div>
+    </div>
+    <div class="dright"><div class="dform"><div id="dBody" class="anim"></div></div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ════════════════════════
+   STATE
+════════════════════════ */
+var SNAMES=['Welcome','Your profile','Giving method','Pledge details','Activities','Engagement','Preferred times','Updates','Contact info','Review'];
+var SHORT =['Welcome','Profile','Giving','Pledge','Activities','Engage','Times','Updates','Contact','Review'];
+
+var D={role:'',roleOther:'',method:'',methodOther:'',pledgeFreq:'',pledgeAmt:'',activities:[],livestream:'',times:[],timesOther:'',updates:[],suggestions:'',name:'',phone:'',email:''};
+var step=0, errs={};
+
+try{var s=localStorage.getItem('gs26');if(s)Object.assign(D,JSON.parse(s));}catch(e){}
+function save(){try{localStorage.setItem('gs26',JSON.stringify(D));}catch(e){}}
+
+/* ════════════════════════
+   NAVIGATION
+════════════════════════ */
+function goNext(){
+  var e=validate(step);
+  if(Object.keys(e).length){errs=e;render();return;}
+  errs={};step++;save();render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goBack(){step--;errs={};render();window.scrollTo({top:0,behavior:'smooth'});}
+function doSubmit(){
+  var e=validate(step);
+  if(Object.keys(e).length){errs=e;render();return;}
+  step=10;
+  try{localStorage.removeItem('gs26');}catch(e2){}
+  render();window.scrollTo({top:0,behavior:'smooth'});
+}
+window.goNext=goNext;
+window.goBack=goBack;
+window.doSubmit=doSubmit;
+
+/* ════════════════════════
+   VALIDATION
+════════════════════════ */
+function validate(s){
+  var e={};
+  if(s===1){if(!D.role)e.role='Please select who you are.';if(D.role==='Other'&&!D.roleOther.trim())e.roleOther='Please specify.';}
+  if(s===2){if(!D.method)e.method='Please select a giving method.';if(D.method==='Other'&&!D.methodOther.trim())e.methodOther='Please specify.';}
+  if(s===3){if(!D.pledgeFreq)e.pledgeFreq='Please select an option.';if(D.pledgeFreq&&D.pledgeFreq!=='No'&&!D.pledgeAmt)e.pledgeAmt='Please select an amount.';}
+  if(s===4&&D.activities.length===0)e.activities='Select at least one activity.';
+  if(s===5&&!D.livestream)e.livestream='Please select an option.';
+  if(s===8){
+    if(D.phone&&!/^(0[235][0-9]{8}|\+233[235][0-9]{8})$/.test(D.phone.replace(/\s/g,'')))e.phone='Enter a valid Ghana number (e.g. 0241234567).';
+    if(D.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(D.email))e.email='Enter a valid email address.';
+  }
+  return e;
+}
+
+/* ════════════════════════
+   HANDLERS (global)
+════════════════════════ */
+window.setRole=function(v){D.role=v;errs.role='';render();};
+window.setMethod=function(v){D.method=v;errs.method='';render();};
+window.setPFreq=function(v){D.pledgeFreq=v;errs.pledgeFreq='';if(v==='No')D.pledgeAmt='';render();};
+window.setPAmt=function(v){D.pledgeAmt=v;errs.pledgeAmt='';render();};
+window.toggleAct=function(v){var a=D.activities,i=a.indexOf(v);if(i>-1)a.splice(i,1);else if(a.length<3)a.push(v);errs.activities='';render();};
+window.setLive=function(v){D.livestream=v;errs.livestream='';render();};
+window.toggleTime=function(v){var t=D.times,i=t.indexOf(v);if(i>-1)t.splice(i,1);else t.push(v);render();};
+window.toggleUpd=function(v){var u=D.updates,i=u.indexOf(v);if(i>-1)u.splice(i,1);else u.push(v);render();};
+window.setField=function(f,v){D[f]=v;save();};
+
+/* ════════════════════════
+   SVG HELPERS
+════════════════════════ */
+function svgUse(id,w,h,cls){
+  w=w||18;h=h||18;
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"'+(cls?' class="'+cls+'"':'')+' style="stroke:currentColor"><use href="#ico-'+id+'"/></svg>';
+}
+function svgCheck(size){return svgUse('check',size,size);}
+function svgArrowR(size){return svgUse('arrow-right',size,size);}
+function svgArrowL(size){return svgUse('arrow-left',size,size);}
+
+/* ════════════════════════
+   EMOJI ICONS (no CDN)
+════════════════════════ */
+var EMOJI={
+  'ti-home-church':'⛪','ti-calendar':'📅','ti-clock':'🕐',
+  'ti-users':'👥','ti-building-store':'🏪','ti-dots-circle-horizontal':'•••',
+  'ti-banknote':'💵','ti-device-mobile':'📱','ti-world':'🌐',
+  'ti-building-bank':'🏦','ti-calendar-repeat':'🔁','ti-dots':'…'
+};
+
+/* ════════════════════════
+   ERROR MESSAGE
+════════════════════════ */
+function em(k){return errs[k]?'<div class="emsg">&#9888; '+errs[k]+'</div>':'';}
+
+/* ════════════════════════
+   NAV ROWS
+════════════════════════ */
+function deskNav(back,last){
+  var b=back?'<button class="bbk" onclick="goBack()">'+svgArrowL(18)+'</button>':'';
+  var f=last
+    ?'<button class="bsb" onclick="doSubmit()">'+svgCheck(16)+' Submit response</button>'
+    :'<button class="bnx" onclick="goNext()">Continue '+svgArrowR(16)+'</button>';
+  return '<div class="navr">'+b+f+'</div>';
+}
+function mobFootHTML(){
+  if(step===10)return '';
+  if(step===0)return '<button class="bnx" onclick="goNext()" style="flex:1">Get started '+svgArrowR(16)+'</button>';
+  var b='<button class="bbk" onclick="goBack()">'+svgArrowL(18)+'</button>';
+  var f=step===9
+    ?'<button class="bsb" onclick="doSubmit()" style="flex:1">'+svgCheck(16)+' Submit response</button>'
+    :'<button class="bnx" onclick="goNext()" style="flex:1">Continue '+svgArrowR(16)+'</button>';
+  return b+f;
+}
+
+/* ════════════════════════
+   STEP CONTENT
+════════════════════════ */
+function buildStep(withNav){
+  var back=(step>0&&step<10), last=(step===9);
+  var nav=withNav?deskNav(back,last):'';
+
+  /* Success */
+  if(step===10)return '<div class="sw"><div class="sc"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><use href="#ico-check"/></svg></div><div style="font-size:21px;font-weight:700;margin-bottom:8px">Response submitted!</div><p style="font-size:14px;color:var(--muted);line-height:1.7;max-width:320px;margin:0 auto">Thank you! The Good Shepherd Youth Harvest team will use your input to plan a meaningful 2026 event.</p><p style="margin-top:10px;font-size:13px;color:var(--muted)">May God bless your generosity. &#127801;</p><div class="sbadge">&#10084; Good Shepherd &mdash; Tema Community 2</div></div>';
+
+  /* Welcome */
+  if(step===0){
+    var sn=withNav?'<div class="navr" style="justify-content:flex-end"><button class="bnx" onclick="goNext()" style="flex:none;padding:13px 24px">Get started '+svgArrowR(16)+'</button></div>':'';
+    return '<div class="eyebrow">Welcome</div><div class="ttl">2026 Parish Youth Harvest</div><div class="dsc">Help us plan an impactful fundraising harvest. This 3&ndash;5 min survey covers how you&rsquo;d like to participate toward our goal.</div><div class="gbl"><div><div class="gbl-val">GH&#x20B5;70,000</div><div class="gbl-lbl">Fundraising goal &middot; Nov 30, 2026</div></div><div class="gbl-ico">&#127919;</div></div><div class="il"><div style="font-size:12px;color:var(--muted);margin-bottom:9px;font-weight:500">What to expect</div>'+['Your parish profile','Giving &amp; pledge preferences','Activities &amp; engagement','Optional contact details'].map(function(t,i){return'<div class="ii"><div class="in">'+(i+1)+'</div><span class="it">'+t+'</span></div>';}).join('')+'</div>'+sn;
+  }
+
+  /* Step 1 */
+  if(step===1){
+    var roles=[['Weekly parishioner','ti-home-church','Weekly parishioner','Regular Sunday attendee'],['Monthly parishioner','ti-calendar','Monthly parishioner','Monthly attendee'],['Occasional attendee','ti-clock','Occasional attendee','Sometimes present'],['Youth (15&ndash;35)','ti-users','Youth (15&ndash;35)','Parish youth member'],['Local business/vendor','ti-building-store','Business / vendor','Local entrepreneur'],['Other','ti-dots-circle-horizontal','Other','Something else']];
+    var cards=roles.map(function(r){var v=r[0],ico=EMOJI[r[1]]||'',name=r[2],sub=r[3];var on=D.role===v?' on':'';return'<div class="oc'+on+'" onclick="setRole(\''+v+'\')"><div class="oc-ico">'+ico+'</div><div class="oc-tick"></div><div class="oc-name">'+name+'</div><div class="oc-sub">'+sub+'</div></div>';}).join('');
+    var oi=D.role==='Other'?'<input class="inp'+(errs.roleOther?' err':'')+'" style="margin-top:10px" placeholder="Please specify..." value="'+escVal(D.roleOther)+'" oninput="D.roleOther=this.value;errs.roleOther=\'\'">'+em('roleOther'):'';
+    return'<div class="eyebrow">Step 1 of 9</div><div class="ttl">Who are you?</div><div class="dsc">Help us understand your connection to the parish.</div><div class="fg"><label class="flbl">Which best describes you? <span class="req">*</span></label><div class="ocg">'+cards+'</div>'+em('role')+oi+'</div>'+nav;
+  }
+
+  /* Step 2 */
+  if(step===2){
+    var methods=[['Cash at church','ti-banknote'],['Mobile money','ti-device-mobile'],['Online donation','ti-world'],['Bank transfer','ti-building-bank'],['Instalment pledge','ti-calendar-repeat'],['Other','ti-dots']];
+    var rows=methods.map(function(m){var v=m[0],ico=EMOJI[m[1]]||'';var on=D.method===v?' on':'';return'<div class="ri'+on+'" onclick="setMethod(\''+v+'\')"><div class="ri-dot"></div><span class="ri-ico">'+ico+'</span><span class="ri-txt">'+v+'</span></div>';}).join('');
+    var oi2=D.method==='Other'?'<input class="inp'+(errs.methodOther?' err':'')+'" style="margin-top:10px" placeholder="Please specify..." value="'+escVal(D.methodOther)+'" oninput="D.methodOther=this.value">'+em('methodOther'):'';
+    return'<div class="eyebrow">Step 2 of 9</div><div class="ttl">How would you give?</div><div class="dsc">Choose the giving method most convenient for you.</div><div class="fg"><label class="flbl">Preferred method of giving <span class="req">*</span></label><div class="rl">'+rows+'</div>'+em('method')+oi2+'</div>'+nav;
+  }
+
+  /* Step 3 */
+  if(step===3){
+    var freqs=['Monthly','Quarterly','One-time','No'];
+    var togs=freqs.map(function(f){return'<div class="tog'+(D.pledgeFreq===f?' on':'')+'" onclick="setPFreq(\''+f+'\')">'+f+'</div>';}).join('');
+    var amts=['< GH&#x20B5;100','GH&#x20B5;100 &ndash; GH&#x20B5;500','GH&#x20B5;500 &ndash; GH&#x20B5;2,000','GH&#x20B5;2,000 &ndash; GH&#x20B5;5,000','> GH&#x20B5;5,000'];
+    var amtH=D.pledgeFreq&&D.pledgeFreq!=='No'?'<div class="fg"><label class="flbl">Pledge amount range <span class="req">*</span></label><div class="ag">'+amts.map(function(a){return'<div class="amt'+(D.pledgeAmt===a?' on':'')+'" onclick="setPAmt(\''+a+'\')">'+a+'</div>';}).join('')+'</div>'+em('pledgeAmt')+'</div>':'';
+    return'<div class="eyebrow">Step 3 of 9</div><div class="ttl">Pledge details</div><div class="dsc">Would you like to make a financial pledge toward the harvest goal?</div><div class="fg"><label class="flbl">Willing to pledge? <span class="req">*</span></label><div class="trow">'+togs+'</div>'+em('pledgeFreq')+'</div>'+amtH+nav;
+  }
+
+  /* Step 4 */
+  if(step===4){
+    var cnt=D.activities.length;
+    var acts=['Concert / Dinner','Market day','Sponsorship','Online giving','Door-to-door','Volunteer'];
+    var chips=acts.map(function(v){var sel=D.activities.indexOf(v)>-1;var dis=!sel&&cnt>=3;var on=sel?' on':'';var style=dis?' style="opacity:.4;cursor:not-allowed"':'';var click=dis?'':'onclick="toggleAct(\''+v+'\')"';var ico=sel?svgCheck(10)+' ':'';return'<div class="chip'+on+'"'+style+' '+click+'>'+ico+v+'</div>';}).join('');
+    return'<div class="eyebrow">Step 4 of 9</div><div class="ttl">Activities</div><div class="dsc">Which harvest activities would you join or support? <span class="lim">Max 3</span></div><div class="fg"><label class="flbl">Select activities <span class="req">*</span></label><div class="cr">'+chips+'</div><div style="font-size:11px;color:#9ca3af;margin-top:7px">'+cnt+'/3 selected</div>'+em('activities')+'</div>'+nav;
+  }
+
+  /* Step 5 */
+  if(step===5){
+    var opts=['Yes','Maybe','No'];
+    var togs2=opts.map(function(v){return'<div class="tog'+(D.livestream===v?' on':'')+'" onclick="setLive(\''+v+'\')">'+v+'</div>';}).join('');
+    return'<div class="eyebrow">Step 5 of 9</div><div class="ttl">Livestream giving</div><div class="dsc">We&rsquo;re exploring a live donation stream during harvest events. Would you participate?</div><div class="fg"><label class="flbl">Interest in livestream donation <span class="req">*</span></label><div class="trow">'+togs2+'</div>'+em('livestream')+'</div>'+nav;
+  }
+
+  /* Step 6 */
+  if(step===6){
+    var times=['Weekday evenings','Saturday','Sunday','Other'];
+    var tchips=times.map(function(v){var sel=D.times.indexOf(v)>-1;var ico=sel?svgCheck(10)+' ':'';return'<div class="chip'+(sel?' on':'')+'" onclick="toggleTime(\''+v+'\')">'+ico+v+'</div>';}).join('');
+    var ot=D.times.indexOf('Other')>-1?'<input class="inp" style="margin-top:10px" placeholder="Specify preferred time..." value="'+escVal(D.timesOther)+'" oninput="D.timesOther=this.value">':'';
+    return'<div class="eyebrow">Step 6 of 9</div><div class="ttl">Preferred times</div><div class="dsc">When are you most available for harvest activities?</div><div class="fg"><label class="flbl">Select all that apply</label><div class="cr">'+tchips+'</div>'+ot+'</div>'+nav;
+  }
+
+  /* Step 7 */
+  if(step===7){
+    var prefs=['WhatsApp','SMS','Email','No thanks'];
+    var pchips=prefs.map(function(v){var sel=D.updates.indexOf(v)>-1;var ico=sel?svgCheck(10)+' ':'';return'<div class="chip'+(sel?' on':'')+'" onclick="toggleUpd(\''+v+'\')">'+ico+v+'</div>';}).join('');
+    return'<div class="eyebrow">Step 7 of 9</div><div class="ttl">Suggestions &amp; updates</div><div class="dsc">Share ideas and tell us how to keep you informed.</div><div class="fg"><label class="flbl">Your suggestions or ideas</label><textarea class="inp" placeholder="Share any ideas for the 2026 harvest..." oninput="setField(\'suggestions\',this.value)">'+escHTML(D.suggestions)+'</textarea></div><div class="fg"><label class="flbl">How should we send updates?</label><div class="cr">'+pchips+'</div></div>'+nav;
+
+}
+
+/* Step 8 */
+if(step===8){
+return’<div class="eyebrow">Step 8 of 9</div><div class="ttl">Contact details</div><div class="dsc">All optional — only for personalised follow-up from the harvest team.</div><div class="fg"><label class="flbl">Your name</label><input class="inp" placeholder="Full name..." value="'+escVal(D.name)+'" oninput="setField(\'name\',this.value)"></div><div class="fg"><label class="flbl">Phone <span style="color:#9ca3af;font-weight:400">(Ghana format)</span></label><input class="inp'+(errs.phone?' err':'')+'" type="tel" placeholder="e.g. 0241234567" value="'+escVal(D.phone)+'" oninput="setField(\'phone\',this.value)">’+em(‘phone’)+’</div><div class="fg"><label class="flbl">Email address</label><input class="inp'+(errs.email?' err':'')+'" type="email" placeholder="your@email.com" value="'+escVal(D.email)+'" oninput="setField(\'email\',this.value)">’+em(‘email’)+’</div>’+nav;
+}
+
+/* Step 9 */
+if(step===9){
+function rr(k,v){if(!v||(Array.isArray(v)&&v.length===0))return’’;var val=Array.isArray(v)?v.join(’, ‘):v;return’<div class="rrow"><span class="rk">’+k+’</span><span class="rv">’+escHTML(val)+’</span></div>’;}
+var td=D.times.filter(function(t){return t!==‘Other’;});
+if(D.times.indexOf(‘Other’)>-1&&D.timesOther)td.push(D.timesOther);
+return’<div class="eyebrow">Step 9 of 9</div><div class="ttl">Review & submit</div><div class="dsc">Everything look right? Submit when you’re ready.</div><div class="rcard"><div class="rhead">Profile & giving</div>’+rr(‘Who you are’,D.role===‘Other’?D.roleOther:D.role)+rr(‘Giving method’,D.method===‘Other’?D.methodOther:D.method)+rr(‘Pledge frequency’,D.pledgeFreq)+(D.pledgeFreq!==‘No’?rr(‘Pledge amount’,D.pledgeAmt):’’)+’ </div><div class="rcard"><div class="rhead">Engagement</div>’+rr(‘Activities’,D.activities)+rr(‘Livestream interest’,D.livestream)+rr(‘Preferred times’,td)+’</div><div class="rcard"><div class="rhead">Contact & updates</div>’+rr(‘Update preference’,D.updates)+rr(‘Name’,D.name)+rr(‘Phone’,D.phone)+rr(‘Email’,D.email)+(D.suggestions?’<div class="rrow"><span class="rk">Suggestions</span><span class="rv">’+escHTML(D.suggestions)+’</span></div>’:’’)+’</div><p style="font-size:11px;color:#9ca3af;margin-bottom:12px;line-height:1.6">By submitting, you agree this data is used solely to plan the 2026 Good Shepherd Youth Harvest.</p>’+nav;
+}
+return ‘’;
+}
+
+/* ════════════════════════
+ESCAPE HELPERS
+════════════════════════ */
+function escHTML(s){return String(s||’’).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’).replace(/”/g,’"’);}
+function escVal(s){return String(s||’’).replace(/”/g,’"’);}
+
+/* ════════════════════════
+SIDEBAR / PILLS / SEGS
+════════════════════════ */
+function buildSidebar(){return SNAMES.map(function(l,i){var c=i<step?‘done’:i===step?‘now’:’’;return’<div class="sbst '+c+'"><div class="sbstd"></div><span class="sbstl">’+l+’</span></div>’;}).join(’’);}
+function buildPills(){var from=Math.max(0,step-1);return SHORT.slice(from,from+4).map(function(l,i){var abs=from+i;var c=abs<step?‘pdone’:abs===step?‘pnow’:‘pidle’;var n=abs<step?svgCheck(8):String(abs+1);return’<div class="pill '+c+'"><div class="pn">’+n+’</div>’+l+’</div>’;}).join(’’);}
+function buildSegs(){var h=’’;for(var i=0;i<9;i++){var c=i<step?‘done’:i===step?‘now’:’’;h+=’<div class="mseg '+c+'"></div>’;}return h;}
+
+/* ════════════════════════
+RENDER
+════════════════════════ */
+function render(){
+var pct=step>=10?100:Math.round(step/9*100);
+
+/* Mobile */
+var mFill=document.getElementById(‘mFill’);
+var mSlbl=document.getElementById(‘mSlbl’);
+var mScount=document.getElementById(‘mScount’);
+var mPct=document.getElementById(‘mPct’);
+var mSegs=document.getElementById(‘mSegs’);
+var mBody=document.getElementById(‘mBody’);
+var mFoot=document.getElementById(‘mFoot’);
+
+if(mFill)mFill.style.width=pct+’%’;
+if(mSlbl)mSlbl.textContent=step<10?SNAMES[step]:‘Complete!’;
+if(mScount)mScount.textContent=step===0?‘Intro’:step<10?‘Step ‘+step+’ of 9’:‘Done’;
+if(mPct)mPct.textContent=pct+’%’;
+if(mSegs)mSegs.innerHTML=buildSegs();
+if(mBody){mBody.innerHTML=buildStep(false);mBody.classList.remove(‘anim’);void mBody.offsetWidth;mBody.classList.add(‘anim’);}
+if(mFoot){mFoot.innerHTML=mobFootHTML();mFoot.style.display=step===10?‘none’:‘flex’;}
+
+/* Desktop */
+var dFill=document.getElementById(‘dFill’);
+var dPills=document.getElementById(‘dPills’);
+var dSbSteps=document.getElementById(‘dSbSteps’);
+var dBody=document.getElementById(‘dBody’);
+
+if(dFill)dFill.style.width=pct+’%’;
+if(dPills)dPills.innerHTML=step<10?buildPills():’’;
+if(dSbSteps)dSbSteps.innerHTML=buildSidebar();
+if(dBody){dBody.innerHTML=buildStep(true);dBody.classList.remove(‘anim’);void dBody.offsetWidth;dBody.classList.add(‘anim’);}
+}
+
+/* ════════════════════════
+LOGO
+Set LOGO to your base64 or URL string.
+Example:
+var LOGO = “data:image/jpeg;base64,/9j/…”;
+var LOGO = “./logo.jpg”;
+════════════════════════ */
+var LOGO = ‘’;
+function injectLogo(id, logoSrc){
+var box=document.getElementById(id);
+if(!box||!logoSrc)return;
+var img=document.createElement(‘img’);
+img.src=logoSrc;
+img.alt=‘Good Shepherd Parish’;
+img.onerror=function(){/* keep existing SVG fallback */};
+box.innerHTML=’’;
+box.appendChild(img);
+}
+if(LOGO){
+injectLogo(‘mLogo’,LOGO);
+injectLogo(‘dLogo’,LOGO);
+injectLogo(‘dSbLogo’,LOGO);
+}
+
+/* ════════════════════════
+BOOT — wait for DOM
+════════════════════════ */
+if(document.readyState===‘loading’){
+document.addEventListener(‘DOMContentLoaded’,render);
+}else{
+render();
+}
+
+})();
+</script>
+
+</body>
+</html>
