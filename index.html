@@ -1,127 +1,628 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project 70K</title>
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<style>
-body{
-font-family:Arial,sans-serif;
-background:#f4f4f4;
-padding:20px;
-}
-.container{
-max-width:500px;
-margin:auto;
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 4px 12px rgba(0,0,0,0.1);
-}
-input,select,button{
-width:100%;
-padding:14px;
-margin-top:12px;
-border-radius:10px;
-border:1px solid #ddd;
-box-sizing:border-box;
-}
-button{
-background:black;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
-h1,p{
-text-align:center;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project 70K | Good Shepherd Parish</title>
+
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family: Arial, sans-serif;
+      background:#f5f6f8;
+      color:#101828;
+      line-height:1.5;
+    }
+
+    .hero{
+      background:
+      linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)),
+      url('https://images.unsplash.com/photo-1519491050282-cf00c82424b4?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      padding:50px 20px 90px;
+      text-align:center;
+      position:relative;
+    }
+
+    .hero::after{
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:100%;
+      height:8px;
+      background:#0a2463;
+    }
+
+    .logo{
+      width:130px;
+      height:130px;
+      object-fit:contain;
+      margin-bottom:18px;
+      border-radius:50%;
+      background:white;
+    }
+
+    .hero h1{
+      font-size:50px;
+      color:#0a2463;
+      margin-bottom:8px;
+      font-weight:800;
+    }
+
+    .hero p{
+      color:#475467;
+      max-width:700px;
+      margin:auto;
+      font-size:18px;
+    }
+
+    .hero .highlight{
+      color:#c59d2a;
+      font-weight:700;
+    }
+
+    .main{
+      max-width:1200px;
+      margin:-50px auto 60px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+      padding:0 20px;
+    }
+
+    .card{
+      background:white;
+      border-radius:22px;
+      padding:35px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .left-card{
+      background:#ffffff;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:10px 18px;
+      background:#eef2ff;
+      border-radius:999px;
+      color:#0a2463;
+      font-weight:700;
+      margin-bottom:22px;
+      font-size:14px;
+    }
+
+    .left-card h2{
+      font-size:42px;
+      line-height:1.1;
+      margin-bottom:20px;
+      color:#0a2463;
+    }
+
+    .left-card p{
+      color:#667085;
+      font-size:17px;
+      margin-bottom:30px;
+    }
+
+    .stats{
+      background:#0a2463;
+      border-radius:20px;
+      padding:25px;
+      color:white;
+      margin-bottom:25px;
+    }
+
+    .stats-row{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:18px;
+    }
+
+    .stats small{
+      display:block;
+      opacity:0.8;
+      margin-bottom:4px;
+    }
+
+    .stats h3{
+      font-size:28px;
+    }
+
+    .progress{
+      width:100%;
+      height:12px;
+      background:#d0d5dd;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .progress-fill{
+      width:35%;
+      height:100%;
+      background:#d4a72c;
+    }
+
+    .quote{
+      margin-top:30px;
+      font-size:17px;
+      color:#475467;
+      font-style:italic;
+      line-height:1.7;
+    }
+
+    .quote strong{
+      display:block;
+      margin-top:12px;
+      color:#c59d2a;
+      font-style:normal;
+    }
+
+    .form-title{
+      font-size:38px;
+      color:#0a2463;
+      margin-bottom:10px;
+      font-weight:800;
+    }
+
+    .form-subtitle{
+      color:#667085;
+      margin-bottom:28px;
+    }
+
+    .amount-buttons{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+      margin-bottom:25px;
+    }
+
+    .amount-btn{
+      padding:14px;
+      border:1px solid #d0d5dd;
+      border-radius:12px;
+      background:white;
+      cursor:pointer;
+      font-weight:700;
+      transition:0.2s;
+    }
+
+    .amount-btn.active{
+      background:#0a2463;
+      color:white;
+      border:none;
+    }
+
+    input,
+    select,
+    textarea{
+      width:100%;
+      padding:16px;
+      border:1px solid #d0d5dd;
+      border-radius:14px;
+      margin-bottom:16px;
+      font-size:15px;
+      outline:none;
+    }
+
+    textarea{
+      resize:none;
+      height:100px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .donate-btn{
+      width:100%;
+      padding:18px;
+      border:none;
+      border-radius:16px;
+      background:#0a2463;
+      color:white;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.2s;
+      margin-top:10px;
+    }
+
+    .donate-btn:hover{
+      opacity:0.95;
+      transform:translateY(-1px);
+    }
+
+    .payment-icons{
+      margin-top:20px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      color:#667085;
+      font-size:14px;
+    }
+
+    .footer{
+      background:#0a2463;
+      color:white;
+      text-align:center;
+      padding:40px 20px;
+    }
+
+    .footer h3{
+      margin-bottom:10px;
+      font-size:24px;
+    }
+
+    .footer p{
+      opacity:0.8;
+    }
+
+    @media(max-width:950px){
+
+      .main{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:38px;
+      }
+
+      .left-card h2,
+      .form-title{
+        font-size:32px;
+      }
+
+      .amount-buttons{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .grid-2{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+  </style>
 </head>
+
 <body>
 
-<div class="container">
-<h1>Project 70K</h1>
-<p>Digital Harvest Giving Platform</p>
+  <section class="hero">
 
-<input type="text" id="name" placeholder="Full Name">
-<input type="email" id="email" placeholder="Email Address">
-<input type="tel" id="phone" placeholder="Phone Number">
+    <img
+      class="logo"
+      src="YOUR_BASE64_LOGO_HERE"
+      alt="Good Shepherd Parish Logo"
+    >
 
-<select id="category">
-<option value="Harvest 2026">Harvest 2026</option>
-<option value="Youth Fund">Youth Fund</option>
-<option value="Building Fund">Building Fund</option>
-<option value="Thanksgiving">Thanksgiving</option>
-</select>
+    <h1>GOOD SHEPHERD PARISH</h1>
 
-<input type="number" id="amount" placeholder="Donation Amount">
+    <p>
+      Faith • Stewardship • Community
+    </p>
 
-<button onclick="payWithPaystack()">Donate Now</button>
-</div>
+    <br>
 
-<script>
-async function saveDonation(data){
-await fetch("YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL",{
-method:"POST",
-body:JSON.stringify(data)
-});
-}
+    <p>
+      <span class="highlight">Project 70K:</span>
+      The Digital Resilience & Volume Harvest
+    </p>
 
-function payWithPaystack(){
-let handler = PaystackPop.setup({
-key:'YOUR_PAYSTACK_PUBLIC_KEY',
-email:document.getElementById('email').value,
-amount:document.getElementById('amount').value * 100,
-currency:'GHS',
-ref:'P70K-' + Math.floor((Math.random()*1000000000)+1),
+  </section>
 
-metadata:{
-custom_fields:[
-{
-display_name:"Full Name",
-variable_name:"full_name",
-value:document.getElementById('name').value
-},
-{
-display_name:"Phone Number",
-variable_name:"phone_number",
-value:document.getElementById('phone').value
-},
-{
-display_name:"Category",
-variable_name:"category",
-value:document.getElementById('category').value
-}
-]
-},
+  <section class="main">
 
-callback:function(response){
+    <div class="card left-card">
 
-const donationData = {
-name:document.getElementById('name').value,
-email:document.getElementById('email').value,
-phone:document.getElementById('phone').value,
-category:document.getElementById('category').value,
-amount:document.getElementById('amount').value,
-reference:response.reference,
-timestamp:new Date().toISOString()
-};
+      <div class="badge">
+        HARVEST 2026
+      </div>
 
-saveDonation(donationData);
+      <h2>
+        Support Our Parish,
+        Sow into the Future
+      </h2>
 
-alert('Payment successful. Ref: ' + response.reference);
-},
+      <p>
+        Your generous contribution helps sustain ministries,
+        welfare support, evangelization, youth development,
+        and the mission of the Church.
+      </p>
 
-onClose:function(){
-alert('Transaction cancelled');
-}
-});
+      <div class="stats">
 
-handler.openIframe();
-}
-</script>
+        <div class="stats-row">
+
+          <div>
+            <small>Total Raised</small>
+            <h3>GH₵ 24,785</h3>
+          </div>
+
+          <div>
+            <small>Target</small>
+            <h3>GH₵ 70,000</h3>
+          </div>
+
+        </div>
+
+        <div class="progress">
+          <div class="progress-fill"></div>
+        </div>
+
+      </div>
+
+      <div class="quote">
+        “Each one must give as he has decided in his heart,
+        not reluctantly or under compulsion,
+        for God loves a cheerful giver.”
+
+        <strong>
+          — 2 Corinthians 9:7
+        </strong>
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <h2 class="form-title">
+        Make a Donation
+      </h2>
+
+      <p class="form-subtitle">
+        Every contribution strengthens the future of our parish.
+      </p>
+
+      <div class="amount-buttons">
+
+        <button class="amount-btn" onclick="selectAmount(10)">
+          GH₵10
+        </button>
+
+        <button class="amount-btn active" onclick="selectAmount(20)">
+          GH₵20
+        </button>
+
+        <button class="amount-btn" onclick="selectAmount(50)">
+          GH₵50
+        </button>
+
+        <button class="amount-btn" onclick="selectAmount(100)">
+          GH₵100
+        </button>
+
+        <button class="amount-btn" onclick="focusCustomAmount()">
+          Other
+        </button>
+
+      </div>
+
+      <input type="hidden" id="selectedAmount" value="20">
+
+      <div class="grid-2">
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Full Name"
+        >
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Email Address"
+        >
+
+      </div>
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="Phone Number"
+      >
+
+      <div class="grid-2">
+
+        <select id="category">
+
+          <option value="Harvest 2026">
+            Harvest 2026
+          </option>
+
+          <option value="Youth Fund">
+            Youth Fund
+          </option>
+
+          <option value="Building Fund">
+            Building Fund
+          </option>
+
+          <option value="Thanksgiving">
+            Thanksgiving
+          </option>
+
+        </select>
+
+        <input
+          type="number"
+          id="amount"
+          placeholder="Custom Amount"
+        >
+
+      </div>
+
+      <textarea
+        id="message"
+        placeholder="Prayer message or note (optional)"
+      ></textarea>
+
+      <button
+        class="donate-btn"
+        onclick="payWithPaystack()"
+      >
+        Donate Securely
+      </button>
+
+      <div class="payment-icons">
+        MTN MoMo • Visa • Mastercard • Paystack Secured
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer class="footer">
+
+    <h3>
+      Thank You For Your Generosity
+    </h3>
+
+    <p>
+      GOOD SHEPHERD PARISH • Tema Community Two (2)
+    </p>
+
+  </footer>
+
+  <script>
+
+    function selectAmount(amount){
+
+      document.getElementById('selectedAmount').value = amount;
+      document.getElementById('amount').value = amount;
+
+      document.querySelectorAll('.amount-btn').forEach(btn=>{
+        btn.classList.remove('active');
+      });
+
+      event.target.classList.add('active');
+
+    }
+
+    function focusCustomAmount(){
+
+      document.getElementById('amount').focus();
+
+      document.querySelectorAll('.amount-btn').forEach(btn=>{
+        btn.classList.remove('active');
+      });
+
+      event.target.classList.add('active');
+
+    }
+
+    async function saveDonation(data){
+
+      await fetch("YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL",{
+        method:"POST",
+        body:JSON.stringify(data)
+      });
+
+    }
+
+    function payWithPaystack(){
+
+      const amount =
+      document.getElementById('amount').value ||
+      document.getElementById('selectedAmount').value;
+
+      let handler = PaystackPop.setup({
+
+        key:'YOUR_PAYSTACK_PUBLIC_KEY',
+
+        email:document.getElementById('email').value,
+
+        amount:amount * 100,
+
+        currency:'GHS',
+
+        ref:'P70K-' + Math.floor((Math.random()*1000000000)+1),
+
+        metadata:{
+
+          custom_fields:[
+
+            {
+              display_name:"Full Name",
+              variable_name:"full_name",
+              value:document.getElementById('name').value
+            },
+
+            {
+              display_name:"Phone Number",
+              variable_name:"phone_number",
+              value:document.getElementById('phone').value
+            },
+
+            {
+              display_name:"Category",
+              variable_name:"category",
+              value:document.getElementById('category').value
+            }
+
+          ]
+
+        },
+
+        callback:function(response){
+
+          const donationData = {
+
+            name:document.getElementById('name').value,
+
+            email:document.getElementById('email').value,
+
+            phone:document.getElementById('phone').value,
+
+            category:document.getElementById('category').value,
+
+            amount:amount,
+
+            reference:response.reference,
+
+            message:document.getElementById('message').value,
+
+            timestamp:new Date().toISOString()
+
+          };
+
+          saveDonation(donationData);
+
+          alert(
+            'Thank you for your donation. Reference: ' +
+            response.reference
+          );
+
+        },
+
+        onClose:function(){
+
+          alert('Transaction cancelled.');
+
+        }
+
+      });
+
+      handler.openIframe();
+
+    }
+
+  </script>
 
 </body>
 </html>
