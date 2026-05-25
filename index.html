@@ -537,12 +537,41 @@
           value="20"
         >
 
-        <textarea
-          class="full"
-          placeholder="Prayer message or note (optional)"
-        ></textarea>
+        <!-- PRAYER INTENTION SECTION -->
+<div class="full prayer-section">
 
-      </div>
+  <!-- Intention Type -->
+  <select id="prayerType" onchange="updatePrayerPlaceholder()">
+    <option value="">Select Prayer Intention</option>
+
+    <option value="Birthday">Birthday</option>
+    <option value="Anniversary">Anniversary</option>
+    <option value="Thanksgiving">Thanksgiving</option>
+    <option value="Success">Success</option>
+    <option value="Repose of Soul">Repose of Soul</option>
+    <option value="Special Intentions">Special Intentions</option>
+    <option value="Protection & Guidance">God’s Blessing, Protection & Guidance</option>
+    <option value="Other">Other Intention</option>
+  </select>
+
+  <!-- Name / Person -->
+  <input
+    type="text"
+    id="prayerPerson"
+    placeholder="Prayer for..."
+    class="full"
+  >
+
+  <!-- Prayer Note -->
+  <textarea
+    id="prayerMessage"
+    class="full"
+    placeholder="Write your prayer intention..."
+  ></textarea>
+
+</div>
+
+    
 
       <button class="donate-btn" onclick="payWithPaystack()">
         Donate Securely
@@ -705,6 +734,61 @@
     }
 
   </script>
+<script>
 
+function updatePrayerPlaceholder() {
+
+  const prayerType = document.getElementById("prayerType").value;
+  const prayerPerson = document.getElementById("prayerPerson");
+  const prayerMessage = document.getElementById("prayerMessage");
+
+  if (prayerType === "Birthday") {
+    prayerPerson.placeholder = "Birthday celebrant name";
+    prayerMessage.placeholder = "Birthday thanksgiving prayer...";
+  }
+
+  else if (prayerType === "Anniversary") {
+    prayerPerson.placeholder = "Anniversary celebrant";
+    prayerMessage.placeholder = "Anniversary thanksgiving prayer...";
+  }
+
+  else if (prayerType === "Thanksgiving") {
+    prayerPerson.placeholder = "Thanksgiving for...";
+    prayerMessage.placeholder = "Short thanksgiving prayer...";
+  }
+
+  else if (prayerType === "Success") {
+    prayerPerson.placeholder = "Success for...";
+    prayerMessage.placeholder = "Prayer for success...";
+  }
+
+  else if (prayerType === "Repose of Soul") {
+    prayerPerson.placeholder = "Name of deceased";
+    prayerMessage.placeholder = "Prayer for the repose of soul...";
+  }
+
+  else if (prayerType === "Special Intentions") {
+    prayerPerson.placeholder = "Special intention for...";
+    prayerMessage.placeholder = "Write special intention...";
+  }
+
+  else if (prayerType === "Protection & Guidance") {
+    prayerPerson.placeholder = "Protection for...";
+    prayerMessage.placeholder = "Prayer for protection and guidance...";
+  }
+
+  else if (prayerType === "Other") {
+    prayerPerson.placeholder = "Prayer intention";
+    prayerMessage.placeholder = "Write your intention...";
+  }
+
+  else {
+    prayerPerson.placeholder = "Prayer for...";
+    prayerMessage.placeholder = "Write your prayer intention...";
+  }
+
+}
+
+</script>
 </body>
 </html>
