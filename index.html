@@ -605,6 +605,9 @@
       position:relative;
       z-index:2;
       transition:all .3s ease;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
     }
 
     .prayer-section:hover{
@@ -807,6 +810,10 @@
       .phone-input-group{
         grid-template-columns:100px 1fr;
       }
+
+      .prayer-section{
+        grid-template-columns:1fr;
+      }
     }
 
     @media(max-width:480px){
@@ -876,6 +883,10 @@
         gap:8px;
       }
 
+      .prayer-section{
+        grid-template-columns:1fr;
+      }
+
       footer{
         padding:40px 16px;
       }
@@ -895,7 +906,7 @@
       <div class="logo-wrapper">
         <img
           class="logo"
-           src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4UulRXhpZgAATU0AKgAAAAgABQEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAAITAAMAAAABAAEAAIdpAAQAAAABAAAAWgAAALQAAABIAAAAAQAAAEgA[...]
+           src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4UulRXhpZgAATU0AKgAAAAgABQEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAAITAAMAAAABAAEAAIdpAAQAAAABAAAAWgAAALQAAABIAAAAAQAAAEgA[...]"
             alt="Good Shepherd Parish Logo"
         >
       </div>
@@ -999,102 +1010,104 @@
           </div>
           Enter Custom Amount
         </div>
+
         <div class="custom-amount-input-group">
           <input
             type="number"
             id="custom-amount"
-            placeholder="Enter your custom amount"
-            value="1000"
+            placeholder="Enter amount"
             min="1"
-            step="1"
-            onchange="applyCustomAmount()"
-            required
           >
         </div>
       </div>
 
-      <!-- DONOR INFORMATION -->
+      <!-- DONOR INFORMATION SECTION -->
       <div class="section-title">
-        <span class="section-title-icon"><i class="fas fa-user" style="font-size:10px;"></i></span>Your Information
+        <span class="section-title-icon"><i class="fas fa-user" style="font-size:10px;"></i></span>Donor Information
       </div>
 
       <div class="form-grid">
         <input
           type="text"
-          id="name"
-          placeholder="Full Name"
-          required
+          placeholder="First Name"
+          id="firstName"
+        >
+        <input
+          type="text"
+          placeholder="Last Name"
+          id="lastName"
         >
 
         <input
           type="email"
-          id="email"
           placeholder="Email Address"
-          required
+          id="email"
         >
 
-        <div class="full phone-input-group">
-          <select id="country-code" required onchange="updateCountryCode()">
-            <option value="+233" data-country="Ghana">🇬🇭 +233</option>
-            <option value="+234" data-country="Nigeria">🇳🇬 +234</option>
-            <option value="+254" data-country="Kenya">🇰🇪 +254</option>
-            <option value="+1" data-country="USA">🇺🇸 +1</option>
-            <option value="+44" data-country="UK">🇬🇧 +44</option>
-            <option value="+1" data-country="Canada">🇨🇦 +1</option>
-            <option value="+61" data-country="Australia">🇦🇺 +61</option>
-            <option value="+27" data-country="South Africa">🇿🇦 +27</option>
-            <option value="+1" data-country="Other">🌍 Other</option>
+        <div class="phone-input-group">
+          <select id="country-code">
+            <option value="+233">+233 (GH)</option>
+            <option value="+1">+1 (US)</option>
+            <option value="+44">+44 (UK)</option>
+            <option value="+234">+234 (NG)</option>
           </select>
           <input
             type="tel"
             id="phone-number"
             placeholder="Phone Number"
-            required
           >
         </div>
 
         <textarea
-          class="full"
           id="message"
-          placeholder="Leave a message of prayer or encouragement (Optional)"
+          placeholder="Additional message (optional)..."
+          class="full"
         ></textarea>
       </div>
 
-      <!-- PRAYER REQUEST SECTION - OPTIONAL -->
-      <div class="prayer-section">
-        <div class="prayer-section-title">
-          <div class="prayer-icon">
-            <i class="fas fa-hands-praying" style="font-size:10px;"></i>
-          </div>
-          Prayer Request (Optional)
-        </div>
+      <!-- PRAYER INTENTION SECTION -->
+      <div class="full prayer-section">
 
-        <select id="prayer-request">
-          <option value="">-- Select if applicable --</option>
-          <option value="healing">Prayer for Healing</option>
-          <option value="guidance">Prayer for Guidance</option>
-          <option value="provision">Prayer for Provision</option>
-          <option value="strength">Prayer for Strength</option>
-          <option value="other">Other</option>
+        <!-- Intention Type -->
+        <select id="prayerType" onchange="updatePrayerPlaceholder()">
+          <option value="">Select Prayer Intention</option>
+
+          <option value="Birthday">Birthday</option>
+          <option value="Anniversary">Anniversary</option>
+          <option value="Thanksgiving">Thanksgiving</option>
+          <option value="Success">Success</option>
+          <option value="Repose of Soul">Repose of Soul</option>
+          <option value="Special Intentions">Special Intentions</option>
+          <option value="Protection & Guidance">God's Blessing, Protection & Guidance</option>
+          <option value="Other">Other Intention</option>
         </select>
 
+        <!-- Name / Person -->
+        <input
+          type="text"
+          id="prayerPerson"
+          placeholder="Prayer for..."
+          class="full"
+        >
+
+        <!-- Prayer Note -->
         <textarea
-          id="prayer-details"
-          placeholder="Share your prayer request or message..."
-          style="margin-top:12px;"
+          id="prayerMessage"
+          class="full"
+          placeholder="Write your prayer intention..."
         ></textarea>
+
       </div>
 
       <!-- DONATE BUTTON -->
-      <button class="donate-btn" onclick="initiateDonation()">
-        <i class="fas fa-heart"></i>
-        Proceed to Secure Donation
+      <button class="donate-btn" onclick="processDonation()">
+        <i class="fas fa-heart"></i> Make Donation
       </button>
 
       <div class="secure">
-        <i class="fas fa-shield-alt"></i>
-        <span>100% Secure & Encrypted</span>
+        <i class="fas fa-shield-alt"></i> Secured by Paystack
       </div>
+
     </div>
 
   </section>
@@ -1104,114 +1117,58 @@
     <h3>Good Shepherd Parish</h3>
     <div class="footer-divider"></div>
     <p>Project 70K: Digital Resilience & Volume Harvest</p>
-    <p>Building Faith • Strengthening Community • Securing Our Future</p>
-    <p style="margin-top:20px; font-size:12px;">© 2026 Good Shepherd Parish. All rights reserved.</p>
+    <p>Faith • Stewardship • Community</p>
   </footer>
 
   <script>
-    let selectedAmount = 1000;
-
-    // Country code data
-    const countryCodes = {
-      '+233': 'Ghana',
-      '+234': 'Nigeria',
-      '+254': 'Kenya',
-      '+1': 'USA/Canada',
-      '+44': 'UK',
-      '+61': 'Australia',
-      '+27': 'South Africa'
-    };
-
-    function updateCountryCode() {
-      const countryCode = document.getElementById('country-code').value;
-      const phoneInput = document.getElementById('phone-number');
-      
-      // Show country code in placeholder
-      const option = document.querySelector(`#country-code option[value="${countryCode}"]`);
-      const countryName = option ? option.getAttribute('data-country') : 'Phone';
-      phoneInput.placeholder = `Phone Number (${countryName})`;
-    }
-
     function setAmount(amount) {
-      selectedAmount = amount;
       document.getElementById('custom-amount').value = amount;
-      
-      // Update button states
-      document.querySelectorAll('.amount-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
+      document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
       event.target.closest('.amount-btn').classList.add('active');
     }
 
-    function applyCustomAmount() {
-      const customAmount = document.getElementById('custom-amount').value;
-      if (customAmount && customAmount > 0) {
-        selectedAmount = customAmount;
-        // Remove active state from preset buttons
-        document.querySelectorAll('.amount-btn').forEach(btn => {
-          btn.classList.remove('active');
-        });
+    function updatePrayerPlaceholder() {
+      const prayerType = document.getElementById('prayerType').value;
+      const prayerPerson = document.getElementById('prayerPerson');
+      
+      if (prayerType === 'Birthday') {
+        prayerPerson.placeholder = 'Prayer for... (Birthday celebrant)';
+      } else if (prayerType === 'Anniversary') {
+        prayerPerson.placeholder = 'Prayer for... (Couple)';
+      } else if (prayerType === 'Repose of Soul') {
+        prayerPerson.placeholder = 'Prayer for... (Deceased)';
+      } else {
+        prayerPerson.placeholder = 'Prayer for...';
       }
     }
 
-    function initiateDonation() {
-      // Validate form fields
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const countryCode = document.getElementById('country-code').value;
-      const phoneNumber = document.getElementById('phone-number').value.trim();
+    function processDonation() {
+      const firstName = document.getElementById('firstName').value;
+      const email = document.getElementById('email').value;
+      const amount = document.getElementById('custom-amount').value;
 
-      if (!name) {
-        alert('Please enter your full name');
+      if (!firstName || !email || !amount) {
+        alert('Please fill in all required fields (Name, Email, Amount)');
         return;
       }
-
-      if (!email) {
-        alert('Please enter your email address');
-        return;
-      }
-
-      if (!phoneNumber) {
-        alert('Please enter your phone number');
-        return;
-      }
-
-      const amount = parseInt(selectedAmount);
-      if (!amount || amount < 1) {
-        alert('Please enter a valid donation amount');
-        return;
-      }
-
-      // Format phone number with country code
-      const fullPhoneNumber = countryCode + phoneNumber;
 
       // Paystack integration
       const handler = PaystackPop.setup({
-        key: 'YOUR_PAYSTACK_PUBLIC_KEY', // Replace with your Paystack public key
+        key: 'pk_live_YOUR_PAYSTACK_KEY_HERE', // Replace with your actual Paystack key
         email: email,
-        amount: amount * 100, // Paystack expects amount in pesewas/kobo
-        ref: 'PRJCT_70K_' + Math.floor((Math.random() * 1000000000) + 1),
-        metadata: {
-          donor_name: name,
-          donor_phone: fullPhoneNumber,
-          prayer_request: document.getElementById('prayer-request').value
-        },
+        amount: amount * 100,
+        ref: '' + Math.floor((Math.random() * 1000000000) + 1),
         onClose: function() {
-          alert('Payment window closed.');
+          alert('Window closed.');
         },
         onSuccess: function(response) {
-          alert('Payment completed successfully! Reference: ' + response.reference);
-          // Here you can send data to your server
+          alert('Payment successful! Reference: ' + response.reference);
         }
       });
       handler.openIframe();
     }
-
-    // Initialize country code placeholder on page load
-    window.addEventListener('load', function() {
-      updateCountryCode();
-    });
   </script>
+
 </body>
 
 </html>
