@@ -563,6 +563,38 @@
       grid-column:1/-1;
     }
 
+    /* ============ PHONE INPUT WITH COUNTRY CODE ============ */
+    .phone-input-group{
+      display:grid;
+      grid-template-columns:120px 1fr;
+      gap:12px;
+      position:relative;
+    }
+
+    #country-code{
+      border:2px solid #e5e5e5;
+      border-radius:12px;
+      padding:14px 12px;
+      font-size:14px;
+      font-family:'Inter',sans-serif;
+      outline:none;
+      transition:all .3s ease;
+      background:white;
+      color:#1a1a1a;
+      font-weight:500;
+      cursor:pointer;
+    }
+
+    #country-code:focus{
+      border-color:#c4953d;
+      background:#ffffff;
+      box-shadow:0 0 0 4px rgba(196,149,61,.12);
+    }
+
+    #phone-number{
+      width:100%;
+    }
+
     /* ============ PRAYER SECTION - ELEGANT ============ */
     .prayer-section{
       background:linear-gradient(135deg, rgba(196,149,61,.05) 0%, rgba(212,184,107,.02) 100%);
@@ -771,6 +803,10 @@
       .custom-amount-section{
         padding:20px;
       }
+
+      .phone-input-group{
+        grid-template-columns:100px 1fr;
+      }
     }
 
     @media(max-width:480px){
@@ -835,6 +871,11 @@
         padding:6px 14px;
       }
 
+      .phone-input-group{
+        grid-template-columns:80px 1fr;
+        gap:8px;
+      }
+
       footer{
         padding:40px 16px;
       }
@@ -854,7 +895,7 @@
       <div class="logo-wrapper">
         <img
           class="logo"
-           src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4UulRXhpZgAATU0AKgAAAAgABQEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAAITAAMAAAABAAEAAIdpAAQAAAABAAAAWgAAALQAAABIAAAAAQAAAEgAAAABA[...]
+           src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4UulRXhpZgAATU0AKgAAAAgABQEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAAITAAMAAAABAAEAAIdpAAQAAAABAAAAWgAAALQAAABIAAAAAQAAAEgA[...]
             alt="Good Shepherd Parish Logo"
         >
       </div>
@@ -992,30 +1033,25 @@
           required
         >
 
-        <input
-          class="full"
-          type="tel"
-          id="phone"
-          placeholder="Phone Number"
-          required
-        >
-
-        <select
-          class="full"
-          id="country"
-          required
-        >
-          <option value="" disabled selected>Select Country</option>
-          <option value="Ghana">Ghana</option>
-          <option value="Nigeria">Nigeria</option>
-          <option value="Kenya">Kenya</option>
-          <option value="United States">United States</option>
-          <option value="United Kingdom">United Kingdom</option>
-          <option value="Canada">Canada</option>
-          <option value="Australia">Australia</option>
-          <option value="South Africa">South Africa</option>
-          <option value="Other">Other</option>
-        </select>
+        <div class="full phone-input-group">
+          <select id="country-code" required onchange="updateCountryCode()">
+            <option value="+233" data-country="Ghana">🇬🇭 +233</option>
+            <option value="+234" data-country="Nigeria">🇳🇬 +234</option>
+            <option value="+254" data-country="Kenya">🇰🇪 +254</option>
+            <option value="+1" data-country="USA">🇺🇸 +1</option>
+            <option value="+44" data-country="UK">🇬🇧 +44</option>
+            <option value="+1" data-country="Canada">🇨🇦 +1</option>
+            <option value="+61" data-country="Australia">🇦🇺 +61</option>
+            <option value="+27" data-country="South Africa">🇿🇦 +27</option>
+            <option value="+1" data-country="Other">🌍 Other</option>
+          </select>
+          <input
+            type="tel"
+            id="phone-number"
+            placeholder="Phone Number"
+            required
+          >
+        </div>
 
         <textarea
           class="full"
@@ -1033,7 +1069,7 @@
           Prayer Request (Optional)
         </div>
 
-        <select id="prayer-request" class="full">
+        <select id="prayer-request">
           <option value="">-- Select if applicable --</option>
           <option value="healing">Prayer for Healing</option>
           <option value="guidance">Prayer for Guidance</option>
@@ -1041,6 +1077,12 @@
           <option value="strength">Prayer for Strength</option>
           <option value="other">Other</option>
         </select>
+
+        <textarea
+          id="prayer-details"
+          placeholder="Share your prayer request or message..."
+          style="margin-top:12px;"
+        ></textarea>
       </div>
 
       <!-- DONATE BUTTON -->
@@ -1069,6 +1111,27 @@
   <script>
     let selectedAmount = 1000;
 
+    // Country code data
+    const countryCodes = {
+      '+233': 'Ghana',
+      '+234': 'Nigeria',
+      '+254': 'Kenya',
+      '+1': 'USA/Canada',
+      '+44': 'UK',
+      '+61': 'Australia',
+      '+27': 'South Africa'
+    };
+
+    function updateCountryCode() {
+      const countryCode = document.getElementById('country-code').value;
+      const phoneInput = document.getElementById('phone-number');
+      
+      // Show country code in placeholder
+      const option = document.querySelector(`#country-code option[value="${countryCode}"]`);
+      const countryName = option ? option.getAttribute('data-country') : 'Phone';
+      phoneInput.placeholder = `Phone Number (${countryName})`;
+    }
+
     function setAmount(amount) {
       selectedAmount = amount;
       document.getElementById('custom-amount').value = amount;
@@ -1095,8 +1158,8 @@
       // Validate form fields
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const country = document.getElementById('country').value;
+      const countryCode = document.getElementById('country-code').value;
+      const phoneNumber = document.getElementById('phone-number').value.trim();
 
       if (!name) {
         alert('Please enter your full name');
@@ -1108,13 +1171,8 @@
         return;
       }
 
-      if (!phone) {
+      if (!phoneNumber) {
         alert('Please enter your phone number');
-        return;
-      }
-
-      if (!country) {
-        alert('Please select your country');
         return;
       }
 
@@ -1124,12 +1182,20 @@
         return;
       }
 
+      // Format phone number with country code
+      const fullPhoneNumber = countryCode + phoneNumber;
+
       // Paystack integration
       const handler = PaystackPop.setup({
         key: 'YOUR_PAYSTACK_PUBLIC_KEY', // Replace with your Paystack public key
         email: email,
         amount: amount * 100, // Paystack expects amount in pesewas/kobo
         ref: 'PRJCT_70K_' + Math.floor((Math.random() * 1000000000) + 1),
+        metadata: {
+          donor_name: name,
+          donor_phone: fullPhoneNumber,
+          prayer_request: document.getElementById('prayer-request').value
+        },
         onClose: function() {
           alert('Payment window closed.');
         },
@@ -1140,6 +1206,11 @@
       });
       handler.openIframe();
     }
+
+    // Initialize country code placeholder on page load
+    window.addEventListener('load', function() {
+      updateCountryCode();
+    });
   </script>
 </body>
 
