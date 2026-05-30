@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Progress — Project 70K</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/live-progress.css">
+
+</head>
+
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="assets/img/logo.svg" alt="Good Shepherd Parish" class="logo-mini">
+        <span>Good Shepherd</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="donate.html" class="nav-link">Donate</a></li>
+        <li><a href="live-progress.html" class="nav-link active">Live Progress</a></li>
+        <li><a href="why-fee.html" class="nav-link">Why 2%?</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ PAGE HERO ============ -->
+  <section class="page-hero">
+    <div class="hero-content">
+      <h1>Live Campaign Progress</h1>
+      <p>Real-time updates from Project 70K — Watch the mission unfold</p>
+      <div class="live-indicator">
+        <span class="live-dot"></span>
+        Live
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MAIN DASHBOARD ============ -->
+  <section class="dashboard">
+    <div class="container">
+
+      <!-- TOP METRICS -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon" style="background: linear-gradient(135deg, #c4953d 0%, #d4b86b 100%);">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Total Raised</div>
+            <div class="metric-value" data-count="20785">GH₵ 0</div>
+            <div class="metric-progress">29.7% of goal</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon" style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);">
+            <i class="fas fa-people-group"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Total Donors</div>
+            <div class="metric-value" data-count="156">0</div>
+            <div class="metric-progress">Growing daily</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon" style="background: linear-gradient(135deg, #4ecdc4 0%, #44b8ae 100%);">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Remaining</div>
+            <div class="metric-value" data-count="49215">GH₵ 0</div>
+            <div class="metric-progress">To reach goal</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon" style="background: linear-gradient(135deg, #95e1d3 0%, #7dd3b0 100%);">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Time Left</div>
+            <div class="metric-value">178 days</div>
+            <div class="metric-progress">Ends Dec 31, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN PROGRESS SECTION -->
+      <div class="progress-large">
+        <div class="progress-header">
+          <h2>Campaign Goal: GH₵ 70,000</h2>
+          <p>Project 70K: Digital Resilience & Volume Harvest</p>
+        </div>
+
+        <div class="progress-bar-large">
+          <div class="progress-fill-large" style="width: 29.7%;">
+            <span class="progress-percent-large">29.7%</span>
+          </div>
+        </div>
+
+        <div class="progress-breakdown">
+          <div class="breakdown-item">
+            <span>GH₵ 20,785 raised</span>
+            <span>GH₵ 49,215 remaining</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOCIETY BREAKDOWN -->
+      <div class="section-card">
+        <h3 class="section-heading">Contributions by Society</h3>
+
+        <div class="society-breakdown-grid">
+          <div class="society-breakdown-card">
+            <div class="society-header-info">
+              <h4>Men's Guild</h4>
+              <i class="fas fa-cross"></i>
+            </div>
+            <div class="society-breakdown-content">
+              <div class="society-amount-large">GH₵ 8,500</div>
+              <div class="society-bar-large">
+                <div class="society-fill-large" style="width: 40%;"></div>
+              </div>
+              <div class="society-breakdown-stats">
+                <span>128 members</span>
+                <span>•</span>
+                <span>42 contributors (32.8%)</span>
+              </div>
+              <div class="society-avg">Avg donation: GH₵ 202</div>
+            </div>
+          </div>
+
+          <div class="society-breakdown-card">
+            <div class="society-header-info">
+              <h4>Women's Guild</h4>
+              <i class="fas fa-dove"></i>
+            </div>
+            <div class="society-breakdown-content">
+              <div class="society-amount-large">GH₵ 6,200</div>
+              <div class="society-bar-large">
+                <div class="society-fill-large" style="width: 29%;"></div>
+              </div>
+              <div class="society-breakdown-stats">
+                <span>156 members</span>
+                <span>•</span>
+                <span>51 contributors (32.7%)</span>
+              </div>
+              <div class="society-avg">Avg donation: GH₵ 122</div>
+            </div>
+          </div>
+
+          <div class="society-breakdown-card">
+            <div class="society-header-info">
+              <h4>Youth Ministry</h4>
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="society-breakdown-content">
+              <div class="society-amount-large">GH₵ 3,850</div>
+              <div class="society-bar-large">
+                <div class="society-fill-large" style="width: 18%;"></div>
+              </div>
+              <div class="society-breakdown-stats">
+                <span>87 members</span>
+                <span>•</span>
+                <span>28 contributors (32.2%)</span>
+              </div>
+              <div class="society-avg">Avg donation: GH₵ 138</div>
+            </div>
+          </div>
+
+          <div class="society-breakdown-card">
+            <div class="society-header-info">
+              <h4>Altar Guild</h4>
+              <i class="fas fa-candle"></i>
+            </div>
+            <div class="society-breakdown-content">
+              <div class="society-amount-large">GH₵ 2,235</div>
+              <div class="society-bar-large">
+                <div class="society-fill-large" style="width: 11%;"></div>
+              </div>
+              <div class="society-breakdown-stats">
+                <span>34 members</span>
+                <span>•</span>
+                <span>18 contributors (52.9%)</span>
+              </div>
+              <div class="society-avg">Avg donation: GH₵ 124</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOP CONTRIBUTORS -->
+      <div class="section-card">
+        <h3 class="section-heading">Recent Donations</h3>
+        <p class="section-subtitle">Thank you to our generous supporters</p>
+
+        <div class="donations-list">
+          <div class="donation-item">
+            <div class="donor-avatar">A</div>
+            <div class="donor-info">
+              <div class="donor-name">Akosua N.</div>
+              <div class="donor-meta">Men's Guild • 2 hours ago</div>
+            </div>
+            <div class="donation-amount">GH₵ 500</div>
+          </div>
+
+          <div class="donation-item">
+            <div class="donor-avatar">K</div>
+            <div class="donor-info">
+              <div class="donor-name">Kwame A.</div>
+              <div class="donor-meta">Women's Guild • 4 hours ago</div>
+            </div>
+            <div class="donation-amount">GH₵ 200</div>
+          </div>
+
+          <div class="donation-item">
+            <div class="donor-avatar">P</div>
+            <div class="donor-info">
+              <div class="donor-name">Patricia M.</div>
+              <div class="donor-meta">Youth Ministry • 6 hours ago</div>
+            </div>
+            <div class="donation-amount">GH₵ 100</div>
+          </div>
+
+          <div class="donation-item">
+            <div class="donor-avatar">E</div>
+            <div class="donor-info">
+              <div class="donor-name">Emmanuel K.</div>
+              <div class="donor-meta">Altar Guild • 8 hours ago</div>
+            </div>
+            <div class="donation-amount">GH₵ 250</div>
+          </div>
+
+          <div class="donation-item">
+            <div class="donor-avatar">Y</div>
+            <div class="donor-info">
+              <div class="donor-name">Yvonne O.</div>
+              <div class="donor-meta">Men's Guild • 10 hours ago</div>
+            </div>
+            <div class="donation-amount">GH₵ 150</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPACT SUMMARY -->
+      <div class="impact-summary">
+        <div class="impact-item-stat">
+          <div class="impact-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h4>156 Donors</h4>
+          <p>From 4 parish societies</p>
+        </div>
+
+        <div class="impact-item-stat">
+          <div class="impact-icon">
+            <i class="fas fa-trending-up"></i>
+          </div>
+          <h4>29.7% Complete</h4>
+          <p>On track for December</p>
+        </div>
+
+        <div class="impact-item-stat">
+          <div class="impact-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h4>100% Dedicated</h4>
+          <p>To our mission & vision</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ CTA SECTION ============ -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Join the Movement</h2>
+        <p>Help us reach the 70K goal and strengthen Good Shepherd Parish for generations to come.</p>
+        <a href="donate.html" class="btn btn-primary btn-large">
+          <i class="fas fa-heart"></i> Donate Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>Good Shepherd Parish</h4>
+          <p>Serving our community with faith, hope, and love since 1952.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="live-progress.html">Live Progress</a></li>
+            <li><a href="why-fee.html">Why 2%?</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><i class="fas fa-map-marker-alt"></i> Accra, Ghana</p>
+          <p><i class="fas fa-phone"></i> +233 (0) 123 456 789</p>
+          <p><i class="fas fa-envelope"></i> hello@goodshepherd.org</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Good Shepherd Parish. All rights reserved.</p>
+        <div class="footer-divider"></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/live-progress.js"></script>
+</body>
+
+</html>

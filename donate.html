@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donate to Project 70K — Good Shepherd Parish</title>
+
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/donate.css">
+
+</head>
+
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="assets/img/logo.svg" alt="Good Shepherd Parish" class="logo-mini">
+        <span>Good Shepherd</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="donate.html" class="nav-link active">Donate</a></li>
+        <li><a href="live-progress.html" class="nav-link">Live Progress</a></li>
+        <li><a href="why-fee.html" class="nav-link">Why 2%?</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ PAGE HERO ============ -->
+  <section class="page-hero">
+    <div class="hero-content">
+      <h1>Make Your Donation</h1>
+      <p>Every contribution directly supports our mission of faith, stewardship, and community growth.</p>
+    </div>
+  </section>
+
+  <!-- ============ DONATION FORM ============ -->
+  <section class="donate-section">
+    <div class="container">
+      <div class="donate-grid">
+
+        <!-- LEFT: FORM -->
+        <div class="donate-form-wrapper">
+          <form id="donationForm" class="donation-form">
+
+            <!-- QUICK AMOUNT SELECTION -->
+            <div class="form-section">
+              <div class="section-title">
+                <span class="section-title-icon"><i class="fas fa-zap"></i></span>
+                Quick Amount Selection
+              </div>
+
+              <div class="amount-grid">
+                <button type="button" class="amount-btn" data-amount="50">
+                  <i class="fas fa-heart"></i> GH₵ 50
+                </button>
+                <button type="button" class="amount-btn" data-amount="100">
+                  <i class="fas fa-heart"></i> GH₵ 100
+                </button>
+                <button type="button" class="amount-btn" data-amount="200">
+                  <i class="fas fa-heart"></i> GH₵ 200
+                </button>
+                <button type="button" class="amount-btn" data-amount="500">
+                  <i class="fas fa-heart"></i> GH₵ 500
+                </button>
+                <button type="button" class="amount-btn" data-amount="1000">
+                  <i class="fas fa-heart"></i> GH₵ 1,000
+                </button>
+                <button type="button" class="amount-btn" id="customToggle">
+                  <i class="fas fa-edit"></i> Custom
+                </button>
+              </div>
+            </div>
+
+            <!-- CUSTOM AMOUNT -->
+            <div class="form-section" id="customSection" style="display: none;">
+              <div class="custom-amount-section">
+                <div class="custom-amount-label">
+                  <span class="custom-amount-label-icon"><i class="fas fa-coins"></i></span>
+                  Custom Amount
+                </div>
+                <div class="custom-amount-input-group">
+                  <input type="number" id="custom-amount" placeholder="Enter amount" min="1">
+                </div>
+              </div>
+            </div>
+
+            <!-- DONOR INFORMATION -->
+            <div class="form-section">
+              <div class="section-title">
+                <span class="section-title-icon"><i class="fas fa-user"></i></span>
+                Donor Information
+              </div>
+
+              <div class="form-grid">
+                <input type="text" id="donor-name" placeholder="Full Name" required>
+                <input type="email" id="donor-email" placeholder="Email Address" required>
+              </div>
+
+              <div class="form-grid">
+                <div class="phone-input-group">
+                  <select id="country-code">
+                    <option value="+233">🇬🇭 +233</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+234">🇳🇬 +234</option>
+                  </select>
+                  <input type="tel" id="phone-number" placeholder="Phone Number" required>
+                </div>
+                <select id="society" required>
+                  <option value="">Select Your Society</option>
+                  <option value="mens-guild">Men's Guild</option>
+                  <option value="womens-guild">Women's Guild</option>
+                  <option value="youth-ministry">Youth Ministry</option>
+                  <option value="altar-guild">Altar Guild</option>
+                  <option value="other">Other / General Member</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- DONATION OPTIONS -->
+            <div class="form-section">
+              <div class="section-title">
+                <span class="section-title-icon"><i class="fas fa-cog"></i></span>
+                Donation Options
+              </div>
+
+              <div class="option-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="recurring-donation" name="recurring">
+                  <span class="checkbox-custom"></span>
+                  <span class="label-text">Make this a monthly recurring donation</span>
+                </label>
+              </div>
+
+              <div class="option-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="cover-fee" name="coverFee" checked>
+                  <span class="checkbox-custom"></span>
+                  <span class="label-text">
+                    I'll cover the <span id="feeDisplay">1.95% + GH₵ 0.00</span> transaction fee
+                  </span>
+                </label>
+                <p class="option-help">This helps 100% of your donation reach our mission.</p>
+              </div>
+            </div>
+
+            <!-- PRAYER / DEDICATION -->
+            <div class="form-section">
+              <div class="section-title">
+                <span class="section-title-icon"><i class="fas fa-hands-praying"></i></span>
+                Prayer / Dedication (Optional)
+              </div>
+
+              <textarea id="prayer-message" placeholder="Share a prayer intention, dedication, or message of encouragement..."></textarea>
+              <p class="help-text"><i class="fas fa-info-circle"></i> Your message will be included in our prayer cycle.</p>
+            </div>
+
+            <!-- SUMMARY -->
+            <div class="donation-summary">
+              <div class="summary-item">
+                <span>Donation Amount</span>
+                <span id="summaryAmount">GH₵ 0.00</span>
+              </div>
+              <div class="summary-item" id="summaryFeeItem" style="display: none;">
+                <span>Transaction Fee</span>
+                <span id="summaryFee">GH₵ 0.00</span>
+              </div>
+              <div class="summary-divider"></div>
+              <div class="summary-item summary-total">
+                <span>Total Amount</span>
+                <span id="summaryTotal">GH₵ 0.00</span>
+              </div>
+            </div>
+
+            <!-- DONATE BUTTON -->
+            <button type="submit" class="donate-btn">
+              <i class="fas fa-check-circle"></i> Proceed to Payment
+            </button>
+
+            <div class="secure">
+              <i class="fas fa-lock"></i> Secured by Paystack
+            </div>
+
+          </form>
+        </div>
+
+        <!-- RIGHT: IMPACT CARD -->
+        <div class="donate-impact">
+          <div class="impact-card">
+            <h3>Your Impact</h3>
+            <p class="impact-subtitle">See how your generosity transforms lives</p>
+
+            <div class="impact-items">
+              <div class="impact-item">
+                <div class="impact-amount">GH₵ 50</div>
+                <p>Provides digital literacy training for 5 parishioners</p>
+              </div>
+
+              <div class="impact-item">
+                <div class="impact-amount">GH₵ 100</div>
+                <p>Supports one month of youth mentorship programs</p>
+              </div>
+
+              <div class="impact-item">
+                <div class="impact-amount">GH₵ 200</div>
+                <p>Funds community outreach and evangelism materials</p>
+              </div>
+
+              <div class="impact-item">
+                <div class="impact-amount">GH₵ 500</div>
+                <p>Supports infrastructure upgrades for our digital platform</p>
+              </div>
+
+              <div class="impact-item">
+                <div class="impact-amount">GH₵ 1,000+</div>
+                <p>Becomes a founding partner in Project 70K</p>
+              </div>
+            </div>
+
+            <div class="impact-divider"></div>
+
+            <div class="impact-trust">
+              <h4>Why Donate?</h4>
+              <ul>
+                <li><i class="fas fa-check"></i> 100% tax-deductible</li>
+                <li><i class="fas fa-check"></i> Transparent allocation of funds</li>
+                <li><i class="fas fa-check"></i> Monthly impact reports</li>
+                <li><i class="fas fa-check"></i> Secure Paystack payments</li>
+                <li><i class="fas fa-check"></i> Privacy guaranteed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ SECTION ============ -->
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-heading">Frequently Asked Questions</h2>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>Is my donation secure?</h4>
+          <p>Yes. We use Paystack, Ghana's leading payment gateway, with bank-level encryption and fraud protection.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Can I donate anonymously?</h4>
+          <p>While we require contact information for payment, your donation can be marked as private in our records.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>What payment methods are accepted?</h4>
+          <p>We accept all major credit/debit cards, mobile money (MTN, Vodafone, Airtel), and bank transfers via Paystack.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Will I receive a receipt?</h4>
+          <p>Yes. An email receipt will be sent immediately after your successful donation for your records.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Can I cancel a recurring donation?</h4>
+          <p>Absolutely. You can manage or cancel recurring donations anytime from your email confirmation link.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Is the transaction fee mandatory?</h4>
+          <p>No. You can choose not to cover the fee, but we encourage it so 100% reaches our mission.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>Good Shepherd Parish</h4>
+          <p>Serving our community with faith, hope, and love since 1952.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="donate.html">Donate</a></li>
+            <li><a href="live-progress.html">Live Progress</a></li>
+            <li><a href="why-fee.html">Why 2%?</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><i class="fas fa-map-marker-alt"></i> Accra, Ghana</p>
+          <p><i class="fas fa-phone"></i> +233 (0) 123 456 789</p>
+          <p><i class="fas fa-envelope"></i> hello@goodshepherd.org</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Good Shepherd Parish. All rights reserved.</p>
+        <div class="footer-divider"></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/donate.js"></script>
+</body>
+
+</html>
