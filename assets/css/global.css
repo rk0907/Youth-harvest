@@ -1,0 +1,367 @@
+/* ============ GLOBAL DESIGN SYSTEM ============ */
+:root {
+  --primary: #c4953d;
+  --primary-light: #d4b86b;
+  --secondary: #000000;
+  --accent-red: #ff6b6b;
+  --accent-teal: #4ecdc4;
+  --accent-green: #95e1d3;
+  --text-dark: #1a1a1a;
+  --text-light: #606060;
+  --text-muted: #808080;
+  --bg-light: #ffffff;
+  --bg-secondary: #f8f8f8;
+  --border-light: #e5e5e5;
+  --border-muted: #f0f0f0;
+  --shadow-sm: 0 4px 16px rgba(0,0,0,.04);
+  --shadow-md: 0 8px 24px rgba(0,0,0,.08);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.12);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============ CONTAINER ============ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ============ NAVIGATION ============ */
+.navbar {
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border-muted);
+  padding: 16px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.95);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.logo-mini {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+  border-radius: 2px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--text-dark);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(196,149,61,.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(196,149,61,.3);
+}
+
+.btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-dark);
+  border: 2px solid var(--border-light);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  background: rgba(196,149,61,.05);
+}
+
+.btn-large {
+  padding: 16px 40px;
+  font-size: 16px;
+}
+
+/* ============ TYPOGRAPHY ============ */
+.section-heading {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: var(--text-light);
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+h1, h2, h3 {
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+p {
+  line-height: 1.7;
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  background: #0a0a0a;
+  color: white;
+  padding: 60px 20px 40px;
+  margin-top: 100px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-col h4 {
+  color: white;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.footer-col p {
+  font-size: 14px;
+  opacity: 0.7;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 8px;
+}
+
+.footer-col a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.footer-divider {
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  margin: 0 auto 16px;
+}
+
+/* ============ INPUTS & FORMS ============ */
+input,
+select,
+textarea {
+  width: 100%;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+  background: white;
+  color: var(--text-dark);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #a0a0a0;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  background: rgba(196,149,61,.02);
+  box-shadow: 0 0 0 4px rgba(196,149,61,.12);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+  font-weight: 400;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .section-heading {
+    font-size: 28px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  .section-heading {
+    font-size: 24px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .nav-logo span {
+    display: none;
+  }
+}
