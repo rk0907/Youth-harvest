@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Harvest 2026 — Good Shepherd Parish</title>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — LIGHT
+═══════════════════════════════════════════════════ */
+:root,
+[data-theme="light"] {
+  --bg:           #FFFFFF;
+  --bg2:          #F8F8F6;
+  --bg3:          #F2F0EB;
+  --surface:      #FFFFFF;
+  --surface2:     #F8F8F6;
+  --border:       #E4E4E0;
+  --border2:      #CECEC8;
+  --ink:          #0A0A0A;
+  --ink2:         #333333;
+  --ink3:         #666666;
+  --ink4:         #999999;
+  --ink5:         #BBBBBB;
+  --hero-bg:      #0A0A0A;
+  --hero-ink:     #FFFFFF;
+  --hero-ink2:    rgba(255,255,255,.55);
+  --hero-ink3:    rgba(255,255,255,.25);
+  --hero-border:  rgba(255,255,255,.08);
+  --gold:         #B8892A;
+  --gold2:        #D4A843;
+  --gold-bg:      #FBF5E6;
+  --gold-border:  rgba(184,137,42,.2);
+  --toggle-bg:    #E4E4E0;
+  --toggle-knob:  #FFFFFF;
+  --toggle-icon:  #666666;
+  --pill-bg:      #F2F0EB;
+  --shadow-sm:    0 2px 8px rgba(0,0,0,.06);
+  --shadow-md:    0 8px 32px rgba(0,0,0,.09);
+  --shadow-lg:    0 24px 64px rgba(0,0,0,.12);
+  --cta-bg:       #0A0A0A;
+  --cta-ink:      #FFFFFF;
+  --input-bg:     #F8F8F6;
+  --input-focus:  #FFFFFF;
+}
+
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — DARK
+═══════════════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg:           #0C0C0C;
+  --bg2:          #141414;
+  --bg3:          #1C1C1C;
+  --surface:      #181818;
+  --surface2:     #222222;
+  --border:       #2A2A2A;
+  --border2:      #383838;
+  --ink:          #F0EDE8;
+  --ink2:         #C8C4BC;
+  --ink3:         #888480;
+  --ink4:         #5A5652;
+  --ink5:         #3A3632;
+  --hero-bg:      #0C0C0C;
+  --hero-ink:     #F0EDE8;
+  --hero-ink2:    rgba(240,237,232,.5);
+  --hero-ink3:    rgba(240,237,232,.2);
+  --hero-border:  rgba(240,237,232,.06);
+  --gold:         #C9A84C;
+  --gold2:        #E8C97A;
+  --gold-bg:      rgba(201,168,76,.1);
+  --gold-border:  rgba(201,168,76,.2);
+  --toggle-bg:    #2A2A2A;
+  --toggle-knob:  #F0EDE8;
+  --toggle-icon:  #C9A84C;
+  --pill-bg:      #1C1C1C;
+  --shadow-sm:    0 2px 8px rgba(0,0,0,.3);
+  --shadow-md:    0 8px 32px rgba(0,0,0,.4);
+  --shadow-lg:    0 24px 64px rgba(0,0,0,.5);
+  --cta-bg:       #F0EDE8;
+  --cta-ink:      #0C0C0C;
+  --input-bg:     #1C1C1C;
+  --input-focus:  #222222;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESET + BASE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+
+/* ═══════════════════════════════════════════════════
+   THEME TOGGLE — floating pill
+═══════════════════════════════════════════════════ */
+.theme-toggle {
+  position: fixed;
+  top: 20px; right: 20px;
+  z-index: 1000;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 14px 8px 10px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: background .4s, border-color .4s, box-shadow .2s, transform .15s;
+  user-select: none;
+}
+.theme-toggle:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+.theme-toggle:active { transform: translateY(0); }
+
+.toggle-track {
+  width: 36px; height: 20px;
+  border-radius: 100px;
+  background: var(--toggle-bg);
+  position: relative;
+  transition: background .4s;
+  flex-shrink: 0;
+}
+[data-theme="dark"] .toggle-track { background: var(--gold); }
+
+.toggle-knob {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--toggle-knob);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .4s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  display: flex; align-items: center; justify-content: center;
+}
+[data-theme="dark"] .toggle-knob { transform: translateX(16px); }
+
+.toggle-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--ink3);
+  transition: color .4s;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+.hero {
+  background: var(--hero-bg);
+  position: relative; overflow: hidden;
+  transition: background .4s;
+}
+
+/* Subtle grain */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1; opacity: .7;
+}
+
+/* Ambient glow — only in dark mode */
+.hero-glow {
+  position: absolute; pointer-events: none; z-index: 0;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,168,76,.12), transparent 65%);
+  opacity: 0;
+  transition: opacity .6s;
+}
+[data-theme="dark"] .hero-glow { opacity: 1; }
+
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 960px; margin: 0 auto;
+  padding: 80px 48px 72px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end; gap: 40px;
+}
+
+/* Eyebrow */
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 26px;
+  opacity: 0; animation: fadeUp .7s .1s both;
+}
+.tag-dash { width: 22px; height: 1.5px; background: var(--gold2); display: block; }
+
+/* Headline */
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(68px, 9.5vw, 116px);
+  line-height: .93;
+  letter-spacing: 1px;
+  color: var(--hero-ink);
+  margin-bottom: 4px;
+  opacity: 0; animation: fadeUp .8s .2s both;
+  transition: color .4s;
+}
+.hero-title .out {
+  -webkit-text-stroke: 1.5px var(--hero-ink);
+  color: transparent;
+  transition: -webkit-text-stroke-color .4s;
+}
+.hero-title .gw { color: var(--gold2); }
+
+.hero-sub {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-style: italic;
+  color: var(--hero-ink2);
+  margin-top: 18px; line-height: 1.5;
+  opacity: 0; animation: fadeUp .8s .35s both;
+  transition: color .4s;
+}
+
+/* Right: logo */
+.hero-right {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px; flex-shrink: 0;
+  opacity: 0; animation: fadeUp .8s .45s both;
+}
+.logo-shell { position: relative; width: 96px; height: 96px; }
+.logo-ring {
+  position: absolute; inset: -10px; border-radius: 50%;
+  border: 1px dashed rgba(201,168,76,.3);
+  animation: spinRing 20s linear infinite;
+}
+@keyframes spinRing { to { transform: rotate(360deg); } }
+.logo-img {
+  width: 96px; height: 96px; border-radius: 50%;
+  object-fit: cover; display: block;
+  border: 2px solid rgba(255,255,255,.1);
+  box-shadow: 0 0 0 1px rgba(201,168,76,.15), 0 16px 40px rgba(0,0,0,.4);
+}
+.hero-location {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--hero-ink3);
+  text-align: center;
+  transition: color .4s;
+}
+
+/* Bottom strip */
+.hero-strip {
+  position: relative; z-index: 2;
+  border-top: 1px solid var(--hero-border);
+  max-width: 960px; margin: 0 auto;
+  padding: 16px 48px;
+  display: flex; gap: 36px; flex-wrap: wrap;
+  transition: border-color .4s;
+}
+.strip-item {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .5px;
+  color: var(--hero-ink3);
+  display: flex; align-items: center; gap: 7px;
+  transition: color .4s;
+}
+.sdot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold2); opacity: .6; }
+
+/* ═══════════════════════════════════════════════════
+   PAGE BODY
+═══════════════════════════════════════════════════ */
+.page-body {
+  max-width: 580px; margin: 0 auto;
+  padding: 60px 24px 90px;
+}
+
+.intro { margin-bottom: 36px; }
+.intro-eye {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--ink4); margin-bottom: 6px;
+  opacity: 0; animation: fadeUp .7s .5s both;
+}
+.intro-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px; letter-spacing: .5px;
+  color: var(--ink); line-height: 1;
+  margin-bottom: 10px;
+  opacity: 0; animation: fadeUp .7s .6s both;
+  transition: color .4s;
+}
+.intro-body {
+  font-size: 14px; font-weight: 400;
+  color: var(--ink3); line-height: 1.75;
+  opacity: 0; animation: fadeUp .7s .7s both;
+  transition: color .4s;
+}
+
+/* ═══════════════════════════════════════════════════
+   CARD
+═══════════════════════════════════════════════════ */
+.card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  opacity: 0; transform: translateY(28px);
+  transition: background .4s, border-color .4s, box-shadow .4s,
+              opacity .7s cubic-bezier(.25,.46,.45,.94),
+              transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.card.in { opacity: 1; transform: translateY(0); }
+.card-pad { padding: 36px 36px 32px; }
+
+/* ═══════════════════════════════════════════════════
+   FIELD LABELS
+═══════════════════════════════════════════════════ */
+.flbl {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 12px; margin-top: 26px;
+  transition: color .4s;
+}
+.flbl:first-child { margin-top: 0; }
+
+/* ═══════════════════════════════════════════════════
+   AMOUNT GRID
+═══════════════════════════════════════════════════ */
+.amt-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+
+.amt-btn {
+  position: relative; overflow: hidden;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 6px 12px;
+  background: var(--surface2);
+  cursor: pointer; text-align: center;
+  transition: border-color .25s, background .25s, box-shadow .25s;
+}
+.amt-btn::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 0;
+  background: var(--cta-bg);
+  transition: height .28s cubic-bezier(.25,.46,.45,.94);
+  z-index: 0;
+}
+.amt-btn:hover { border-color: var(--border2); }
+.amt-btn.sel { border-color: var(--ink); }
+.amt-btn.sel::after { height: 100%; }
+
+.amt-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 21px; letter-spacing: .5px;
+  color: var(--ink); display: block; line-height: 1;
+  margin-bottom: 2px;
+  position: relative; z-index: 1;
+  transition: color .25s;
+}
+.amt-cur {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink4); display: block;
+  position: relative; z-index: 1;
+  transition: color .25s;
+}
+.amt-btn.sel .amt-num,
+.amt-btn.sel .amt-cur { color: var(--cta-ink); }
+
+/* ═══════════════════════════════════════════════════
+   INPUTS
+═══════════════════════════════════════════════════ */
+.inp-wrap { position: relative; }
+.inp-prefix {
+  position: absolute; left: 14px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px; font-weight: 700;
+  color: var(--gold); pointer-events: none;
+}
+
+input, select, textarea {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 13px 14px;
+  font-size: 14px; font-weight: 500;
+  font-family: 'Manrope', sans-serif;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s, background .2s, box-shadow .2s, color .4s;
+  -webkit-appearance: none;
+}
+input::placeholder, textarea::placeholder { color: var(--ink5); font-weight: 400; }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--ink2);
+  background: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+}
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus {
+  box-shadow: 0 0 0 3px rgba(201,168,76,.1);
+  border-color: var(--gold);
+}
+
+#custom-in {
+  padding-left: 46px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: .5px;
+}
+#custom-in::placeholder {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px; letter-spacing: 0;
+}
+
+select option { background: var(--bg2); color: var(--ink); }
+
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ph-row { display: grid; grid-template-columns: 90px 1fr; gap: 10px; }
+
+/* ═══════════════════════════════════════════════════
+   DIVIDER
+═══════════════════════════════════════════════════ */
+.rule {
+  border: none; border-top: 1.5px solid var(--border);
+  margin: 28px 0;
+  transition: border-color .4s;
+}
+
+/* ═══════════════════════════════════════════════════
+   ACCORDION
+═══════════════════════════════════════════════════ */
+.acc-wrap {
+  border: 1.5px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  transition: border-color .4s;
+}
+.acc-item { border-bottom: 1.5px solid var(--border); transition: border-color .4s; }
+.acc-item:last-child { border-bottom: none; }
+
+.acc-btn {
+  width: 100%; display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  background: transparent; border: none;
+  cursor: pointer; text-align: left;
+  transition: background .15s;
+}
+.acc-btn:hover { background: var(--bg2); }
+
+.acc-ico {
+  width: 34px; height: 34px; border-radius: 9px;
+  border: 1.5px solid var(--border);
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: background .25s, border-color .25s;
+}
+.acc-ico svg {
+  width: 14px; height: 14px;
+  stroke: var(--ink3); fill: none; stroke-width: 1.8;
+  transition: stroke .25s;
+}
+.acc-item.open .acc-ico { background: var(--gold-bg); border-color: var(--gold-border); }
+.acc-item.open .acc-ico svg { stroke: var(--gold); }
+
+.acc-text { flex: 1; }
+.acc-title { font-size: 13px; font-weight: 600; color: var(--ink); transition: color .4s; }
+.acc-hint { font-size: 11.5px; font-weight: 400; color: var(--ink4); margin-top: 1px; transition: color .4s; }
+
+.acc-chev {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: transform .3s cubic-bezier(.25,.46,.45,.94), background .25s, border-color .25s;
+}
+.acc-chev svg { width: 10px; height: 10px; stroke: var(--ink4); fill: none; stroke-width: 2.5; transition: stroke .25s; }
+.acc-item.open .acc-chev {
+  transform: rotate(180deg);
+  background: var(--cta-bg); border-color: var(--cta-bg);
+}
+.acc-item.open .acc-chev svg { stroke: var(--cta-ink); }
+
+.acc-body { max-height: 0; overflow: hidden; transition: max-height .38s cubic-bezier(.25,.46,.45,.94); }
+.acc-item.open .acc-body { max-height: 220px; }
+.acc-inner { padding: 4px 16px 16px; }
+textarea { resize: none; min-height: 80px; font-size: 13px; line-height: 1.65; }
+
+/* ═══════════════════════════════════════════════════
+   CTA BUTTON
+═══════════════════════════════════════════════════ */
+.cta {
+  width: 100%; margin-top: 28px;
+  padding: 17px 28px;
+  background: var(--cta-bg);
+  color: var(--cta-ink);
+  border: none; border-radius: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: .3px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0,0,0,.15);
+  transition: background .4s, color .4s, transform .2s, box-shadow .2s;
+}
+.cta::before {
+  content: '';
+  position: absolute; top: 0; left: -70%;
+  width: 45%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
+  transform: skewX(-18deg);
+  transition: left .5s ease;
+}
+.cta:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,0,0,.2); }
+.cta:hover::before { left: 130%; }
+.cta:active { transform: translateY(0); }
+.cta svg { width: 17px; height: 17px; fill: var(--gold2); flex-shrink: 0; }
+
+/* Trust row */
+.trust {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-top: 14px; flex-wrap: wrap;
+}
+.tr-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 500; color: var(--ink4);
+  transition: color .4s;
+}
+.tr-item svg { width: 11px; height: 11px; stroke: var(--ink5); fill: none; stroke-width: 2; transition: stroke .4s; }
+.tr-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--border); transition: background .4s; }
+
+/* ═══════════════════════════════════════════════════
+   FEATURE PILLS
+═══════════════════════════════════════════════════ */
+.pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; }
+.pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  background: var(--pill-bg);
+  font-size: 11px; font-weight: 600;
+  color: var(--ink3);
+  transition: background .4s, border-color .4s, color .4s;
+}
+.pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+footer {
+  background: var(--hero-bg);
+  padding: 56px 48px 40px;
+  position: relative;
+  transition: background .4s;
+}
+footer::before {
+  content: '';
+  position: absolute; top: 0; left: 48px; right: 48px; height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: .4;
+}
+.foot-inner {
+  max-width: 580px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 14px; text-align: center;
+}
+.foot-logo { display: flex; align-items: center; gap: 12px; }
+.foot-logo-img {
+  width: 42px; height: 42px; border-radius: 50%; object-fit: cover;
+  border: 1.5px solid rgba(255,255,255,.1);
+}
+.foot-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; letter-spacing: 1px;
+  color: var(--hero-ink);
+  transition: color .4s;
+}
+.foot-tag { font-size: 12px; font-weight: 400; color: var(--hero-ink2); line-height: 1.7; transition: color .4s; }
+.foot-copy {
+  font-size: 10px; font-weight: 400;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--hero-ink3); margin-top: 6px;
+  transition: color .4s;
+}
+
+/* ═══════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════ */
+.toast {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  opacity: 0;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  padding: 12px 22px;
+  display: flex; align-items: center; gap: 9px;
+  font-size: 13px; font-weight: 500; color: var(--ink);
+  box-shadow: var(--shadow-lg);
+  z-index: 9999;
+  pointer-events: none; white-space: nowrap;
+  transition: opacity .35s cubic-bezier(.25,.46,.45,.94),
+              transform .35s cubic-bezier(.25,.46,.45,.94),
+              background .4s, border-color .4s, color .4s;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast svg { width: 14px; height: 14px; stroke: var(--gold2); fill: none; stroke-width: 2.2; flex-shrink: 0; }
+.toast.err { border-color: #c0392b; }
+.toast.err svg { stroke: #e74c3c; }
+
+/* ═══════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .hero-inner { grid-template-columns: 1fr; padding: 60px 24px 52px; gap: 28px; }
+  .hero-right { flex-direction: row; justify-content: flex-start; }
+  .hero-strip { padding: 16px 24px; gap: 20px; }
+  .amt-grid { grid-template-columns: 1fr 1fr; }
+  .row2 { grid-template-columns: 1fr; }
+  .card-pad { padding: 24px 20px 20px; }
+  footer { padding: 48px 24px 36px; }
+  footer::before { left: 24px; right: 24px; }
+  .theme-toggle { top: 16px; right: 16px; padding: 7px 12px 7px 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══ THEME TOGGLE ══════════════════════════════════ -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+  <div class="toggle-track">
+    <div class="toggle-knob" id="knob"></div>
+  </div>
+  <span class="toggle-label" id="toggleLabel">Light</span>
+</button>
+
+<!-- ══ HERO ══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <span class="tag-dash"></span>
+        Good Shepherd Parish · Harvest 2026
+      </div>
+      <h1 class="hero-title">
+        <span class="gw">Give</span><br>
+        <span class="out">With</span><br>
+        Faith
+      </h1>
+      <p class="hero-sub">Sowing in love,<br>reaping in abundance.</p>
+    </div>
+
+    <div class="hero-right">
+      <div class="logo-shell">
+        <div class="logo-ring"></div>
+        <img class="logo-img"
+          src="data:image/jpeg;base64,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"
+          alt="Good Shepherd Parish">
+      </div>
+      <span class="hero-location">Tema Community 2</span>
+    </div>
+  </div>
+
+  <div class="hero-strip">
+    <div class="strip-item"><div class="sdot"></div>Harvest 2026</div>
+    <div class="strip-item"><div class="sdot"></div>Faith · Stewardship</div>
+    <div class="strip-item"><div class="sdot"></div>Community</div>
+  </div>
+</section>
+
+<!-- ══ BODY ══════════════════════════════════════════ -->
+<main class="page-body">
+
+  <div class="intro">
+    <div class="intro-eye">Make Your Contribution</div>
+    <h2 class="intro-title">Donate Today.</h2>
+    <p class="intro-body">Every gift sows a seed of grace. Your generosity sustains our parish and blesses the community in Tema.</p>
+  </div>
+
+  <div class="card" id="mainCard">
+    <div class="card-pad">
+
+      <!-- AMOUNT -->
+      <div class="flbl">Select Amount</div>
+      <div class="amt-grid">
+        <div class="amt-btn sel" onclick="setAmt(100,this)">
+          <span class="amt-num">100</span><span class="amt-cur">GH₵</span>
+        </div>
+        <div class="amt-btn" onclick="setAmt(250,this)">
+          <span class="amt-num">250</span><span class="amt-cur">GH₵</span>
+        </div>
+        <div class="amt-btn" onclick="setAmt(500,this)">
+          <span class="amt-num">500</span><span class="amt-cur">GH₵</span>
+        </div>
+        <div class="amt-btn" onclick="setAmt(1000,this)">
+          <span class="amt-num">1,000</span><span class="amt-cur">GH₵</span>
+        </div>
+      </div>
+
+      <!-- CUSTOM -->
+      <div class="flbl" style="margin-top:18px;">Custom Amount</div>
+      <div class="inp-wrap">
+        <span class="inp-prefix">GH₵</span>
+        <input type="number" id="custom-in" placeholder="Enter amount" oninput="onCustom(this)">
+      </div>
+
+      <hr class="rule">
+
+      <!-- DETAILS -->
+      <div class="flbl">Your Details</div>
+      <div class="row2" style="margin-bottom:10px;">
+        <input type="text" id="fullname" placeholder="Full Name">
+        <input type="email" id="email" placeholder="Email Address">
+      </div>
+      <div class="row2">
+        <div class="ph-row">
+          <select id="cc">
+            <option value="+233">🇬🇭 +233</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+44">🇬🇧 +44</option>
+          </select>
+          <input type="tel" id="phone" placeholder="Phone Number">
+        </div>
+        <input type="text" placeholder="Church Group (Optional)">
+      </div>
+
+      <hr class="rule">
+
+      <!-- PRAYER & DEDICATION -->
+      <div class="flbl">Prayer &amp; Dedication</div>
+      <div class="acc-wrap">
+
+        <div class="acc-item" id="a1">
+          <button class="acc-btn" onclick="togAcc('a1')">
+            <div class="acc-ico">
+              <svg viewBox="0 0 24 24"><path d="M12 22s-8-5-8-11a8 8 0 0116 0c0 6-8 11-8 11z"/><circle cx="12" cy="11" r="3"/></svg>
+            </div>
+            <div class="acc-text">
+              <div class="acc-title">Prayer Request</div>
+              <div class="acc-hint">Share a personal intention with the parish</div>
+            </div>
+            <div class="acc-chev">
+              <svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg>
+            </div>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <textarea id="prayer" placeholder="Share your prayer request (optional)…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" id="a2">
+          <button class="acc-btn" onclick="togAcc('a2')">
+            <div class="acc-ico">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <div class="acc-text">
+              <div class="acc-title">Dedication</div>
+              <div class="acc-hint">Honour or remember someone special</div>
+            </div>
+            <div class="acc-chev">
+              <svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg>
+            </div>
+          </button>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <textarea id="dedication" placeholder="Dedicate this donation in honour or memory of someone (optional)…"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <button class="cta" id="donateBtn" onclick="initDonation()">
+        <svg viewBox="0 0 20 20"><path d="M10 17s-7-4.5-7-9a5 5 0 0110 0 5 5 0 0110 0c0 4.5-7 9-7 9z"/></svg>
+        Donate Now
+      </button>
+
+      <div class="trust">
+        <div class="tr-item">
+          <svg viewBox="0 0 16 16" stroke-width="1.8"><rect x="3" y="7" width="10" height="8" rx="1"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
+          SSL Encrypted
+        </div>
+        <div class="tr-sep"></div>
+        <div class="tr-item">
+          <svg viewBox="0 0 16 16" stroke-width="1.8"><path d="M8 2L3 4.5v4C3 11.5 5.5 13.8 8 14.5c2.5-.7 5-3 5-6v-4L8 2z"/><polyline points="5.5,8 7,9.5 10.5,6"/></svg>
+          Secured by Paystack
+        </div>
+        <div class="tr-sep"></div>
+        <div class="tr-item">
+          <svg viewBox="0 0 16 16" stroke-width="1.8"><circle cx="8" cy="8" r="6"/><polyline points="5.5,8 7,9.5 10.5,6"/></svg>
+          Verified Parish
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PILLS -->
+  <div class="pills">
+    <div class="pill"><div class="pill-dot"></div>Instant Receipt</div>
+    <div class="pill"><div class="pill-dot"></div>Bank-Level Security</div>
+    <div class="pill"><div class="pill-dot"></div>Mobile Money</div>
+    <div class="pill"><div class="pill-dot"></div>All Currencies</div>
+  </div>
+
+</main>
+
+<!-- ══ FOOTER ═════════════════════════════════════════ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">
+      <img class="foot-logo-img"
+        src="data:image/jpeg;base64,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"
+        alt="Good Shepherd">
+      <div class="foot-name">Good Shepherd Parish</div>
+    </div>
+    <p class="foot-tag">Harvest 2026 · Tema Community 2, Accra, Ghana<br>Faith · Stewardship · Community</p>
+    <p class="foot-copy">© 2026 Good Shepherd Catholic Church · All rights reserved</p>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg id="t-ico" viewBox="0 0 16 16" stroke-width="2.2">
+    <circle cx="8" cy="8" r="6"/><polyline points="5.5,8 7,9.5 10.5,6"/>
+  </svg>
+  <span id="t-msg">Done.</span>
+</div>
+
+<script>
+/* ── THEME ─────────────────────────────── */
+const html   = document.documentElement;
+const label  = document.getElementById('toggleLabel');
+
+// Respect system preference on first load
+if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+  html.setAttribute('data-theme','dark');
+  label.textContent = 'Dark';
+}
+
+// Also listen for OS-level changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  const t = e.matches ? 'dark' : 'light';
+  html.setAttribute('data-theme', t);
+  label.textContent = t.charAt(0).toUpperCase() + t.slice(1);
+  localStorage.setItem('gsp-theme', t);
+});
+
+// Load saved preference
+const saved = localStorage.getItem('gsp-theme');
+if(saved){ html.setAttribute('data-theme', saved); label.textContent = saved.charAt(0).toUpperCase()+saved.slice(1); }
+
+function toggleTheme(){
+  const curr = html.getAttribute('data-theme');
+  const next = curr === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  label.textContent = next.charAt(0).toUpperCase() + next.slice(1);
+  localStorage.setItem('gsp-theme', next);
+}
+
+/* ── SCROLL REVEAL ─────────────────────── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: .1 });
+document.querySelectorAll('.card').forEach(c => obs.observe(c));
+
+/* ── AMOUNT ─────────────────────────────── */
+let selAmt = 100;
+function setAmt(v, el){
+  selAmt = v;
+  document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('custom-in').value = '';
+}
+function onCustom(el){
+  if(el.value){
+    selAmt = parseFloat(el.value);
+    document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('sel'));
+  }
+}
+
+/* ── ACCORDION ──────────────────────────── */
+function togAcc(id){
+  const item = document.getElementById(id);
+  const was  = item.classList.contains('open');
+  document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+  if(!was) item.classList.add('open');
+}
+
+/* ── TOAST ──────────────────────────────── */
+function showToast(msg, type='ok'){
+  const t  = document.getElementById('toast');
+  const ic = document.getElementById('t-ico');
+  document.getElementById('t-msg').textContent = msg;
+  t.className = 'toast' + (type === 'err' ? ' err' : '');
+  ic.innerHTML = type === 'err'
+    ? '<circle cx="8" cy="8" r="6"/><path d="M6 10l4-4M10 10L6 6"/>'
+    : '<circle cx="8" cy="8" r="6"/><polyline points="5.5,8 7,9.5 10.5,6"/>';
+  void t.offsetWidth;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3400);
+}
+
+/* ── BUTTON STATE ───────────────────────── */
+function setBtnState(loading){
+  const btn = document.getElementById('donateBtn');
+  if(loading){
+    btn.disabled = true;
+    btn.innerHTML = `
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5"
+        style="animation:spin .7s linear infinite;flex-shrink:0">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+      </svg>Processing…`;
+    if(!document.getElementById('spinSty')){
+      const s = document.createElement('style');
+      s.id = 'spinSty';
+      s.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(s);
+    }
+  } else {
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 20 20"><path d="M10 17s-7-4.5-7-9a5 5 0 0110 0 5 5 0 0110 0c0 4.5-7 9-7 9z"/></svg>Donate Now`;
+  }
+}
+
+/* ── PAYSTACK ───────────────────────────── */
+function initDonation(){
+  const name  = document.getElementById('fullname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  if(!name || !email || !phone){
+    showToast('Please fill in name, email and phone.', 'err'); return;
+  }
+  if(!selAmt || selAmt < 1){
+    showToast('Please select or enter an amount.', 'err'); return;
+  }
+  setBtnState(true);
+  const handler = PaystackPop.setup({
+    key: 'YOUR_PAYSTACK_PUBLIC_KEY',
+    email, amount: Math.round(selAmt * 100), currency: 'GHS',
+    ref: 'GSP_H26_' + Date.now(),
+    metadata: { custom_fields: [
+      { display_name:'Donor Name',   variable_name:'donor_name',  value: name },
+      { display_name:'Phone',        variable_name:'phone',       value: phone },
+      { display_name:'Prayer',       variable_name:'prayer',      value: document.getElementById('prayer').value },
+      { display_name:'Dedication',   variable_name:'dedication',  value: document.getElementById('dedication').value }
+    ]},
+    onClose(){ setBtnState(false); showToast('Payment window closed.'); },
+    callback(r){ setBtnState(false); showToast('🙏 Thank you! Ref: ' + r.reference); }
+  });
+  handler.openIframe();
+}
+</script>
+
+</body>
+</html>
