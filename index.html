@@ -616,6 +616,180 @@ footer::before {
 .toast.err { border-color: #c0392b; }
 .toast.err svg { stroke: #e74c3c; }
 
+/* optgroup labels */
+optgroup { color: var(--ink4); font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+
+/* Intention detail slide-in */
+#intentionDetail {
+  animation: fadeUp .25s ease both;
+}
+
+/* ═══════════════════════════════════════════════════
+   ANIMATED HERO ICON
+═══════════════════════════════════════════════════ */
+.hero-icon-wrap {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px; flex-shrink: 0;
+}
+.hero-icon-svg {
+  width: 120px; height: 120px;
+  overflow: visible;
+}
+
+/* Orbit ring slow spin */
+.orbit-ring {
+  transform-origin: 60px 60px;
+  animation: spinCW 22s linear infinite;
+}
+/* Mid ring counter-spin */
+.mid-ring {
+  transform-origin: 60px 60px;
+  animation: spinCCW 16s linear infinite;
+}
+/* Inner glow pulse */
+.inner-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+  transform-origin: 60px 60px;
+}
+/* Cross lines draw in */
+.cross-v {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: drawLine 1.2s .3s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+.cross-h {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: drawLine 1s .7s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+/* Accent dots fade in staggered */
+.acc-dot {
+  opacity: 0;
+  animation: dotFadeIn .6s ease forwards;
+}
+.acc-dot:nth-child(1) { animation-delay: 1.1s; }
+.acc-dot:nth-child(2) { animation-delay: 1.3s; }
+.acc-dot:nth-child(3) { animation-delay: 1.2s; }
+.acc-dot:nth-child(4) { animation-delay: 1.4s; }
+/* Orbiting dot */
+.orbit-dot {
+  transform-origin: 60px 60px;
+  animation: orbitDot 8s linear infinite;
+}
+
+@keyframes spinCW  { to { transform: rotate(360deg);  } }
+@keyframes spinCCW { to { transform: rotate(-360deg); } }
+@keyframes glowPulse {
+  0%,100% { r: 26; opacity: .7; }
+  50%      { r: 29; opacity: 1;  }
+}
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+@keyframes dotFadeIn { to { opacity: .5; } }
+@keyframes orbitDot {
+  from { transform: rotate(0deg)   translateX(54px); }
+  to   { transform: rotate(360deg) translateX(54px); }
+}
+
+/* ═══════════════════════════════════════════════════
+   COUNTRY CODE PICKER
+═══════════════════════════════════════════════════ */
+.cc-wrap {
+  position: relative;
+}
+.cc-trigger {
+  width: 100%;
+  display: flex; align-items: center; gap: 5px;
+  background: var(--input-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 13px 10px;
+  font-size: 13px; font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color .2s, background .2s, box-shadow .2s, color .4s;
+  white-space: nowrap;
+}
+.cc-trigger:focus, .cc-trigger.open {
+  border-color: var(--ink2);
+  background: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+  outline: none;
+}
+[data-theme="dark"] .cc-trigger:focus,
+[data-theme="dark"] .cc-trigger.open {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,.1);
+}
+.cc-trigger svg {
+  width: 10px; height: 10px;
+  margin-left: auto; flex-shrink: 0;
+  transition: transform .25s cubic-bezier(.25,.46,.45,.94);
+  stroke: var(--ink4);
+}
+.cc-trigger.open svg { transform: rotate(180deg); }
+
+.cc-menu {
+  position: absolute;
+  top: calc(100% + 6px); left: 0;
+  width: 260px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  z-index: 500;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-8px) scale(.97);
+  pointer-events: none;
+  transition: opacity .25s cubic-bezier(.25,.46,.45,.94),
+              transform .25s cubic-bezier(.25,.46,.45,.94);
+}
+.cc-menu.open {
+  opacity: 1; transform: none; pointer-events: auto;
+}
+
+.cc-search-wrap {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.cc-search-wrap svg {
+  width: 14px; height: 14px;
+  stroke: var(--ink4); flex-shrink: 0;
+}
+.cc-search {
+  border: none; background: transparent;
+  font-size: 13px; font-weight: 400;
+  color: var(--ink); outline: none;
+  padding: 0; width: 100%;
+  box-shadow: none;
+}
+.cc-search::placeholder { color: var(--ink5); }
+.cc-search:focus { border: none; box-shadow: none; background: transparent; }
+
+.cc-list {
+  max-height: 220px; overflow-y: auto;
+  padding: 4px 0;
+}
+.cc-list::-webkit-scrollbar { width: 4px; }
+.cc-list::-webkit-scrollbar-track { background: transparent; }
+.cc-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.cc-opt {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 13px; font-weight: 500;
+  color: var(--ink);
+  transition: background .12s;
+}
+.cc-opt:hover { background: var(--bg2); }
+.cc-opt.active { background: var(--gold-bg); color: var(--gold); }
+.cc-opt-flag { font-size: 16px; flex-shrink: 0; width: 22px; }
+.cc-opt-name { flex: 1; font-size: 12px; color: var(--ink3); }
+.cc-opt-code { font-weight: 700; font-size: 12px; color: var(--ink2); flex-shrink: 0; }
+
 /* ═══════════════════════════════════════════════════
    ANIMATIONS
 ═══════════════════════════════════════════════════ */
@@ -673,15 +847,29 @@ footer::before {
     </div>
 
     <div class="hero-right">
-      <div class="logo-shell">
-        <div class="logo-ring"></div>
-        <img class="logo-img"
-          src="data:image/jpeg;base64,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"
-          alt="Good Shepherd Parish">
+      <!-- Animated sacred icon replacing logo -->
+      <div class="hero-icon-wrap">
+        <svg class="hero-icon-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer orbit ring -->
+          <circle class="orbit-ring" cx="60" cy="60" r="54" stroke="rgba(212,168,67,.18)" stroke-width="1" stroke-dasharray="6 4"/>
+          <!-- Mid ring -->
+          <circle class="mid-ring" cx="60" cy="60" r="40" stroke="rgba(212,168,67,.12)" stroke-width="1"/>
+          <!-- Inner glow circle -->
+          <circle class="inner-glow" cx="60" cy="60" r="26" fill="rgba(212,168,67,.07)" stroke="rgba(212,168,67,.22)" stroke-width="1"/>
+          <!-- Cross -->
+          <line class="cross-v" x1="60" y1="30" x2="60" y2="90" stroke="#D4A843" stroke-width="2.5" stroke-linecap="round"/>
+          <line class="cross-h" x1="36" y1="50" x2="84" y2="50" stroke="#D4A843" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Corner accent dots -->
+          <circle class="acc-dot" cx="60" cy="16" r="2.5" fill="#D4A843" opacity=".5"/>
+          <circle class="acc-dot" cx="60" cy="104" r="2.5" fill="#D4A843" opacity=".5"/>
+          <circle class="acc-dot" cx="16" cy="60" r="2.5" fill="#D4A843" opacity=".5"/>
+          <circle class="acc-dot" cx="104" cy="60" r="2.5" fill="#D4A843" opacity=".5"/>
+          <!-- Orbiting dot -->
+          <circle class="orbit-dot" cx="114" cy="60" r="3.5" fill="#D4A843"/>
+        </svg>
+        <span class="hero-location">Tema Community 2</span>
       </div>
-      <span class="hero-location">Tema Community 2</span>
     </div>
-  </div>
 
   <div class="hero-strip">
     <div class="strip-item"><div class="sdot"></div>Harvest 2026</div>
@@ -735,15 +923,59 @@ footer::before {
         <input type="email" id="email" placeholder="Email Address">
       </div>
       <div class="row2">
+        <!-- Custom country-code picker -->
         <div class="ph-row">
-          <select id="cc">
-            <option value="+233">🇬🇭 +233</option>
-            <option value="+1">🇺🇸 +1</option>
-            <option value="+44">🇬🇧 +44</option>
-          </select>
+          <div class="cc-wrap" id="ccWrap">
+            <button type="button" class="cc-trigger" id="ccTrigger" onclick="toggleCCMenu()">
+              <span id="ccFlag">🇬🇭</span>
+              <span id="ccCode">+233</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,4 6,8 10,4"/></svg>
+            </button>
+            <div class="cc-menu" id="ccMenu">
+              <div class="cc-search-wrap">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5l3 3"/></svg>
+                <input type="text" class="cc-search" id="ccSearch" placeholder="Search country…" oninput="filterCC(this.value)" onclick="event.stopPropagation()">
+              </div>
+              <div class="cc-list" id="ccList"></div>
+            </div>
+          </div>
           <input type="tel" id="phone" placeholder="Phone Number">
         </div>
-        <input type="text" placeholder="Church Group (Optional)">
+        <select id="society">
+          <option value="">Group / Society (Optional)</option>
+          <option value="general">— General Parishioner / No Society —</option>
+          <optgroup label="── Ministries (Liturgical & Service)">
+            <option value="eucharistic">Eucharistic Ministers</option>
+            <option value="catechists">Catechists</option>
+            <option value="knolta">Knights &amp; Ladies of the Altar (KNOLTA)</option>
+            <option value="lectors">Lectors Group</option>
+            <option value="main-choir">GSP Main Choir</option>
+            <option value="jubilee-choir">Jubilee Youth Choir</option>
+            <option value="cecilia">St. Cecilia's Guild</option>
+            <option value="seraphim">Seraphim Singers</option>
+            <option value="living-witnesses">Living Witnesses</option>
+            <option value="ushers">Ushers Group</option>
+            <option value="media">GSP Media</option>
+            <option value="childrens-choir">Children's Choir</option>
+            <option value="childrens-animators">Children Service Animators</option>
+            <option value="marriage-counselors">Marriage Counselors</option>
+          </optgroup>
+          <optgroup label="── Sodalities & Confraternities">
+            <option value="sacred-heart">Sacred Heart Confraternity</option>
+            <option value="knights-johns">Knights of St. John's International &amp; Ladies' Auxiliary</option>
+            <option value="knights-marshall">Knights and Ladies of Marshall</option>
+          </optgroup>
+          <optgroup label="── Traditional / Ethnic Groups">
+            <option value="akan">Akan Society</option>
+            <option value="gabriel">St. Gabriel's Guild (Ga-Adangbe)</option>
+            <option value="lwanga">St. Charles Lwanga (Northern)</option>
+          </optgroup>
+          <optgroup label="── Associations">
+            <option value="wage">WAGE</option>
+            <option value="cosra">COSRA</option>
+            <option value="vincent">St. Vincent De Paul</option>
+          </optgroup>
+        </select>
       </div>
 
       <hr class="rule">
@@ -758,8 +990,8 @@ footer::before {
               <svg viewBox="0 0 24 24"><path d="M12 22s-8-5-8-11a8 8 0 0116 0c0 6-8 11-8 11z"/><circle cx="12" cy="11" r="3"/></svg>
             </div>
             <div class="acc-text">
-              <div class="acc-title">Prayer Request</div>
-              <div class="acc-hint">Share a personal intention with the parish</div>
+              <div class="acc-title">Mass Request / Prayer Intention</div>
+              <div class="acc-hint">Submit a personal intention for the parish</div>
             </div>
             <div class="acc-chev">
               <svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg>
@@ -767,7 +999,25 @@ footer::before {
           </button>
           <div class="acc-body">
             <div class="acc-inner">
-              <textarea id="prayer" placeholder="Share your prayer request (optional)…"></textarea>
+              <!-- Intention type -->
+              <div class="flbl" style="margin-top:4px;">Type of Intention</div>
+              <select id="intentionType" onchange="showIntentionField()">
+                <option value="">— Select Intention —</option>
+                <option value="birthday">Birthday of</option>
+                <option value="anniversary">Anniversary</option>
+                <option value="thanksgiving">Thanksgiving</option>
+                <option value="success">Success</option>
+                <option value="repose">Repose of Soul of</option>
+                <option value="special">Special Intentions of</option>
+                <option value="blessing">God's Blessing, Protection &amp; Guidance for</option>
+                <option value="other">Other Intention</option>
+              </select>
+
+              <!-- Dynamic name/detail field -->
+              <div id="intentionDetail" style="display:none;margin-top:10px;">
+                <div class="flbl" id="intentionLabel" style="margin-top:0;margin-bottom:8px;">Name / Details</div>
+                <input type="text" id="intentionInput" id="prayer" placeholder="">
+              </div>
             </div>
           </div>
         </div>
@@ -904,7 +1154,293 @@ function onCustom(el){
   }
 }
 
-/* ── ACCORDION ──────────────────────────── */
+/* ── MASS INTENTION ─────────────────────── */
+function showIntentionField(){
+  const type   = document.getElementById('intentionType').value;
+  const detail = document.getElementById('intentionDetail');
+  const label  = document.getElementById('intentionLabel');
+  const input  = document.getElementById('intentionInput');
+
+  if(!type){ detail.style.display = 'none'; return; }
+
+  detail.style.display = 'block';
+  switch(type){
+    case 'birthday':
+      label.textContent = 'Name of Celebrant';
+      input.placeholder = 'Name of the Birthday Celebrant';
+      break;
+    case 'anniversary':
+      label.textContent = 'Name(s) of Couple / Person';
+      input.placeholder = 'Name of couple or person celebrating anniversary';
+      break;
+    case 'thanksgiving':
+      label.textContent = 'Thanksgiving For';
+      input.placeholder = 'What are you thanking God for?';
+      break;
+    case 'success':
+      label.textContent = 'Success For';
+      input.placeholder = 'Name of person / project';
+      break;
+    case 'repose':
+      label.textContent = 'Repose of Soul of';
+      input.placeholder = 'Full name of the deceased';
+      break;
+    case 'special':
+      label.textContent = 'Special Intentions of';
+      input.placeholder = 'Name of person(s)';
+      break;
+    case 'blessing':
+      label.textContent = "God's Blessing, Protection & Guidance for";
+      input.placeholder = 'Name of person(s) or family';
+      break;
+    case 'other':
+      label.textContent = 'Other Intention';
+      input.placeholder = 'Describe your intention';
+      break;
+    default:
+      detail.style.display = 'none';
+  }
+}
+
+/* ── COUNTRY CODE PICKER ─────────────────── */
+const COUNTRIES = [
+  {code:'+233',flag:'🇬🇭',name:'Ghana'},
+  {code:'+1',flag:'🇺🇸',name:'United States'},
+  {code:'+44',flag:'🇬🇧',name:'United Kingdom'},
+  {code:'+93',flag:'🇦🇫',name:'Afghanistan'},
+  {code:'+355',flag:'🇦🇱',name:'Albania'},
+  {code:'+213',flag:'🇩🇿',name:'Algeria'},
+  {code:'+376',flag:'🇦🇩',name:'Andorra'},
+  {code:'+244',flag:'🇦🇴',name:'Angola'},
+  {code:'+54',flag:'🇦🇷',name:'Argentina'},
+  {code:'+374',flag:'🇦🇲',name:'Armenia'},
+  {code:'+61',flag:'🇦🇺',name:'Australia'},
+  {code:'+43',flag:'🇦🇹',name:'Austria'},
+  {code:'+994',flag:'🇦🇿',name:'Azerbaijan'},
+  {code:'+1242',flag:'🇧🇸',name:'Bahamas'},
+  {code:'+973',flag:'🇧🇭',name:'Bahrain'},
+  {code:'+880',flag:'🇧🇩',name:'Bangladesh'},
+  {code:'+375',flag:'🇧🇾',name:'Belarus'},
+  {code:'+32',flag:'🇧🇪',name:'Belgium'},
+  {code:'+501',flag:'🇧🇿',name:'Belize'},
+  {code:'+229',flag:'🇧🇯',name:'Benin'},
+  {code:'+975',flag:'🇧🇹',name:'Bhutan'},
+  {code:'+591',flag:'🇧🇴',name:'Bolivia'},
+  {code:'+387',flag:'🇧🇦',name:'Bosnia'},
+  {code:'+267',flag:'🇧🇼',name:'Botswana'},
+  {code:'+55',flag:'🇧🇷',name:'Brazil'},
+  {code:'+673',flag:'🇧🇳',name:'Brunei'},
+  {code:'+359',flag:'🇧🇬',name:'Bulgaria'},
+  {code:'+226',flag:'🇧🇫',name:'Burkina Faso'},
+  {code:'+257',flag:'🇧🇮',name:'Burundi'},
+  {code:'+238',flag:'🇨🇻',name:'Cabo Verde'},
+  {code:'+855',flag:'🇰🇭',name:'Cambodia'},
+  {code:'+237',flag:'🇨🇲',name:'Cameroon'},
+  {code:'+1',flag:'🇨🇦',name:'Canada'},
+  {code:'+236',flag:'🇨🇫',name:'Central African Rep.'},
+  {code:'+235',flag:'🇹🇩',name:'Chad'},
+  {code:'+56',flag:'🇨🇱',name:'Chile'},
+  {code:'+86',flag:'🇨🇳',name:'China'},
+  {code:'+57',flag:'🇨🇴',name:'Colombia'},
+  {code:'+269',flag:'🇰🇲',name:'Comoros'},
+  {code:'+243',flag:'🇨🇩',name:'Congo (DRC)'},
+  {code:'+242',flag:'🇨🇬',name:'Congo (Rep.)'},
+  {code:'+506',flag:'🇨🇷',name:'Costa Rica'},
+  {code:'+225',flag:'🇨🇮',name:"Côte d'Ivoire"},
+  {code:'+385',flag:'🇭🇷',name:'Croatia'},
+  {code:'+53',flag:'🇨🇺',name:'Cuba'},
+  {code:'+357',flag:'🇨🇾',name:'Cyprus'},
+  {code:'+420',flag:'🇨🇿',name:'Czech Republic'},
+  {code:'+45',flag:'🇩🇰',name:'Denmark'},
+  {code:'+253',flag:'🇩🇯',name:'Djibouti'},
+  {code:'+1767',flag:'🇩🇲',name:'Dominica'},
+  {code:'+1809',flag:'🇩🇴',name:'Dominican Republic'},
+  {code:'+593',flag:'🇪🇨',name:'Ecuador'},
+  {code:'+20',flag:'🇪🇬',name:'Egypt'},
+  {code:'+503',flag:'🇸🇻',name:'El Salvador'},
+  {code:'+240',flag:'🇬🇶',name:'Equatorial Guinea'},
+  {code:'+291',flag:'🇪🇷',name:'Eritrea'},
+  {code:'+372',flag:'🇪🇪',name:'Estonia'},
+  {code:'+268',flag:'🇸🇿',name:'Eswatini'},
+  {code:'+251',flag:'🇪🇹',name:'Ethiopia'},
+  {code:'+679',flag:'🇫🇯',name:'Fiji'},
+  {code:'+358',flag:'🇫🇮',name:'Finland'},
+  {code:'+33',flag:'🇫🇷',name:'France'},
+  {code:'+241',flag:'🇬🇦',name:'Gabon'},
+  {code:'+220',flag:'🇬🇲',name:'Gambia'},
+  {code:'+995',flag:'🇬🇪',name:'Georgia'},
+  {code:'+49',flag:'🇩🇪',name:'Germany'},
+  {code:'+30',flag:'🇬🇷',name:'Greece'},
+  {code:'+502',flag:'🇬🇹',name:'Guatemala'},
+  {code:'+224',flag:'🇬🇳',name:'Guinea'},
+  {code:'+245',flag:'🇬🇼',name:'Guinea-Bissau'},
+  {code:'+592',flag:'🇬🇾',name:'Guyana'},
+  {code:'+509',flag:'🇭🇹',name:'Haiti'},
+  {code:'+504',flag:'🇭🇳',name:'Honduras'},
+  {code:'+36',flag:'🇭🇺',name:'Hungary'},
+  {code:'+354',flag:'🇮🇸',name:'Iceland'},
+  {code:'+91',flag:'🇮🇳',name:'India'},
+  {code:'+62',flag:'🇮🇩',name:'Indonesia'},
+  {code:'+98',flag:'🇮🇷',name:'Iran'},
+  {code:'+964',flag:'🇮🇶',name:'Iraq'},
+  {code:'+353',flag:'🇮🇪',name:'Ireland'},
+  {code:'+972',flag:'🇮🇱',name:'Israel'},
+  {code:'+39',flag:'🇮🇹',name:'Italy'},
+  {code:'+1876',flag:'🇯🇲',name:'Jamaica'},
+  {code:'+81',flag:'🇯🇵',name:'Japan'},
+  {code:'+962',flag:'🇯🇴',name:'Jordan'},
+  {code:'+7',flag:'🇰🇿',name:'Kazakhstan'},
+  {code:'+254',flag:'🇰🇪',name:'Kenya'},
+  {code:'+686',flag:'🇰🇮',name:'Kiribati'},
+  {code:'+383',flag:'🇽🇰',name:'Kosovo'},
+  {code:'+965',flag:'🇰🇼',name:'Kuwait'},
+  {code:'+996',flag:'🇰🇬',name:'Kyrgyzstan'},
+  {code:'+856',flag:'🇱🇦',name:'Laos'},
+  {code:'+371',flag:'🇱🇻',name:'Latvia'},
+  {code:'+961',flag:'🇱🇧',name:'Lebanon'},
+  {code:'+266',flag:'🇱🇸',name:'Lesotho'},
+  {code:'+231',flag:'🇱🇷',name:'Liberia'},
+  {code:'+218',flag:'🇱🇾',name:'Libya'},
+  {code:'+423',flag:'🇱🇮',name:'Liechtenstein'},
+  {code:'+370',flag:'🇱🇹',name:'Lithuania'},
+  {code:'+352',flag:'🇱🇺',name:'Luxembourg'},
+  {code:'+261',flag:'🇲🇬',name:'Madagascar'},
+  {code:'+265',flag:'🇲🇼',name:'Malawi'},
+  {code:'+60',flag:'🇲🇾',name:'Malaysia'},
+  {code:'+960',flag:'🇲🇻',name:'Maldives'},
+  {code:'+223',flag:'🇲🇱',name:'Mali'},
+  {code:'+356',flag:'🇲🇹',name:'Malta'},
+  {code:'+222',flag:'🇲🇷',name:'Mauritania'},
+  {code:'+230',flag:'🇲🇺',name:'Mauritius'},
+  {code:'+52',flag:'🇲🇽',name:'Mexico'},
+  {code:'+691',flag:'🇫🇲',name:'Micronesia'},
+  {code:'+373',flag:'🇲🇩',name:'Moldova'},
+  {code:'+377',flag:'🇲🇨',name:'Monaco'},
+  {code:'+976',flag:'🇲🇳',name:'Mongolia'},
+  {code:'+382',flag:'🇲🇪',name:'Montenegro'},
+  {code:'+212',flag:'🇲🇦',name:'Morocco'},
+  {code:'+258',flag:'🇲🇿',name:'Mozambique'},
+  {code:'+95',flag:'🇲🇲',name:'Myanmar'},
+  {code:'+264',flag:'🇳🇦',name:'Namibia'},
+  {code:'+977',flag:'🇳🇵',name:'Nepal'},
+  {code:'+31',flag:'🇳🇱',name:'Netherlands'},
+  {code:'+64',flag:'🇳🇿',name:'New Zealand'},
+  {code:'+505',flag:'🇳🇮',name:'Nicaragua'},
+  {code:'+227',flag:'🇳🇪',name:'Niger'},
+  {code:'+234',flag:'🇳🇬',name:'Nigeria'},
+  {code:'+47',flag:'🇳🇴',name:'Norway'},
+  {code:'+968',flag:'🇴🇲',name:'Oman'},
+  {code:'+92',flag:'🇵🇰',name:'Pakistan'},
+  {code:'+680',flag:'🇵🇼',name:'Palau'},
+  {code:'+507',flag:'🇵🇦',name:'Panama'},
+  {code:'+675',flag:'🇵🇬',name:'Papua New Guinea'},
+  {code:'+595',flag:'🇵🇾',name:'Paraguay'},
+  {code:'+51',flag:'🇵🇪',name:'Peru'},
+  {code:'+63',flag:'🇵🇭',name:'Philippines'},
+  {code:'+48',flag:'🇵🇱',name:'Poland'},
+  {code:'+351',flag:'🇵🇹',name:'Portugal'},
+  {code:'+974',flag:'🇶🇦',name:'Qatar'},
+  {code:'+40',flag:'🇷🇴',name:'Romania'},
+  {code:'+7',flag:'🇷🇺',name:'Russia'},
+  {code:'+250',flag:'🇷🇼',name:'Rwanda'},
+  {code:'+966',flag:'🇸🇦',name:'Saudi Arabia'},
+  {code:'+221',flag:'🇸🇳',name:'Senegal'},
+  {code:'+381',flag:'🇷🇸',name:'Serbia'},
+  {code:'+232',flag:'🇸🇱',name:'Sierra Leone'},
+  {code:'+65',flag:'🇸🇬',name:'Singapore'},
+  {code:'+421',flag:'🇸🇰',name:'Slovakia'},
+  {code:'+386',flag:'🇸🇮',name:'Slovenia'},
+  {code:'+677',flag:'🇸🇧',name:'Solomon Islands'},
+  {code:'+252',flag:'🇸🇴',name:'Somalia'},
+  {code:'+27',flag:'🇿🇦',name:'South Africa'},
+  {code:'+211',flag:'🇸🇸',name:'South Sudan'},
+  {code:'+34',flag:'🇪🇸',name:'Spain'},
+  {code:'+94',flag:'🇱🇰',name:'Sri Lanka'},
+  {code:'+249',flag:'🇸🇩',name:'Sudan'},
+  {code:'+597',flag:'🇸🇷',name:'Suriname'},
+  {code:'+46',flag:'🇸🇪',name:'Sweden'},
+  {code:'+41',flag:'🇨🇭',name:'Switzerland'},
+  {code:'+963',flag:'🇸🇾',name:'Syria'},
+  {code:'+886',flag:'🇹🇼',name:'Taiwan'},
+  {code:'+992',flag:'🇹🇯',name:'Tajikistan'},
+  {code:'+255',flag:'🇹🇿',name:'Tanzania'},
+  {code:'+66',flag:'🇹🇭',name:'Thailand'},
+  {code:'+228',flag:'🇹🇬',name:'Togo'},
+  {code:'+676',flag:'🇹🇴',name:'Tonga'},
+  {code:'+1868',flag:'🇹🇹',name:'Trinidad & Tobago'},
+  {code:'+216',flag:'🇹🇳',name:'Tunisia'},
+  {code:'+90',flag:'🇹🇷',name:'Turkey'},
+  {code:'+993',flag:'🇹🇲',name:'Turkmenistan'},
+  {code:'+256',flag:'🇺🇬',name:'Uganda'},
+  {code:'+380',flag:'🇺🇦',name:'Ukraine'},
+  {code:'+971',flag:'🇦🇪',name:'United Arab Emirates'},
+  {code:'+598',flag:'🇺🇾',name:'Uruguay'},
+  {code:'+998',flag:'🇺🇿',name:'Uzbekistan'},
+  {code:'+678',flag:'🇻🇺',name:'Vanuatu'},
+  {code:'+58',flag:'🇻🇪',name:'Venezuela'},
+  {code:'+84',flag:'🇻🇳',name:'Vietnam'},
+  {code:'+967',flag:'🇾🇪',name:'Yemen'},
+  {code:'+260',flag:'🇿🇲',name:'Zambia'},
+  {code:'+263',flag:'🇿🇼',name:'Zimbabwe'},
+];
+
+let selCC = '+233';
+let ccOpen = false;
+
+function buildCCList(filter = '') {
+  const list = document.getElementById('ccList');
+  const q = filter.toLowerCase();
+  const filtered = q
+    ? COUNTRIES.filter(c => c.name.toLowerCase().includes(q) || c.code.includes(q))
+    : COUNTRIES;
+  list.innerHTML = filtered.map(c => `
+    <div class="cc-opt${c.code === selCC && c.name === (COUNTRIES.find(x=>x.code===selCC)||{}).name ? ' active' : ''}"
+         onclick="selectCC('${c.code}','${c.flag}','${c.name}')">
+      <span class="cc-opt-flag">${c.flag}</span>
+      <span class="cc-opt-name">${c.name}</span>
+      <span class="cc-opt-code">${c.code}</span>
+    </div>`).join('');
+}
+
+function selectCC(code, flag, name) {
+  selCC = code;
+  document.getElementById('ccFlag').textContent = flag;
+  document.getElementById('ccCode').textContent = code;
+  closeCCMenu();
+  buildCCList();
+}
+
+function toggleCCMenu() {
+  ccOpen = !ccOpen;
+  const menu = document.getElementById('ccMenu');
+  const trigger = document.getElementById('ccTrigger');
+  if (ccOpen) {
+    buildCCList();
+    menu.classList.add('open');
+    trigger.classList.add('open');
+    setTimeout(() => document.getElementById('ccSearch').focus(), 60);
+  } else {
+    closeCCMenu();
+  }
+}
+
+function closeCCMenu() {
+  ccOpen = false;
+  document.getElementById('ccMenu').classList.remove('open');
+  document.getElementById('ccTrigger').classList.remove('open');
+  document.getElementById('ccSearch').value = '';
+}
+
+function filterCC(val) { buildCCList(val); }
+
+// Close on outside click
+document.addEventListener('click', e => {
+  if (ccOpen && !document.getElementById('ccWrap').contains(e.target)) closeCCMenu();
+});
+
+// Initialise list on page load
+buildCCList();
+
 function togAcc(id){
   const item = document.getElementById(id);
   const was  = item.classList.contains('open');
@@ -966,10 +1502,13 @@ function initDonation(){
     email, amount: Math.round(selAmt * 100), currency: 'GHS',
     ref: 'GSP_H26_' + Date.now(),
     metadata: { custom_fields: [
-      { display_name:'Donor Name',   variable_name:'donor_name',  value: name },
-      { display_name:'Phone',        variable_name:'phone',       value: phone },
-      { display_name:'Prayer',       variable_name:'prayer',      value: document.getElementById('prayer').value },
-      { display_name:'Dedication',   variable_name:'dedication',  value: document.getElementById('dedication').value }
+      { display_name:'Donor Name',      variable_name:'donor_name',       value: name },
+      { display_name:'Phone',           variable_name:'phone',            value: phone },
+      { display_name:'Society/Group',   variable_name:'society',          value: document.getElementById('society').options[document.getElementById('society').selectedIndex].text },
+      { display_name:'Intention Type',  variable_name:'intention_type',   value: document.getElementById('intentionType').options[document.getElementById('intentionType').selectedIndex].text },
+      { display_name:'Intention Detail',variable_name:'intention_detail', value: (document.getElementById('intentionInput')||{}).value || '' },
+      { display_name:'Prayer Notes',    variable_name:'prayer_notes',     value: document.getElementById('prayer').value },
+      { display_name:'Dedication',      variable_name:'dedication',       value: document.getElementById('dedication').value }
     ]},
     onClose(){ setBtnState(false); showToast('Payment window closed.'); },
     callback(r){ setBtnState(false); showToast('🙏 Thank you! Ref: ' + r.reference); }
